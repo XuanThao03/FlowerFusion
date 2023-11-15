@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .my-custom-style {
+    @apply mr-6 p-1 border-b-2 border-orange-500 hover:border-blue-300;
+  }
+}
