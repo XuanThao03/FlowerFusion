@@ -1,0 +1,14 @@
+@layer components {
+  .tab-nav-container {
+    @apply mx-10 p-1 border-b-2 border-transparent font-Montserrat font-bold
+       hover:border-granite-gra
+          focus-within:border-granite-gra;
+  }
+}
+.tab-nav {
+  @apply text-granite-gra;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

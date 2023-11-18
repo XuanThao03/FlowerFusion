@@ -1,0 +1,24 @@
+.btnTab {
+  @apply flex-shrink-0 first:ml-10;
+}
+.listTabContainer {
+  @apply ml-10;
+}
+// .listTab {
+//   @apply md:flex overflow-scroll no-scrollbar;
+// }
+.catalogContainer {
+  @apply flex my-5;
+}
+.filterContainer {
+  @apply w-3/12 bg-yellow-200;
+}
+.flowerContainer {
+  @apply w-9/12  grid grid-cols-3 gap-4 content-center justify-center ml-10;
+}
+.itemFlower {
+  @apply flex-shrink-0 ml-10;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,0 +1,12 @@
+@layer components {
+  .parentTab {
+    @apply ml-5 mr-1 font-Montserrat text-dark-liver;
+  }
+  .activeTab {
+    @apply ml-2 mr-1 font-Montserrat text-argent;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
