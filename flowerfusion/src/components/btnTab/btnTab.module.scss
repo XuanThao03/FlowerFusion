@@ -1,0 +1,14 @@
+.btnContainer {
+  @apply md:flex border border-cookies-and-cream mr-4
+   hover:bg-cookies-and-cream  focus:bg-cookies-and-cream  flex-nowrap resize-none;
+}
+.arrow {
+  @apply pr-2 place-self-center  flex-nowrap;
+}
+.text {
+  @apply px-12 py-2 font-Montserrat font-medium flex-nowrap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
