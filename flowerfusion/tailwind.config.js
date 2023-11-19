@@ -11,6 +11,7 @@ module.exports = {
         "pine-tree": "#2c2c29",
         "silver-pink": "#BDAFA4",
         gainsboro: "#DBDBDB",
+        "white-coffee": "#E7E1D7",
       },
       fontFamily: {
         Ephesis: ["Ephesis"],
