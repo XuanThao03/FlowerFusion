@@ -14,7 +14,7 @@
   @apply w-3/12 bg-yellow-200;
 }
 .flowerContainer {
-  @apply w-9/12  grid grid-cols-3 gap-4 content-center justify-center ml-10;
+  @apply w-9/12  grid md:grid-cols-2  lg:grid-cols-3 gap-4 content-center justify-center ml-10;
 }
 .itemFlower {
   @apply flex-shrink-0 ml-10;

@@ -2,6 +2,7 @@ import { Header } from "./components/header/Header";
 import Catalog from "./views/catalog/Catalog";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./views/home/home";
+import Banner from "./components/banner/banner";
 
 export default function App() {
   return (
@@ -9,6 +10,7 @@ export default function App() {
       <Router>
         {/* <Header /> */}
         <Header />
+        <Banner />
         <Routes>
           <Route path="/" exact={true} element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
