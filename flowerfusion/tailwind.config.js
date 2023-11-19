@@ -5,11 +5,12 @@ module.exports = {
     extend: {
       colors: {
         "granite-gra": "#676862",
-        "dark-liver": "#4E4E4B",
+        "dark-liver": "#505050",
         argent: "#BFBFBF",
         "cookies-and-cream": "#D9DCA7",
         "pine-tree": "#2c2c29",
         "silver-pink": "#BDAFA4",
+        gainsboro: "#DBDBDB",
       },
       fontFamily: {
         Ephesis: ["Ephesis"],
@@ -19,6 +20,9 @@ module.exports = {
       spacing: {
         267: "267px",
         368: "368px",
+      },
+      borderWidth: {
+        DEFAULT: "1px",
       },
     },
   },

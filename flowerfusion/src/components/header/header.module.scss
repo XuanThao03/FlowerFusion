@@ -1,28 +1,56 @@
-.tab_nav_container {
-  @apply flex justify-between items-center py-4 bg-transparent flex-wrap;
+.mainContainer {
+  @apply justify-between items-center pt-4 bg-transparent flex-wrap;
 }
 .logo_container {
-  @apply flex-shrink-0 mx-10 cursor-pointer justify-between;
+  @apply flex flex-shrink-0 w-1/3 cursor-pointer justify-center align-middle content-center;
 }
 .logo_text {
-  @apply text-2xl text-granite-gra font-Ephesis;
+  @apply flex text-2xl text-granite-gra font-Ephesis justify-center align-middle content-center;
 }
 .nav_container {
   @apply hidden md:flex overflow-x-hidden  font-semibold;
 }
 .tab_name {
-  @apply mx-10 p-1 border-b-2 border-transparent font-Montserrat font-bold
-       hover:border-granite-gra
+  @apply mx-10 p-1 border-b-2 border-transparent font-Lexend font-light
+       hover:border-granite-gra text-xs
           focus-within:border-granite-gra;
 }
 .tab_nav {
-  @apply text-granite-gra;
+  @apply text-granite-gra font-Lexend font-light;
 }
 .icon_container {
-  @apply hidden md:flex overflow-x-hidden mr-10 font-semibold;
+  @apply w-1/3 justify-end hidden md:flex overflow-x-hidden mr-10 font-semibold justify-items-end;
 }
 .icon {
   @apply mr-1 p-1 align-middle;
+}
+.container1 {
+  @apply flex py-3;
+}
+@tailwind base;
+.container2 {
+  @apply flex py-4 border-t-gainsboro border-t-[0.7px] justify-center;
+}
+.searchContainer {
+  @apply align-middle w-1/3 flex justify-center;
+}
+.searchInput {
+  @apply flex  flex-wrap items-stretch w-2/3 align-middle;
+}
+.search {
+  @apply h-5/6 block w-[1px] min-w-0 flex-auto rounded-l
+  border border-solid border-gainsboro bg-transparent
+  bg-clip-padding px-3 py-[0.25rem] text-base font-normal
+  leading-[1.6] text-neutral-700 outline-none
+  transition duration-200 ease-in-out focus:z-[3]
+  focus:border-gainsboro focus:text-neutral-700
+  focus:shadow-[inset_0_0_0_1px_rgb(80,80,80)]
+  focus:outline-none dark:border-neutral-600
+  dark:text-neutral-200 dark:placeholder:text-neutral-200
+  dark:focus:border-gainsboro;
+}
+.btnSearch {
+  @apply h-5/6  z-[2]  flex items-center  px-6 py-2.5;
 }
 @tailwind base;
 @tailwind components;
