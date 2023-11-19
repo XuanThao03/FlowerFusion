@@ -2,11 +2,11 @@
 .slider {
   height: 2px;
   width: 100%;
-  background-color: #ddd;
+  background-color: #e7e1d7;
   border-radius: 5px;
   margin-top: 10px;
-  align-items: center;
   display: flex;
+  align-items: center;
 }
 
 /* Styles for the slider thumb */
@@ -17,21 +17,28 @@
   border-radius: 50%;
   background-color: #e7e1d7;
   cursor: grab;
-  //box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px rgba(231, 225, 215, 0.5);
   align-items: center;
   display: flex;
+  @apply focus-within:bg-silver-pink;
 }
 
 /* Styles for the slider active state */
 .slider .thumb.active {
-  //box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(231, 225, 215, 0.5);
   align-items: center;
   display: flex;
-  background-color: "#4C4A4A";
-}
-.slider .track {
-  height: 1px;
 }
 .container {
-  @apply px-10;
+  @apply pl-10;
+}
+.priceContainer {
+  justify-content: "space-between";
+  @apply py-5 w-full flex justify-between;
+}
+.min {
+  @apply bg-white-coffee w-full focus-within:outline-none;
+}
+.valueContainer {
+  @apply bg-yellow-500 w-5/12 focus-within:border-silver-pink border-[1px];
 }

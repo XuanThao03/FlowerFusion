@@ -7,6 +7,7 @@ import { ItemFlower } from "../../components/itemFlower/ItemFlower";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { IMG_Flower1 } from "../../assets/images";
 import "@splidejs/react-splide/css";
+import PriceSlider from "../../components/filter/price/PriceSlider";
 const typeProducts = [
   "Roses",
   "Wedding bouquets",
@@ -67,7 +68,9 @@ export class Catalog extends Component {
           </div>
         </div> */}
         <div className={styles.catalogContainer}>
-          <div className={styles.filterContainer}></div>
+          <div className={styles.filterContainer}>
+            <PriceSlider />
+          </div>
           <div className={styles.flowerContainer}>{flowerLists}</div>
         </div>
       </div>

@@ -11,7 +11,7 @@
   @apply flex my-5;
 }
 .filterContainer {
-  @apply w-3/12 bg-yellow-200;
+  @apply w-3/12;
 }
 .flowerContainer {
   @apply w-9/12  grid md:grid-cols-2  lg:grid-cols-3 gap-4 content-center justify-center ml-10;
