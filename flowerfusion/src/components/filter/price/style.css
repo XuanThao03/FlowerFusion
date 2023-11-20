@@ -37,7 +37,7 @@
   @apply py-5 w-full flex justify-between;
 }
 .min {
-  @apply bg-white-coffee w-full focus-within:outline-none;
+  @apply bg-white-coffee w-full focus-within:outline-none py-1 px-4;
 }
 .valueContainer {
   @apply bg-yellow-500 w-5/12 focus-within:border-silver-pink border-[1px];

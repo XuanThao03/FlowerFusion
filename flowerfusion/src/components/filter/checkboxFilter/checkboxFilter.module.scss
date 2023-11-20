@@ -1,0 +1,24 @@
+.container {
+  @apply ml-10;
+}
+.txtHeader {
+  @apply font-Lexend text-sm font-normal text-dark-liver;
+}
+.liContainer {
+  @apply flex align-middle content-center flex-nowrap items-center;
+}
+.checkbox {
+  @apply h-5 w-5 m-3 accent-white-coffee border-white-coffee hover:border-dark-liver;
+}
+.form {
+  @apply my-3;
+}
+.showAll {
+  @apply ml-3 text-bone text-xs font-semibold font-Lexend underline;
+}
+.txtItem {
+  @apply font-Lexend text-xs font-normal;
+}
+.txtQuantity {
+  @apply font-Lexend text-xs font-medium text-spanish-gray;
+}
