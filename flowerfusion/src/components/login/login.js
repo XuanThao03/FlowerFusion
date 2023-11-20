@@ -25,4 +25,8 @@ const LoginInput = () => {
             </div>
         </div>
 
+    );
+
+};
+
 export default LoginInput;
