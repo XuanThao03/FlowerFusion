@@ -1,6 +1,7 @@
-import React from "react"
-import styles from "./logininput.module.scss"
+import React from "react";
+import styles from "./logininput.module.scss";
 const LoginInput = () => {
+
     return ( 
         <div className=" align-middle flex flex-col items-center">
             <h1 className="text-2xl font-lexend font-medium text-main-color mt-8 ">Login</h1>
@@ -23,9 +24,5 @@ const LoginInput = () => {
                 <button className="bg-button-black w-72 h-10 rounded-[10px] text-white text-xs font-semibold" >Login</button>
             </div>
         </div>
-
-    );
-
-}
 
 export default LoginInput;

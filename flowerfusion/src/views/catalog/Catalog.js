@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Header } from "../../components/header/Header";
 import { NavigationBar } from "../../components/naviagtionBar/NavigationBar";
 import { BtnTab } from "../../components/btnTab/BtnTab";
@@ -43,6 +43,10 @@ const flowerLists = typeProducts.map((type) => {
   );
 });
 export class Catalog extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { n: 3 };
+  }
   render() {
     return (
       <div>
