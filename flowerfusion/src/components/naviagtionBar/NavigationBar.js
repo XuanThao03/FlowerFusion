@@ -4,7 +4,7 @@ import styles from "./navigation.module.scss";
 export const NavigationBar = () => {
   return (
     <div>
-      <ul className=" md:flex my-10">
+      <ul className=" md:flex my-5">
         <li className="ml-9">
           <img src={IC_BackArrow} alt="Select Icon" />
         </li>
