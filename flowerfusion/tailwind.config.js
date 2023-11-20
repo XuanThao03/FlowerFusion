@@ -9,6 +9,7 @@ module.exports = {
         argent: "#BFBFBF",
         "cookies-and-cream": "#D9DCA7",
         "pine-tree": "#2c2c29",
+        "main-color": "#4C4A4A",
         "silver-pink": "#BDAFA4",
         gainsboro: "#DBDBDB",
       },
