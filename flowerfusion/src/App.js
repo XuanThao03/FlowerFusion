@@ -16,7 +16,7 @@ export default function App() {
         <Routes>
           <Route path="/" exact={true} element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
-          <Route path="/" exact={true} element={<LoginInput />} />
+          <Route path="/login" exact={true} element={<LoginInput />} />
 
           {/* <Route path="/schedule" element={<Schedule />} />
           <Route path="/about" element={<About />} />

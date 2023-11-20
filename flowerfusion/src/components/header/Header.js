@@ -40,7 +40,7 @@ export const Header = () => {
             </NavLink>
           </li>
           <li className={styles.icon}>
-            <NavLink to="/" exact={true}>
+            <NavLink to="/login" exact={true}>
               <img src={IC_Account} alt="Select Icon" />
             </NavLink>
           </li>
