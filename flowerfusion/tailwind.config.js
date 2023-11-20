@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        "white" : "#FFFFFF",
         "granite-gra": "#676862",
         "dark-liver": "#505050",
         argent: "#BFBFBF",
@@ -14,7 +15,10 @@ module.exports = {
         "white-coffee": "#E7E1D7",
         bone: "#DAD3C7",
         "spanish-gray": "#999A95",
+        "main-color" : "#4C4A4A",
+        "grey-main" : "#BFBFBF",
         quartz: "#4c4c4a",
+        "button-black" : "#1D1D1C",
       },
       fontFamily: {
         Ephesis: ["Ephesis"],
