@@ -2,13 +2,10 @@
   @apply pb-7;
 }
 .text1 {
-  @apply font-Lexend text-xl;
-}
-.text1 {
-  @apply font-Lexend text-xl;
+  @apply font-Lexend text-xl first-line:text-quartz;
 }
 .text2 {
-  @apply font-Lexend flex font-light text-sm align-middle mx-5 items-center;
+  @apply font-Lexend flex font-light text-sm align-middle mx-5 items-center text-quartz;
 }
 .topBanner {
   @apply align-top w-full h-8 bg-gradient-to-b from-gray-300 to-gray-100 opacity-50 blur-[2px];
