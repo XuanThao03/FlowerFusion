@@ -7,7 +7,7 @@ import MomoImage from '../../assets/images/momo.png';
 import ZaloPayImage from '../../assets/images/zalopay.png';
 const CheckOut = () => {
     return ( 
-        <SplideSlide>
+        <div>
             <div className="flex flex-row min-h-screen">
       <div className="flex-1">
         {<div className=" align-middle flex flex-col items-center">
@@ -37,7 +37,7 @@ const CheckOut = () => {
             type="checkbox"
             id="new-offers"
             name="new-offers"
-            className="form-checkbox h-5 w-5 text-black" 
+            className="form-checkbox h-5 w-5 focus-within:accent-main-color" 
         />
         <label htmlFor="new-offers" className="text-xs font-lexend text-main-color ml-2">Email me with new offers</label>
         </div>
@@ -107,7 +107,7 @@ const CheckOut = () => {
             type="checkbox"
             id="special-offers"
             name="special-offers"
-            className="form-checkbox h-5 w-5 text-black" 
+            className="form-checkbox h-5 w-5 focus-within:accent-main-color" 
         />
         <label htmlFor="new-offers" className="text-xs font-lexend text-main-color ml-2">Send me a special offers through text</label>
         </div>
@@ -119,7 +119,7 @@ const CheckOut = () => {
                 type="radio"
                 name="payment"
                 value="cash"
-                className="form-radio h-5 w-5 text-main-color mr-2"
+                className="form-radio h-5 w-5 focus-within:accent-main-color mr-2"
                 id="payment_cash"
             />
             <span>By cash when receive</span>
@@ -131,7 +131,7 @@ const CheckOut = () => {
                 type="radio"
                 name="payment"
                 value="momo"
-                className="form-radio h-5 w-5 text-main-color mr-2"
+                className="form-radio h-5 w-5 focus-within:accent-main-color mr-2"
                 id="payment_momo"
             />
             <span>Momo</span>
@@ -148,7 +148,7 @@ const CheckOut = () => {
                 type="radio"
                 name="payment"
                 value="zalopay"
-                className="form-radio h-5 w-5 text-main-color mr-2"
+                className="form-radio h-5 w-5 focus-within:accent-main-color mr-2"
                 id="payment_zalopay"
             />
             <span>Zalopay</span>
@@ -176,7 +176,7 @@ const CheckOut = () => {
             </div>
             {/* Price */}
             <div className="flex-shrink-0">
-                <span className="text-lg font-semibold text-red-600 mr-14">240.000</span>
+                <span className="text-lg font-semibold text-red-price mr-14">240.000</span>
             </div>
         </div>
         <div className="flex items-center space-x-4 p-4 bg-white shadow rounded-lg ml-12 mt-2">
@@ -191,7 +191,7 @@ const CheckOut = () => {
             </div>
             {/* Price */}
             <div className="flex-shrink-0">
-                <span className="text-lg font-semibold text-red-600 mr-14">240.000</span>
+                <span className="text-lg font-semibold text-red-price mr-14">240.000</span>
             </div>
         </div>
         {<div className=" flex justify-between items-center w-full">
@@ -211,13 +211,13 @@ const CheckOut = () => {
             <div className="flex flex-col items-end space-y-2 p-4 mr-9">
                 <p className="text-xl font-bold text-gray-600">120.000</p>
                 <p className="text-xl font-bold text-gray-600">40.000</p>
-                <p className="text-xl font-bold text-red-600">180.000</p>
+                <p className="text-xl font-bold text-red-price">180.000</p>
             </div>
         </div>
 
       </div>
     </div>
-        </SplideSlide>
+        </div>
     );
 
 };

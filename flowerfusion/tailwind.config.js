@@ -15,6 +15,7 @@ module.exports = {
         "white-coffee": "#E7E1D7",
         bone: "#DAD3C7",
         "spanish-gray": "#999A95",
+        "red-price":"#8E0D0D",
         "main-color" : "#4C4A4A",
         "grey-main" : "#BFBFBF",
         quartz: "#4c4c4a",
