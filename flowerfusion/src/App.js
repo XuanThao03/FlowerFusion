@@ -5,6 +5,7 @@ import Home from "./views/home/home";
 import Banner from "./components/banner/banner";
 import Login from "./views/login/Login";
 import LoginInput from "./components/login/login";
+import CheckOut from "./components/checkout/checkout";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/" exact={true} element={<Home />} />
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/login" exact={true} element={<LoginInput />} />
+          <Route path="/checkout" exact={true} element={<CheckOut />} />
 
           {/* <Route path="/schedule" element={<Schedule />} />
           <Route path="/about" element={<About />} />
