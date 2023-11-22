@@ -1,12 +1,21 @@
 .container {
-  @apply pb-7 w-full h-[359px] border-2 border-yellow-500;
+  @apply pb-7 w-full h-[359px] border-2  items-center flex justify-center;
 }
 .text1 {
-  @apply font-Lexend text-xl first-line:text-quartz;
+  @apply font-Lexend text-2xl text-quartz font-normal flex justify-center;
 }
 .text2 {
-  @apply font-Lexend flex font-light text-sm align-middle mx-5 items-center text-quartz;
+  @apply py-1 flex justify-center font-Lexend  font-light text-sm align-middle items-center text-quartz;
 }
-.topBanner {
-  @apply align-top w-full h-8 bg-gradient-to-b from-gray-300 to-gray-100 opacity-50 blur-[2px];
+.contentContainer {
+  @apply w-full h-full items-center  justify-center bg-yellow-600;
+}
+.txtLabel {
+  @apply mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white;
+}
+.tbxContainer {
+  @apply block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-quartz focus:border-quartz dark:bg-gray-200 dark:border-gray-300 dark:placeholder-gray-400 dark:text-white dark:focus:ring-quartz dark:focus:border-quartz;
+}
+.btnSubmit {
+  @apply text-white absolute end-2.5 bottom-2.5 bg-black hover:bg-black focus:ring-4 focus:outline-none focus:ring-gainsboro font-medium rounded-lg text-sm px-4 py-2 dark:bg-black dark:hover:bg-black dark:focus:ring-quartz;
 }
