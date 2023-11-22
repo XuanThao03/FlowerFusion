@@ -20,6 +20,7 @@ module.exports = {
         "grey-main" : "#BFBFBF",
         quartz: "#4c4c4a",
         "button-black" : "#1D1D1C",
+        "total-price" : "#4E4E4B",
       },
       fontFamily: {
         Ephesis: ["Ephesis"],
