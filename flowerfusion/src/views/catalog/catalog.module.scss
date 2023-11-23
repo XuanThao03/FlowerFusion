@@ -14,10 +14,10 @@
   @apply w-3/12;
 }
 .flowerContainer {
-  @apply w-9/12  grid md:grid-cols-2  lg:grid-cols-3 gap-4 content-center justify-center ml-10;
+  @apply w-full   grid md:grid-cols-2  lg:grid-cols-3 justify-center items-stretch;
 }
 .itemFlower {
-  @apply flex-shrink-0 ml-10;
+  @apply flex-shrink-0  justify-center flex;
 }
 @tailwind base;
 @tailwind components;
