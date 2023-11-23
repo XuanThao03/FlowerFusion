@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { Header } from "../../components/header/Header";
-import { NavigationBar } from "../../components/naviagtionBar/NavigationBar";
+import { NavigationBar } from "../../components/navigationBar/NavigationBar";
 import { BtnTab } from "../../components/btnTab/BtnTab";
 import styles from "./catalog.module.scss";
 import { ItemFlower } from "../../components/itemFlower/ItemFlower";
@@ -10,7 +10,7 @@ import "@splidejs/react-splide/css";
 import PriceSlider from "../../components/filter/price/PriceSlider";
 import CheckboxFilter from "../../components/filter/checkboxFilter/checkboxFilter";
 import BottomBanner from "../../components/banner/bottomBanner";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 const typeProducts = [
   "Roses",
   "Wedding bouquets",
@@ -84,9 +84,9 @@ const typeLists = typeProducts.map((type) => {
 });
 const flowerLists = typeProducts.map((type) => {
   return (
-    <NavLink className="flex justify-center" to="/detail" exact={true}>
+    <Link className="flex justify-center" to="/detail" exact={true}>
       <ItemFlower className={styles.itemFlower} />
-    </NavLink>
+    </Link>
   );
 });
 export class Catalog extends Component {

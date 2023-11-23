@@ -1,106 +1,73 @@
 import React from "react";
-import { NavigationBar } from "../../components/naviagtionBar/NavigationBar";
+import { NavigationBar } from "../../components/navigationBar/NavigationBar";
+import ItemProductInCart from "../../components/itemProduct_Cart/itemProduct_cart";
+
+const product = [
+  "FAUX KIKU FLOWER - CREAM ",
+  "FAUX PAMPAS GRASS - PLUSH PINK ",
+  "FAUX PAMPAS GRASS - PLUSH PINK ",
+  "FAUX PAMPAS GRASS - PLUSH PINK ",
+  "FAUX PAMPAS GRASS - PLUSH PINK ",
+  "FAUX PAMPAS GRASS - PLUSH PINK ",
+];
+
+const productList = product.map((type) => {
+  return (
+    <div className=" px-5 py-4 border-t-2">
+      <ItemProductInCart text={type} />
+    </div>
+  );
+});
 function Detail() {
   return (
     <div className=" w-full h-full">
       <NavigationBar />
-
-      <div class="text-center">
-        <button
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          type="button"
-          data-drawer-target="drawer-right-example"
-          data-drawer-show="drawer-right-example"
-          data-drawer-placement="right"
-          aria-controls="drawer-right-example"
-        >
-          Show right drawer
-        </button>
-      </div>
-
-      <div
-        id="drawer-right-example"
-        class="fixed top-0 right-0 z-40 h-screen p-4 overflow-y-auto transition-transform translate-x-full bg-white w-80 dark:bg-gray-800"
-        tabindex="-1"
-        aria-labelledby="drawer-right-label"
-      >
-        <h5
-          id="drawer-right-label"
-          class="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400"
-        >
-          <svg
-            class="w-4 h-4 me-2.5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-          </svg>
-          Right drawer
-        </h5>
-        <button
-          type="button"
-          data-drawer-hide="drawer-right-example"
-          aria-controls="drawer-right-example"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white"
-        >
-          <svg
-            class="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
-          <span class="sr-only">Close menu</span>
-        </button>
-        <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
-          Supercharge your hiring by taking advantage of our{" "}
-          <a
-            href="#"
-            class="text-blue-600 underline font-medium dark:text-blue-500 hover:no-underline"
-          >
-            limited-time sale
-          </a>{" "}
-          for Flowbite Docs + Job Board. Unlimited access to over 190K
-          top-ranked candidates and the #1 design job board.
-        </p>
-        <div class="grid grid-cols-2 gap-4">
-          <a
-            href="#"
-            class="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-          >
-            Learn more
-          </a>
-          <a
-            href="#"
-            class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Get access{" "}
-            <svg
-              class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 14 10"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M1 5h12m0 0L9 1m4 4L9 9"
-              />
-            </svg>
-          </a>
+      <div class="drawer drawer-end">
+        <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content">
+          <label for="my-drawer-4" class="drawer-button btn btn-primary">
+            Open drawer
+          </label>
+        </div>
+        <div class="drawer-side">
+          <label
+            for="my-drawer-4"
+            aria-label="close sidebar"
+            class="drawer-overlay"
+          ></label>
+          <div className=" w-1/4 h-full bg-white flex flex-col">
+            <p className="font-Lexend text-xl font-normal text-quartz my-3 ml-5">
+              MY CART
+            </p>
+            <div className="w-full h-2/3  overflow-x-scroll no-scrollbar">
+              {productList}
+            </div>
+            <p className="px-5 py-2 font-Lexend font-medium text-sm">
+              Discount
+            </p>
+            <div className="flex justify-between mr-5">
+              <form>
+                <input
+                  type="text"
+                  id="Discount"
+                  name="Discount"
+                  className=" border-gainsboro w-full rounded-lg mx-5"
+                />
+              </form>
+              <button className="bg-black text-white py-2 px-4 rounded-lg">
+                Discount
+              </button>
+            </div>
+            <div className="flex justify-between mr-5">
+              <p className="px-5 py-2 font-Lexend font-medium text-sm">Total</p>
+              <p className="py-2 font-Lexend font-semibold text-lg">
+                1.500.000 VND
+              </p>
+            </div>
+            <button className="bg-black w-4/5  h-12 p-3 rounded-lg text-white self-center">
+              Go to Checkout
+            </button>
+          </div>
         </div>
       </div>
     </div>
