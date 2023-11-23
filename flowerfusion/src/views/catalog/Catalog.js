@@ -10,6 +10,7 @@ import "@splidejs/react-splide/css";
 import PriceSlider from "../../components/filter/price/PriceSlider";
 import CheckboxFilter from "../../components/filter/checkboxFilter/checkboxFilter";
 import BottomBanner from "../../components/banner/bottomBanner";
+import { NavLink } from "react-router-dom";
 const typeProducts = [
   "Roses",
   "Wedding bouquets",
@@ -83,9 +84,9 @@ const typeLists = typeProducts.map((type) => {
 });
 const flowerLists = typeProducts.map((type) => {
   return (
-    <SplideSlide>
+    <NavLink className="flex justify-center" to="/detail" exact={true}>
       <ItemFlower className={styles.itemFlower} />
-    </SplideSlide>
+    </NavLink>
   );
 });
 export class Catalog extends Component {
