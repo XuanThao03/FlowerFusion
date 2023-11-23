@@ -21,6 +21,8 @@ module.exports = {
         quartz: "#4c4c4a",
         "button-black" : "#1D1D1C",
         "total-price" : "#4E4E4B",
+        "detail-border": "#D7CDC5",
+        "detail-text": "#B4B4A4",
       },
       fontFamily: {
         Ephesis: ["Ephesis"],
