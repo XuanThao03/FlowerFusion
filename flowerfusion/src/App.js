@@ -8,6 +8,7 @@ import LoginInput from "./components/login/login";
 import CheckOut from "./views/checkout/checkout";
 import DetailFlower from "./views/detailflower/detailflower";
 import Detail from "./views/detail/detail";
+import MyAccount from "./views/MyAccount/myAccount";
 
 export default function App() {
   return (
@@ -21,8 +22,9 @@ export default function App() {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/login" exact={true} element={<LoginInput />} />
           <Route path="/checkout" exact={true} element={<CheckOut />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/catalog/detail" element={<Detail />} />
           <Route path="/detailflower" exact={true} element={<DetailFlower />} />
+          <Route path="/myaccount" exact={true} element={<MyAccount />} />
 
           {/* <Route path="/schedule" element={<Schedule />} />
           <Route path="/about" element={<About />} />
