@@ -84,7 +84,7 @@ const typeLists = typeProducts.map((type) => {
 });
 const flowerLists = typeProducts.map((type) => {
   return (
-    <Link className="flex justify-center" to="/detail" exact={true}>
+    <Link className="flex justify-center" to="/catalog/detail" exact={true}>
       <ItemFlower className={styles.itemFlower} />
     </Link>
   );
