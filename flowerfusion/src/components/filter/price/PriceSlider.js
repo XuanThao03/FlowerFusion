@@ -38,7 +38,7 @@ const PriceSlider = () => {
         </div>
         <div className="valueContainer">
           <input
-            className="min"
+            className="min border-collapse"
             type="number"
             id="maxPrice"
             value={values[1]}
