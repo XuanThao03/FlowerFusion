@@ -7,6 +7,7 @@ import Login from "./views/login/Login";
 import LoginInput from "./components/login/login";
 import CheckOut from "./views/checkout/checkout";
 import DetailFlower from "./views/detailflower/detailflower";
+import Signup from "./components/singup/singup";
 
 export default function App() {
   return (
@@ -21,6 +22,8 @@ export default function App() {
           <Route path="/login" exact={true} element={<LoginInput />} />
           <Route path="/checkout" exact={true} element={<CheckOut />} />
           <Route path="/detailflower" exact={true} element={<DetailFlower />} />
+          <Route path="/signup" exact={true} element={<Signup />} />
+
 
           {/* <Route path="/schedule" element={<Schedule />} />
           <Route path="/about" element={<About />} />
