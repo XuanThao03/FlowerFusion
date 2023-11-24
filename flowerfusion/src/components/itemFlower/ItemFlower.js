@@ -1,15 +1,23 @@
 import React from "react";
 import styles from "./itemFlower.module.scss";
-import { IMG_Flower1 } from "../../assets/images";
+import { IMG_Flower1, IMG_Flower2 } from "../../assets/images";
 import { IC_Heart } from "../../assets/icons";
 export const ItemFlower = () => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.imgContainer}>
-        <img src={IMG_Flower1}></img>
-        <div class={styles.coupon}>10%</div>
-        <div class={styles.favorite}>
-          <img src={IC_Heart} />
+        <div
+          className="w-full h-full flex justify-center"
+          style={{
+            background: `url(${IMG_Flower2})`,
+          }}
+        >
+          <div className="w-full mx-3 justify-between flex my-3">
+            <div class={styles.coupon}>10%</div>
+            <div class={styles.favorite}>
+              <img src={IC_Heart} />
+            </div>
+          </div>
         </div>
       </div>
       <div className={styles.bottomContainer}>
