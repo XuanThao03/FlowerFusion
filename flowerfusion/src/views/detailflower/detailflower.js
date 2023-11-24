@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./detailflower.module.scss";
-import { NavigationBar } from "../../components/naviagtionBar/NavigationBar";
+import { NavigationBar } from "../../components/navigationBar/NavigationBar";
 import Size from "../../components/size/size";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import ACBImage from '../../assets/images/acb.png';
