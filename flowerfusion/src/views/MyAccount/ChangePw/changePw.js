@@ -8,22 +8,22 @@ function ChangePw() {
   <p className="text-xs font-[Lexend] font-medium text-grey-main mt-[10px]">
   To ensure security please set a password with at least 8 characters
 </p>
-<div className="text-xs font-[Lexend] font-normal text-grey-main">
+<div className="text-xs font-[Lexend] font-light text-main-color">
         <input
-          className="w-72 border-[1.3px] boder-gainsboro rounded-md h-11 p-4 mt-[21px] bg-transparent"
+          className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-[21px] bg-transparent"
           placeholder="Old password"
         />
       </div>
      
-      <div className="text-xs font-[Lexend] font-normal text-grey-main">
+      <div className="text-xs font-[Lexend] font-light text-main-color">
         <input
-          className="w-72 border-[1.3px] boder-gainsboro rounded-md h-11 p-4 mt-[21px] bg-transparent"
+          className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-[21px] bg-transparent"
           placeholder="New password"
         />
       </div>
-      <div className="text-xs font-[Lexend] font-normal text-grey-main">
+      <div className="text-xs font-[Lexend] font-light text-main-color">
         <input
-          className="w-72 border-[1.3px] boder-gainsboro rounded-md h-11 p-4 mt-[21px] bg-transparent"
+          className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-[21px] bg-transparent"
           placeholder="Confirm new password"
         />
       </div>
