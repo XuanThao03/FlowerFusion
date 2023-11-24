@@ -58,13 +58,13 @@ function Detail() {
                 Discount
               </button>
             </div>
-            <div className="flex justify-between mr-5">
+            <div className="flex justify-between mr-5 mt-3">
               <p className="px-5 py-2 font-Lexend font-medium text-sm">Total</p>
               <p className="py-2 font-Lexend font-semibold text-lg">
                 1.500.000 VND
               </p>
             </div>
-            <button className="bg-black w-4/5  h-12 p-3 rounded-lg text-white self-center">
+            <button className="bg-black mt-3 w-4/5  h-12 p-3 rounded-lg text-white self-center">
               Go to Checkout
             </button>
           </div>

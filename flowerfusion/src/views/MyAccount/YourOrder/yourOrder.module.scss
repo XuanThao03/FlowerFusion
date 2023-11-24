@@ -1,0 +1,33 @@
+.txtTitle {
+  @apply w-full font-Lexend font-medium text-xl text-quartz py-5;
+}
+.mainContainer {
+  @apply p-14 rounded-lg;
+}
+.table.rounded-corners {
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.tableHeader {
+  @apply rounded-lg w-full bg-black text-white font-medium font-Lexend text-xs;
+}
+.txtHeader {
+  @apply px-8 py-5 text-center;
+}
+.txtRow {
+  @apply content-center text-center justify-center items-center;
+}
+.txtRowCompleted {
+  @apply w-2/3 font-Lexend font-normal text-xs text-center  bg-green-100 text-green-500 py-2  rounded-xl;
+}
+.txtRowShipping {
+  @apply w-2/3 font-Lexend font-normal text-xs  text-center justify-center bg-yellow-100 text-yellow-500 py-2  rounded-xl;
+}
+.txtRowProcessing {
+  @apply w-2/3 font-Lexend font-normal text-xs  text-center justify-center bg-blue-100 text-blue-500 py-2  rounded-xl;
+}
+.txtRowCancel {
+  @apply w-2/3 font-Lexend font-normal text-xs  text-center justify-center bg-red-100 text-red-500 py-2  rounded-xl;
+}
