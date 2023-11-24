@@ -28,10 +28,10 @@ function MyAccount() {
   });
 
   return (
-    <div className="w-full h-full bg-yellow-500 py-8 flex">
-      <div className="w-1/3 h-full bg-red-400 flex flex-col items-center flex-nowrap">
+    <div className="w-full h-full py-8 flex">
+      <div className="w-1/3 h-full flex flex-col items-center flex-nowrap">
         <div className=" w-fit">
-          <p className="font-Lexend font-medium text-2xl text-quartz">
+          <p className=" font-Lexend font-medium text-2xl text-quartz">
             Hello, Thanh Hien
           </p>
           <p className="font-Lexend font-normal text-sm text-argent">
@@ -40,7 +40,7 @@ function MyAccount() {
           <ul className="my-10">{tabList}</ul>
         </div>
       </div>
-      <div className="w-1/3 h-full bg-green-400">{tabs.at(index)}</div>
+      <div className="w-2/3 h-full">{tabs.at(index)}</div>
     </div>
   );
 }
