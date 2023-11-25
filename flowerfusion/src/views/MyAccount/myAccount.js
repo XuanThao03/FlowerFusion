@@ -36,7 +36,7 @@ function MyAccount() {
           <ul className="my-10">{tabList}</ul>
         </div>
       </div>
-      <div className={styles.tabContainer}>{tabs.at(index)}</div>
+      <div className={styles.navtabContainer}>{tabs.at(index)}</div>
     </div>
   );
 }

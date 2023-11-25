@@ -1,8 +1,8 @@
 .tabContainer {
-  @apply my-2 hover:border-l-quartz hover:border-l-[3px] px-2 py-0 rounded-sm focus-within:border-l-quartz focus-within:border-l-[3px];
+  @apply w-full my-2 hover:border-l-quartz hover:border-l-[3px] px-2 py-0 rounded-sm focus-within:border-l-quartz focus-within:border-l-[3px];
 }
 .txtTabname {
-  @apply font-light font-Lexend text-xs;
+  @apply font-light font-Lexend text-xs text-left w-full;
 }
 .mainContainer {
   @apply w-full h-full py-8 flex;
@@ -16,6 +16,6 @@
 .txtSub {
   @apply font-Lexend font-normal text-sm text-argent;
 }
-.tabContainer {
+.navtabContainer {
   @apply w-2/3 h-full;
 }
