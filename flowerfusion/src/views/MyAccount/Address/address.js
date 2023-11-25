@@ -12,19 +12,22 @@ function Address() {
       <div className={styles.bgItem}>
         <div>
           <div className={styles.subContainer}>
+            <div className="flex">
             <p className={styles.txtTitle}>Your name:</p>
-            <p className={styles.subTitle}>Tran Thanh Hien</p>
+            <p className={styles.txtValue}>Tran Thanh Hien</p>
             <div className={styles.bgStatus}>
               <p className={styles.txtStatus}>Default</p>
             </div>
-            <div className="ml-[272px]">
+            </div>
+
+            <div className="mr-5">
               <button className="bg-transparent">
                 <img src={IC_Edit} />
               </button>
             </div>
           </div>
-          <div className="flex mt-[6px] mx-[7px]">
-            <p className="text-xs font-[Lexend] font-medium text-main-color ">
+          <div className={styles.phoneContainer}>
+            <p className={styles.txtTitle}>
               Phone number:
             </p>
             <p className="text-xs font-[Lexend] font-light mx-[4px] text-main-color ">

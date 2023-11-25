@@ -1,0 +1,61 @@
+.mainContainer {
+  @apply h-full w-full;
+}
+.firstContainer {
+  @apply h-[550px] w-full bg-white items-center flex-col flex;
+}
+.txtFirst {
+  @apply font-Lexend font-light text-4xl text-white text-center;
+}
+.gradientBg {
+  @apply pb-10 w-full h-3/4 justify-end flex flex-col bg-gradient-to-t from-black to-transparent opacity-80;
+}
+.btnDown {
+  @apply z-10 -my-8 flex items-center justify-center h-16 w-16 rounded-full bg-white shadow-lg  self-center;
+}
+.iconDown {
+  @apply h-11 w-11;
+}
+.imgContainer {
+  @apply w-full h-5/6 object-cover flex flex-col justify-end;
+}
+.greetingContainer {
+  @apply w-full justify-center mb-10;
+}
+.txtHeader {
+  @apply text-center font-light font-Lexend  text-[40px] text-quartz;
+}
+.txtDetail {
+  @apply whitespace-break-spaces px-32 text-center font-extralight font-Lexend  text-[22px] text-quartz;
+}
+.bestSeller {
+  @apply py-10;
+}
+.txtTitle {
+  @apply mx-11 font-normal font-Lexend  text-[25px] text-quartz;
+}
+.productList {
+  @apply flex overflow-x-auto;
+}
+.itemProduct {
+  @apply m-5;
+}
+.txtViewall {
+  @apply underline mx-8 font-light font-Lexend text-xl text-quartz;
+}
+.middleBanner {
+  @apply pb-7 w-full h-[359px]  items-center flex flex-col justify-center;
+}
+.txtRate {
+  @apply my-3 whitespace-break-spaces px-32 text-center font-extralight font-Lexend  text-lg text-quartz;
+}
+.btnSeenow {
+  @apply my-3 bg-black text-white py-3 px-10 rounded-xl;
+}
+
+.thirdContainer {
+  @apply pt-16;
+}
+.cataContainer {
+  @apply h-[640px] bg-yellow-400 flex;
+}
