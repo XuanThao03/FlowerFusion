@@ -11,7 +11,7 @@ export class Banner extends Component {
         }}
       >
         <div className={styles.topBanner} />
-        <div className="flex justify-center">
+        <div className={styles.contentContainer}>
           <div className={styles.text1}> OUR BLACK FRIDAY SALE IS LIVE!</div>
           <div className={styles.text2}>
             UP TO 40% OFF - ITEMS WILL SELL OUT

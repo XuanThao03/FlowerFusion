@@ -52,6 +52,34 @@
 .btnSearch {
   @apply h-5/6  z-[2]  flex items-center  px-6 py-2.5;
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.headerContainer {
+  @apply w-1/4 h-full bg-white flex flex-col;
+}
+.txtHeader {
+  @apply font-Lexend text-xl font-normal text-quartz my-3 ml-5;
+}
+
+.txtDiscount {
+  @apply px-5 py-4 font-Lexend font-medium text-sm;
+}
+.discountContainer {
+  @apply flex justify-between mr-5;
+}
+.discountInput {
+  @apply border-gainsboro w-full rounded-lg mx-5;
+}
+.btnDiscount {
+  @apply bg-black text-white py-2 px-4 rounded-lg;
+}
+.totalContainer {
+  @apply flex justify-between mr-5 mt-3;
+}
+.txtTotal {
+  @apply px-5 py-2 font-Lexend font-medium text-sm;
+}
+.valueTotal {
+  @apply py-2 font-Lexend font-semibold text-lg;
+}
+.btnCheckout {
+  @apply bg-black mt-3 w-4/5  h-12 p-3 rounded-lg text-white self-center;
+}

@@ -135,7 +135,7 @@ const quantity = [
 // });
 const flowerLists = flowers.map((fl) => {
   return (
-    <Link className="flex justify-center" to="/catalog/detail" exact={true}>
+    <NavLink className="flex justify-center" to="/flowers/detail" exact={true}>
       <ItemFlower
         className={styles.itemFlower}
         img={fl.img}
@@ -143,7 +143,7 @@ const flowerLists = flowers.map((fl) => {
         price={fl.price}
         discount={fl.discount}
       />
-    </Link>
+    </NavLink>
   );
 });
 export class Flower extends Component {

@@ -29,16 +29,13 @@ export default function App() {
           <Route path="/candles" element={<Candle />} />
           <Route path="/login" exact={true} element={<LoginInput />} />
           <Route path="/checkout" exact={true} element={<CheckOut />} />
-          <Route path="/flower/detail" element={<Detail />} />
-          <Route path="/detailflower" exact={true} element={<DetailFlower />} />
+          <Route
+            path="/flowers/detail"
+            exact={true}
+            element={<DetailFlower />}
+          />
           <Route path="/signup" exact={true} element={<Signup />} />
           <Route path="/myaccount" exact={true} element={<MyAccount />} />
-          {/* <Route path="/schedule" element={<Schedule />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/password" element={<ResetPassword />} />
-          <Route path="/me" element={<Info />} />
-          <Route path="*" element={<NotFoundScreen />} /> */}
         </Routes>
       </Router>
     </>
