@@ -39,6 +39,10 @@ module.exports = {
       borderWidth: {
         DEFAULT: "1px",
       },
+      screens: {
+        laptop14inches: "1200px",
+        //laptop15inches: "1083px",
+      },
     },
   },
   plugins: [],
