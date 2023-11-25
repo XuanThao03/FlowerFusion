@@ -24,6 +24,8 @@ module.exports = {
         "detail-border": "#D7CDC5",
         "detail-text": "#B4B4A4",
         black: "#1D1D1C",
+        "green-default": "#EBFAED",
+        "green-text": "#0CE622",
       },
       fontFamily: {
         Ephesis: ["Ephesis"],
