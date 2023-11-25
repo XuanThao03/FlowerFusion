@@ -1,18 +1,15 @@
 import React from "react";
 import { IC_Edit } from "../../../assets/icons";
+import styles from "./address.module.scss";
 
 function Address() {
   return (
     <div>
-      <div className="mt-8 flex justify-between w-[600px]">
-        <h1 className="text-xl font-[Lexend] font-medium text-main-color ">
-          YOUR ADDRESS
-        </h1>
-        <button className="bg-button-black w-[140px] h-10 rounded-[10px] text-white text-xs font-[Lexend] font-regular">
-          Add address
-        </button>
+      <div className={styles.mainContainer}>
+        <h1 className={styles.mainTiltle}>YOUR ADDRESS</h1>
+        <button className={styles.buttonAdd}>Add address</button>
       </div>
-      <div className="bg-white p-4 border-[1.3px] h-[134px] boder-gainsboro mt-[37px] rounded-[10px] w-[600px]">
+      <div className={styles.bgItem}>
         <div>
           <div className="flex mt-[12px] mx-[7px]">
             <p className="text-xs font-[Lexend] font-medium text-main-color ">

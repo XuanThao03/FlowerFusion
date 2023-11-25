@@ -1,0 +1,9 @@
+.mainContainer{
+    @apply mt-8 flex justify-between w-[600px]
+}
+.mainTiltle{
+    @apply text-xl font-[Lexend] font-medium text-main-color 
+}
+.buttonAdd{
+    @apply bg-button-black w-[140px] h-10 rounded-[10px] text-white text-xs font-[Lexend] font-normal
+}
