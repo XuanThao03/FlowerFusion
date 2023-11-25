@@ -20,7 +20,6 @@ const LoginInput = () => {
         <input
           className="w-72 border-[1.4px] border-0.5 boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
           placeholder="Password"
-     
         />
       </div>
       <div className="w-72 text-xs font-[Lexend] font-light text-main-color mt-2">
