@@ -19,13 +19,13 @@
   @apply text-granite-gra font-Lexend font-light;
 }
 .icon_container {
-  @apply w-1/3 justify-end hidden md:flex overflow-x-hidden mr-10 font-semibold justify-items-end;
+  @apply items-center p-2 w-1/3 justify-end hidden md:flex overflow-x-hidden mr-10 font-semibold justify-items-end;
 }
 .icon {
-  @apply mr-1 p-1 align-middle;
+  @apply mr-1 p-2 align-middle;
 }
 .container1 {
-  @apply flex py-3;
+  @apply flex;
 }
 @tailwind base;
 .container2 {
@@ -38,7 +38,7 @@
   @apply flex  flex-wrap items-stretch w-2/3 align-middle;
 }
 .search {
-  @apply h-5/6 block w-[1px] min-w-0 flex-auto rounded-l
+  @apply h-4/6 block w-[1px] min-w-0 flex-auto rounded-l
   border border-solid border-gainsboro bg-transparent
   bg-clip-padding px-3 py-[0.25rem] text-base font-normal
   leading-[1.6] text-neutral-700 outline-none
