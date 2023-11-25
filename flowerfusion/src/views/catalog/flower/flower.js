@@ -1,33 +1,84 @@
 import React, { Component, useState } from "react";
-import { Header } from "../../components/header/Header";
-import { NavigationBar } from "../../components/navigationBar/NavigationBar";
-import { BtnTab } from "../../components/btnTab/BtnTab";
-import styles from "./catalog.module.scss";
-import { ItemFlower } from "../../components/itemFlower/ItemFlower";
+import { Header } from "../../../components/header/Header";
+import { NavigationBar } from "../../../components/navigationBar/NavigationBar";
+import { BtnTab } from "../../../components/btnTab/BtnTab";
+import styles from "../catalog.module.scss";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { IMG_Flower1 } from "../../assets/images";
+import { IMG_Flower1, IMG_Flower2, IMG_Flower3 } from "../../../assets/images";
 import "@splidejs/react-splide/css";
-import PriceSlider from "../../components/filter/price/PriceSlider";
-import CheckboxFilter from "../../components/filter/checkboxFilter/checkboxFilter";
-import BottomBanner from "../../components/banner/bottomBanner";
+import PriceSlider from "../../../components/filter/price/PriceSlider";
+import CheckboxFilter from "../../../components/filter/checkboxFilter/checkboxFilter";
+import BottomBanner from "../../../components/banner/bottomBanner";
 import { NavLink, Link } from "react-router-dom";
-const typeProducts = [
-  "Roses",
-  "Wedding bouquets",
-  "Birthday bouquets",
-  "Lavenders",
-  "Roses",
-  "Wedding bouquets",
-  "Wedding bouquets",
-  "Wedding bouquets",
-  "Roses",
-  "Wedding bouquets",
-  "Birthday bouquets",
-  "Lavenders",
-  "Roses",
-  "Wedding bouquets",
-  "Wedding bouquets",
-  "Wedding bouquets",
+import ItemFlower from "../../../components/itemFlower/ItemFlower";
+const flowers = [
+  {
+    img: IMG_Flower2,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower3,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
+  { img: IMG_Flower2, name: "Happy Wishes", price: "340.000", discount: "10%" },
+  {
+    img: IMG_Flower3,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower3,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower2,
+    name: "Joyful Wishes",
+    price: "340.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower3,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower2,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower3,
+    name: "Joyful Wishes",
+    price: "440.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower2,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower3,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
+  {
+    img: IMG_Flower2,
+    name: "Joyful Wishes",
+    price: "240.000",
+    discount: "10%",
+  },
 ];
 const arrival = [
   { name: "Letter box friendly", quantity: 55 },
@@ -75,21 +126,27 @@ const quantity = [
   { name: "91-100", quantity: "" },
   { name: "Other", quantity: "" },
 ];
-const typeLists = typeProducts.map((type) => {
-  return (
-    <SplideSlide className={styles.btnTab}>
-      <BtnTab text={type} />
-    </SplideSlide>
-  );
-});
-const flowerLists = typeProducts.map((type) => {
+// const typeLists = typeProducts.map((type) => {
+//   return (
+//     <SplideSlide className={styles.btnTab}>
+//       <BtnTab text={type} />
+//     </SplideSlide>
+//   );
+// });
+const flowerLists = flowers.map((fl) => {
   return (
     <Link className="flex justify-center" to="/catalog/detail" exact={true}>
-      <ItemFlower className={styles.itemFlower} />
+      <ItemFlower
+        className={styles.itemFlower}
+        img={fl.img}
+        name={fl.name}
+        price={fl.price}
+        discount={fl.discount}
+      />
     </Link>
   );
 });
-export class Catalog extends Component {
+export class Flower extends Component {
   constructor(props) {
     super(props);
     this.state = { n: 3 };
@@ -135,4 +192,4 @@ export class Catalog extends Component {
   }
 }
 
-export default Catalog;
+export default Flower;
