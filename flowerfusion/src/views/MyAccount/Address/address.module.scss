@@ -10,3 +10,18 @@
 .bgItem{
     @apply bg-white p-4 border-[1.3px] h-[134px] border-gainsboro mt-[37px] rounded-[10px] w-[600px]
 }
+.subContainer{
+    @apply flex mt-[12px] mx-[7px]
+}
+.txtTitle{
+    @apply text-xs font-[Lexend] font-medium text-main-color
+}
+.subTitle{
+    @apply text-xs font-[Lexend] font-light mx-[4px] text-main-color
+}
+.bgStatus{
+    @apply bg-green-default w-[61px] rounded-[30px] text-green-text h-[22px] justify-center items-center flex
+}
+.txtStatus{
+    @apply text-[9px]  font-[Lexend] font-normal
+}
