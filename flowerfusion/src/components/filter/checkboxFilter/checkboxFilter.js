@@ -1,15 +1,15 @@
-import React, { Component, useState } from "react";
-import styles from "./checkboxFilter.module.scss";
+import React, {Component, useState} from 'react';
+import styles from './checkboxFilter.module.scss';
 
 export class CheckboxFilter extends Component {
   constructor(props) {
     super(props);
-    this.state = { n: false };
+    this.state = {n: false};
   }
   render() {
     const createList2 = this.props.value
       .slice(0, this.state.n ? this.props.value.length : 5)
-      .map((type) => {
+      .map(type => {
         return (
           <li className={styles.liContainer}>
             <input
@@ -38,13 +38,12 @@ export class CheckboxFilter extends Component {
               <button
                 type="button"
                 className={styles.showAll}
-                onClick={() => this.setState({ n: !this.state.n })}
-              >
+                onClick={() => this.setState({n: !this.state.n})}>
                 {this.props.value.length > 5
                   ? this.state.n
-                    ? "Show less"
-                    : "Show all"
-                  : ""}
+                    ? 'Show less'
+                    : 'Show all'
+                  : ''}
               </button>
             </li>
           </ul>

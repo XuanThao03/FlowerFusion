@@ -1,13 +1,18 @@
 import React from 'react';
 import {
+  IMG_CoverCata1,
+  IMG_CoverCata2,
+  IMG_CoverCata3,
   IMG_Flower2,
   IMG_Flower3,
   IMG_Home2,
+  IMG_Home3,
+  IMG_Home5,
   IMG_bgBtBanner,
   IMG_bgHome,
 } from '../../assets/images';
 import styles from './home.module.scss';
-import {IC_DownArrow} from '../../assets/icons';
+import {IC_DownArrow, IC_NextArrow} from '../../assets/icons';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
 import {NavLink} from 'react-router-dom';
 import BottomBanner from '../../components/banner/bottomBanner';
@@ -100,7 +105,7 @@ function Home() {
         <div
           className={styles.imgContainer}
           style={{
-            background: `url(${IMG_bgHome})`,
+            background: `url(${IMG_Home5})`,
             backgroundRepeat: 'no-repeat',
 
             backgroundSize: 'cover',
@@ -148,11 +153,68 @@ function Home() {
       <div className={styles.thirdContainer}>
         <p className={styles.txtTitle}>CATALOG</p>
         <div className={styles.cataContainer}>
-          <div className="w-1/2 bg-blue-300 h-full">
-            <div className="h-1/2 m-3 bg-green-300"></div>
-            <div className="h-1/2 m-3 bg-green-300"></div>
+          <div className={styles.leftCata}>
+            <NavLink
+              to={'/flowers'}
+              exact={true}
+              className={styles.coverImg}
+              style={{
+                background: `url(${IMG_CoverCata1})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+              }}>
+              <div className={styles.inforContainer}>
+                <div>
+                  <p className={styles.txtNameCata}>WINTER BERRIES</p>
+                  <p className={styles.txtProduct}>12 products</p>
+                </div>
+                <button className={styles.btnDown}>
+                  <img src={IC_NextArrow} />
+                </button>
+              </div>
+            </NavLink>
+
+            <NavLink
+              to={'/flowers'}
+              exact={true}
+              className={styles.coverImg}
+              style={{
+                background: `url(${IMG_CoverCata2})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+              }}>
+              <div className={styles.inforContainer}>
+                <div>
+                  <p className={styles.txtNameCata}>FAUX PAMPAS GRASS</p>
+                  <p className={styles.txtProduct}>10 products</p>
+                </div>
+                <button className={styles.btnDown}>
+                  <img src={IC_NextArrow} />
+                </button>
+              </div>
+            </NavLink>
           </div>
-          <div className="w-1/2 bg-orange-300"></div>
+          <div className={styles.rightCata}>
+            <NavLink
+              to={'/flowers'}
+              exact={true}
+              className={styles.coverImgRight}
+              style={{
+                background: `url(${IMG_CoverCata3})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+              }}>
+              <div className={styles.inforContainer}>
+                <div>
+                  <p className={styles.txtNameCata}>KIKU FLOWER</p>
+                  <p className={styles.txtProduct}>10 products</p>
+                </div>
+                <button className={styles.btnDown}>
+                  <img src={IC_NextArrow} />
+                </button>
+              </div>
+            </NavLink>
+          </div>
         </div>
       </div>
       <BottomBanner />

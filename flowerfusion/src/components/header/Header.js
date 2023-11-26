@@ -1,19 +1,19 @@
-import React from "react";
-import { IC_Account, IC_Bag, IC_Heart, IC_Search } from "../../assets/icons";
-import styles from "./header.module.scss";
-import { NavLink } from "react-router-dom";
-import ItemProductInCart from "../itemProduct_Cart/itemProduct_cart";
+import React from 'react';
+import {IC_Account, IC_Bag, IC_Heart, IC_Search} from '../../assets/icons';
+import styles from './header.module.scss';
+import {NavLink} from 'react-router-dom';
+import ItemProductInCart from '../itemProduct_Cart/itemProduct_cart';
 
 export const Header = () => {
   const product = [
-    "FAUX KIKU FLOWER - CREAM ",
-    "FAUX PAMPAS GRASS - PLUSH PINK ",
-    "FAUX PAMPAS GRASS - PLUSH PINK ",
-    "FAUX PAMPAS GRASS - PLUSH PINK ",
-    "FAUX PAMPAS GRASS - PLUSH PINK ",
-    "FAUX PAMPAS GRASS - PLUSH PINK ",
+    'FAUX KIKU FLOWER - CREAM ',
+    'FAUX PAMPAS GRASS - PLUSH PINK ',
+    'FAUX PAMPAS GRASS - PLUSH PINK ',
+    'FAUX PAMPAS GRASS - PLUSH PINK ',
+    'FAUX PAMPAS GRASS - PLUSH PINK ',
+    'FAUX PAMPAS GRASS - PLUSH PINK ',
   ];
-  const productList = product.map((type) => {
+  const productList = product.map(type => {
     return (
       <div className=" px-5 py-4 border-t-2">
         <ItemProductInCart text={type} />
@@ -39,8 +39,7 @@ export const Header = () => {
               type="button"
               id="button-addon1"
               data-te-ripple-init
-              data-te-ripple-color="light"
-            >
+              data-te-ripple-color="light">
               <img src={IC_Search} />
             </button>
           </div>
@@ -64,8 +63,7 @@ export const Header = () => {
               <div class="drawer-content">
                 <button
                   for="my-drawer-4"
-                  class="drawer-buttonp py-2 pointer-events-auto  "
-                >
+                  class="drawer-buttonp py-2 pointer-events-auto  ">
                   <img src={IC_Bag} alt="Select Icon" />
                 </button>
               </div>
@@ -73,8 +71,7 @@ export const Header = () => {
                 <label
                   for="my-drawer-4"
                   aria-label="close sidebar"
-                  class="drawer-overlay"
-                ></label>
+                  class="drawer-overlay"></label>
                 <div className={styles.headerContainer}>
                   <p className={styles.txtHeader}>MY CART</p>
                   <div className="w-full h-2/3  overflow-x-scroll no-scrollbar">
@@ -150,13 +147,13 @@ export const Header = () => {
               </p>
             </NavLink>
           </li>
-          <li className={styles.tab_name}>
+          {/* <li className={styles.tab_name}>
             <NavLink to="/gifts" exact={true}>
               <p className={styles.tab_nav} href="#">
                 GIFTS
               </p>
             </NavLink>
-          </li>
+          </li> */}
           <li className={styles.tab_name}>
             <NavLink to="/faq" exact={true}>
               <p className={styles.tab_nav} href="#">
