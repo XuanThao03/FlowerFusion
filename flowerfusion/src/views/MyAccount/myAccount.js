@@ -1,26 +1,25 @@
-import React, { useState } from "react";
-import { Route, Router, Routes } from "react-router-dom";
-import Information from "./Information/information";
-import YourOder from "./YourOrder/yourOrder";
-import ChangePw from "./ChangePw/changePw";
-import Address from "./Address/address";
-import styles from "./myAccount.module.scss";
+import React, {useState} from 'react';
+import {Route, Router, Routes} from 'react-router-dom';
+import Information from './Information/information';
+import YourOder from './YourOrder/yourOrder';
+import ChangePw from './ChangePw/changePw';
+import Address from './Address/address';
+import styles from './myAccount.module.scss';
 const tabNames = [
-  "ACCOUNT INFORMATION",
-  "YOUR ORDER",
-  "CHANGE PASSWORD",
-  "ADDRESS (1)",
+  'ACCOUNT INFORMATION',
+  'YOUR ORDER',
+  'CHANGE PASSWORD',
+  'ADDRESS (1)',
 ];
 const tabs = [<Information />, <YourOder />, <ChangePw />, <Address />];
 function MyAccount() {
   const [index, SetIndex] = useState(0);
-  const tabList = tabNames.map((tab) => {
+  const tabList = tabNames.map(tab => {
     return (
       <li className={styles.tabContainer}>
         <button
           onClick={() => SetIndex(tabNames.indexOf(tab))}
-          className={styles.txtTabname}
-        >
+          className={styles.txtTabname}>
           {tab}
         </button>
       </li>

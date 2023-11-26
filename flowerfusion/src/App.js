@@ -13,7 +13,11 @@ import Flower from './views/catalog/flower/flower';
 import Vase from './views/catalog/vase/vase';
 import Occasion from './views/catalog/occasion/occasion';
 import Candle from './views/catalog/candle/candle';
+
 import Trending from './views/catalog/trending/trending';
+
+import FAQ from './views/faq/faq';
+
 
 export default function App() {
   return (
@@ -38,6 +42,7 @@ export default function App() {
           />
           <Route path="/signup" exact={true} element={<Signup />} />
           <Route path="/myaccount" exact={true} element={<MyAccount />} />
+          <Route path="/faq" exact={true} element={<FAQ />} />
         </Routes>
       </Router>
     </>
