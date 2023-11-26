@@ -6,6 +6,8 @@ import Login from './views/login/Login';
 import LoginInput from './components/login/login';
 import CheckOut from './views/checkout/checkout';
 import DetailFlower from './views/detailflower/detailflower';
+import DetailCandle from './views/detailcandle/detailcandle';
+import DetailVase from './views/detailvase/detailvase';
 import Signup from './components/singup/singup';
 import Detail from './views/detail/detail';
 import MyAccount from './views/MyAccount/myAccount';
@@ -40,6 +42,8 @@ export default function App() {
             exact={true}
             element={<DetailFlower />}
           />
+          <Route path="/detailcandle" exact={true} element={<DetailCandle />} />
+          <Route path="/detailvase" exact={true} element={<DetailVase />} />
           <Route path="/signup" exact={true} element={<Signup />} />
           <Route path="/myaccount" exact={true} element={<MyAccount />} />
           <Route path="/faq" exact={true} element={<FAQ />} />

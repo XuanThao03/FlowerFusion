@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import styles from "./detailflower.module.scss";
 import { NavigationBar } from "../../components/navigationBar/NavigationBar";
 import Size from "../../components/size/size";
@@ -7,11 +7,12 @@ import ListBag from "../../components/listbag/listbag";
 import AddToBag from "../../components/addtobag/addtobag";
 import Description from "../../components/description/description";
 import FlowerImage from '../../assets/images/IMG_Flower1.png';
+import { IMG_Flower1, IMG_Flower2, IMG_Flower3 } from "../../assets/images";
 import '@splidejs/splide/dist/css/splide.min.css';
-import { ItemFlower } from "../../components/itemFlower/ItemFlower";
+import ItemFlower from "../../components/itemFlower/ItemFlower";
 import { NavLink, Link } from "react-router-dom";
 import Banner from "../../components/banner/banner";
-const DetailFlower = () => {
+const DetailFlower  = () => {
     const options = [
         { pieces: '12 pieces', price: '240.000' },
         { pieces: '24 pieces', price: '450.000' },
@@ -22,24 +23,43 @@ const DetailFlower = () => {
         { productName: 'Ceramic Vase', productPrice: '120.000' },
         { productName: 'Ceramic Vase', productPrice: '120.000' },
       ];
-      const typeProducts = [
-        "Roses",
-        "Wedding bouquets",
-        "Birthday bouquets",
-        "Lavenders",
+      const flowers = [
+        {
+          img: IMG_Flower2,
+          name: "Joyful Wishes",
+          price: "240.000",
+          discount: "10%",
+        },
+        {
+          img: IMG_Flower2,
+          name: "Joyful Wishes",
+          price: "240.000",
+          discount: "10%",
+        },
+        {
+          img: IMG_Flower3,
+          name: "Joyful Wishes",
+          price: "240.000",
+          discount: "10%",
+        },
+        {
+          img: IMG_Flower3,
+          name: "Joyful Wishes",
+          price: "240.000",
+          discount: "10%",
+        },
       ];
-    const flowerLists = lists.map((type) => {
+      const flowerLists = flowers.map((fl) => {
         return (
-          <SplideSlide>
-                <ListBag className="" productName={type.productName} productPrice={type.productPrice} />
-          </SplideSlide>
-        );
-      });
-      const flowerLists2 = typeProducts.map((type) => {
-        return (
-          <Link className="flex justify-center" to="/catalog/detail" exact={true}>
-            <ItemFlower className="flex-shrink-0  justify-center flex" />
-          </Link>
+          <NavLink className="flex justify-center" to="/flowers/detail" exact={true}>
+            <ItemFlower
+              className="flex-shrink-0  justify-center flex"
+              img={fl.img}
+              name={fl.name}
+              price={fl.price}
+              discount={fl.discount}
+            />
+          </NavLink>
         );
       });
     return ( 
@@ -84,11 +104,7 @@ const DetailFlower = () => {
             <div>
                 <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8 ml-11">
-              {typeProducts.map(() => (
-                <ItemFlower/>
-                 ))}
-            </div>
+            <div className="w-full grid grid-cols-4 justify-center items-stretch">{flowerLists}</div>
         </div>
   );
 };
