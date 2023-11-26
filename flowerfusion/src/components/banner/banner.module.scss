@@ -8,5 +8,8 @@
   @apply font-Lexend flex font-light text-sm align-middle mx-5 items-center text-quartz;
 }
 .topBanner {
-  @apply align-top w-full h-8 bg-gradient-to-b from-gray-300 to-gray-100 opacity-50 blur-[2px];
+  @apply w-full h-8 bg-gradient-to-b from-gray-300 to-gray-100 opacity-50 blur-[2px];
+}
+.contentContainer {
+  @apply flex justify-center;
 }

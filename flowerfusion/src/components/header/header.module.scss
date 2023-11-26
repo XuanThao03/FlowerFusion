@@ -19,13 +19,13 @@
   @apply text-granite-gra font-Lexend font-light;
 }
 .icon_container {
-  @apply w-1/3 justify-end hidden md:flex overflow-x-hidden mr-10 font-semibold justify-items-end;
+  @apply items-center p-2 w-1/3 justify-end hidden md:flex overflow-x-hidden mr-10 font-semibold justify-items-end;
 }
 .icon {
-  @apply mr-1 p-1 align-middle;
+  @apply mr-1 p-2 align-middle;
 }
 .container1 {
-  @apply flex py-3;
+  @apply flex;
 }
 @tailwind base;
 .container2 {
@@ -38,7 +38,7 @@
   @apply flex  flex-wrap items-stretch w-2/3 align-middle;
 }
 .search {
-  @apply h-5/6 block w-[1px] min-w-0 flex-auto rounded-l
+  @apply h-4/6 block w-[1px] min-w-0 flex-auto rounded-l
   border border-solid border-gainsboro bg-transparent
   bg-clip-padding px-3 py-[0.25rem] text-base font-normal
   leading-[1.6] text-neutral-700 outline-none
@@ -52,6 +52,34 @@
 .btnSearch {
   @apply h-5/6  z-[2]  flex items-center  px-6 py-2.5;
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.headerContainer {
+  @apply w-1/4 h-full bg-white flex flex-col;
+}
+.txtHeader {
+  @apply font-Lexend text-xl font-normal text-quartz my-3 ml-5;
+}
+
+.txtDiscount {
+  @apply px-5 py-4 font-Lexend font-medium text-sm;
+}
+.discountContainer {
+  @apply flex justify-between mr-5;
+}
+.discountInput {
+  @apply border-gainsboro w-full rounded-lg mx-5;
+}
+.btnDiscount {
+  @apply bg-black text-white py-2 px-4 rounded-lg;
+}
+.totalContainer {
+  @apply flex justify-between mr-5 mt-3;
+}
+.txtTotal {
+  @apply px-5 py-2 font-Lexend font-medium text-sm;
+}
+.valueTotal {
+  @apply py-2 font-Lexend font-semibold text-lg;
+}
+.btnCheckout {
+  @apply bg-black mt-3 w-4/5  h-12 p-3 rounded-lg text-white self-center;
+}

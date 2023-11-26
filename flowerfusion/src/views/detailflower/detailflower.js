@@ -90,7 +90,7 @@ const DetailFlower = () => {
                  ))}
             </div>
         </div>
-    );
+  );
 };
 
 export default DetailFlower;
