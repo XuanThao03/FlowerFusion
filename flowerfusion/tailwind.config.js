@@ -27,6 +27,12 @@ module.exports = {
         'green-default': '#EBFAED',
         'green-text': '#0CE622',
         'dark-charcoal': '#323232',
+        'bg-shipping': '#FEF7E6',
+        'txt-shipping': '#FFC226',
+        'bg-cancle': '#FDE2E2',
+        'txt-cancle': '#EC2828',
+        'bg-process': '#E1EAFC',
+        'txt-process': '#2847EC',
       },
       fontFamily: {
         Ephesis: ['Ephesis'],
