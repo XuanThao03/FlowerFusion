@@ -147,13 +147,13 @@ export const Header = () => {
               </p>
             </NavLink>
           </li>
-          <li className={styles.tab_name}>
+          {/* <li className={styles.tab_name}>
             <NavLink to="/gifts" exact={true}>
               <p className={styles.tab_nav} href="#">
                 GIFTS
               </p>
             </NavLink>
-          </li>
+          </li> */}
           <li className={styles.tab_name}>
             <NavLink to="/faq" exact={true}>
               <p className={styles.tab_nav} href="#">

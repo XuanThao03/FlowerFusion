@@ -13,7 +13,11 @@ import Flower from './views/catalog/flower/flower';
 import Vase from './views/catalog/vase/vase';
 import Occasion from './views/catalog/occasion/occasion';
 import Candle from './views/catalog/candle/candle';
+
+import Trending from './views/catalog/trending/trending';
+
 import FAQ from './views/faq/faq';
+
 
 export default function App() {
   return (
@@ -28,6 +32,7 @@ export default function App() {
           <Route path="/vases" element={<Vase />} />
           <Route path="/occasions" element={<Occasion />} />
           <Route path="/candles" element={<Candle />} />
+          <Route path="/trending" element={<Trending />} />
           <Route path="/login" exact={true} element={<LoginInput />} />
           <Route path="/checkout" exact={true} element={<CheckOut />} />
           <Route

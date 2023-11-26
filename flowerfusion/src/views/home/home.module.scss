@@ -57,5 +57,26 @@
   @apply pt-16;
 }
 .cataContainer {
-  @apply h-[640px] bg-yellow-400 flex;
+  @apply h-[700px] flex mx-11 my-10;
+}
+.leftCata {
+  @apply w-1/2 h-full mr-5;
+}
+.rightCata {
+  @apply w-1/2 h-[716px];
+}
+.coverImg {
+  @apply h-1/2  mr-5 mb-4 w-full  object-cover flex flex-col justify-end;
+}
+.coverImgRight {
+  @apply h-full  mr-5 mb-4 w-full  object-cover flex flex-col justify-end;
+}
+.txtNameCata {
+  @apply text-white text-3xl font-Lexend font-normal;
+}
+.txtProduct {
+  @apply text-white font-Lexend font-normal text-lg;
+}
+.inforContainer {
+  @apply m-8 justify-between flex;
 }
