@@ -1,4 +1,3 @@
-
 import React, {Component, useState} from 'react';
 import styles from './detailflower.module.scss';
 import {NavigationBar} from '../../components/navigationBar/NavigationBar';
@@ -8,13 +7,17 @@ import ListBag from '../../components/listbag/listbag';
 import AddToBag from '../../components/addtobag/addtobag';
 import Description from '../../components/description/description';
 import FlowerImage from '../../assets/images/IMG_Flower1.png';
-import {IMG_Flower1, IMG_Flower2, IMG_Flower3} from '../../assets/images';
 import '@splidejs/splide/dist/css/splide.min.css';
 
 import {NavLink, Link} from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
-import {IMG_Flower1, IMG_Flower2, IMG_Flower3} from '../../assets/images';
+import {
+  IMG_Flower1,
+  IMG_Flower13x,
+  IMG_Flower2,
+  IMG_Flower3,
+} from '../../assets/images';
 
 const DetailFlower = () => {
   const options = [
@@ -96,9 +99,7 @@ const DetailFlower = () => {
         </div>
         <div style={{flex: '4.6'}}>
           <img
-
-            src={IMG_Flower1}
-
+            src={IMG_Flower13x}
             alt="FLOWER"
             className="w-full h-full object-cover"
           />
@@ -132,9 +133,7 @@ const DetailFlower = () => {
         </div>
       </div>
       <div className="mt-20 ">
-
         <Description placeholder="Make a statement with this beautiful Cream Faux Pampas Grass; an absolutely stunning must have statement for your home. This artificial pampas grass is the perfect alternative to dried pampas grass. We recommend pairing our Cream Faux Pampas with our Black Outline Vase no2 as pictured. Total length: 60cm; Flower /plume length: 40cm. Vase not included. You can purchase the vase here - Black Outline Vase no2" />
-
       </div>
       <div>
         <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>
@@ -142,7 +141,6 @@ const DetailFlower = () => {
 
       <div className="w-full grid grid-cols-4 justify-center items-stretch">
         {flowerLists}
-
       </div>
     </div>
   );
