@@ -1,11 +1,17 @@
-import React from "react";
-import styles from "./description.module.scss";
-const Description = ({ placeholder }) => {
-    return (
-            <div className="">
-                <h1 className="font-bold font-Lexend text-xl">Description</h1>
-                <h2 className="mt-7 font-Lexend">{placeholder}</h2>
-            </div>
-    );
-  };
-  export default Description;
+import React from 'react';
+import styles from './description.module.scss';
+const Description = ({placeholder}) => {
+  return (
+    <div className="">
+      <div className="pl-[375px]">
+        <h1 className=" font-bold font-Lexend text-xl">Description</h1>
+      </div>
+      <div className="pr-[350px] whitespace-pre-line">
+        <p className="pl-[375px] text-[13px] mt-[27px] font-light font-Lexend">
+          {placeholder}
+        </p>
+      </div>
+    </div>
+  );
+};
+export default Description;
