@@ -1,7 +1,7 @@
-import React from "react";
-import styles from "./itemFlower.module.scss";
-import { IMG_Flower1, IMG_Flower2 } from "../../assets/images";
-import { IC_Heart } from "../../assets/icons";
+import React from 'react';
+import styles from './itemFlower.module.scss';
+import {IMG_Flower1, IMG_Flower2} from '../../assets/images';
+import {IC_Heart} from '../../assets/icons';
 
 function ItemFlower(props) {
   return (
@@ -11,8 +11,7 @@ function ItemFlower(props) {
           className="w-full h-full flex justify-center"
           style={{
             background: `url(${props.img})`,
-          }}
-        >
+          }}>
           <div className="w-full mx-3 justify-between flex my-3">
             <div class={styles.coupon}>{props.discount}</div>
             <div class={styles.favorite}>
