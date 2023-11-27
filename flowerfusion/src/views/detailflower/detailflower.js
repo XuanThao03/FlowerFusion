@@ -6,7 +6,11 @@ import {Splide, SplideSlide, SplideTrack} from '@splidejs/react-splide';
 import ListBag from '../../components/listbag/listbag';
 import AddToBag from '../../components/addtobag/addtobag';
 import Description from '../../components/description/description';
-import FlowerImage from '../../assets/images/IMG_Flower1.png';
+
+
+import FlowerImage from '../../assets/images/IMG_Kiku1.webp';
+import {IMG_Flower1, IMG_Flower2, IMG_Flower3} from '../../assets/images';
+
 import '@splidejs/splide/dist/css/splide.min.css';
 
 import {NavLink, Link} from 'react-router-dom';
