@@ -1,9 +1,9 @@
-import React from "react";
-import styles from "./logininput.module.scss";
-import { NavLink } from "react-router-dom";
+import React from 'react';
+import styles from './logininput.module.scss';
+import {NavLink} from 'react-router-dom';
 const LoginInput = () => {
   return (
-    <div className=" align-middle flex flex-col items-center">
+    <div className=" align-middle flex flex-col items-center pb-[200px]">
       <h1 className="text-2xl font-[Lexend] font-medium text-main-color mt-8 ">
         Login
       </h1>
