@@ -7,7 +7,7 @@ const Description = ({placeholder}) => {
         <h1 className=" font-bold font-Lexend text-xl">Description</h1>
       </div>
       <div className=" flex flex-col pr-[350px]">
-        <p className="pl-[375px] text-[13px] mt-[27px] font-light font-Lexend">
+        <p className="pl-[375px] text-[13px] mt-[27px] font-light font-Lexend whitespace-break-spaces">
           {placeholder}
         </p>
       </div>
