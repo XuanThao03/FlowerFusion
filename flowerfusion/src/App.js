@@ -20,7 +20,6 @@ import Trending from './views/catalog/trending/trending';
 
 import FAQ from './views/faq/faq';
 
-
 export default function App() {
   return (
     <>
@@ -42,8 +41,12 @@ export default function App() {
             exact={true}
             element={<DetailFlower />}
           />
-          <Route path="/detailcandle" exact={true} element={<DetailCandle />} />
-          <Route path="/detailvase" exact={true} element={<DetailVase />} />
+          <Route
+            path="/candles/detail"
+            exact={true}
+            element={<DetailCandle />}
+          />
+          <Route path="/vases/detail" exact={true} element={<DetailVase />} />
           <Route path="/signup" exact={true} element={<Signup />} />
           <Route path="/myaccount" exact={true} element={<MyAccount />} />
           <Route path="/faq" exact={true} element={<FAQ />} />
