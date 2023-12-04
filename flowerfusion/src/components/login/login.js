@@ -32,6 +32,9 @@ const LoginInput = () => {
           </button>
         </NavLink>
       </div>
+      <NavLink to="/signup" exact={true} className="py-2">
+        Create account
+      </NavLink>
     </div>
   );
 };
