@@ -42,7 +42,7 @@ export default function App() {
             element={<DetailFlower />}
           />
           <Route
-            path="/candles/detail"
+            path="/candles//detail"
             exact={true}
             element={<DetailCandle />}
           />
