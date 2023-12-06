@@ -5,23 +5,23 @@ const UserSchema = new mongoose.Schema(
   {
     firstname: {
       type: String,
-      require: true,
+      required: true,
     },
     lastname: {
       type: String,
-      require: true,
+      required: true,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
     },
     password: {
       type: String,
-      require: true,
+      required: true,
     },
     isAdmin: {
       type: Boolean,
-      require: true,
+      required: true,
       default: false,
     },
   },
@@ -31,9 +31,19 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-UserSchema.method.matchPassword = async function (enterPassword) {
+//login
+UserSchema.methods.matchPassword = async function (enterPassword) {
   return await bcrypt.compare(enterPassword, this.password);
 };
+
+//signup
+UserSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
 const UserModel = mongoose.model("users", UserSchema);
 export default UserModel;
