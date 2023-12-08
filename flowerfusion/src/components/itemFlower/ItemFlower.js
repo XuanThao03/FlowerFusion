@@ -11,6 +11,7 @@ function ItemFlower(props) {
           className="w-full h-full flex justify-center"
           style={{
             background: `url(${props.img})`,
+            backgroundSize: '100% 100%'
           }}>
           <div className="w-full mx-3 justify-between flex my-3">
             <div class={styles.coupon}>{props.discount}</div>

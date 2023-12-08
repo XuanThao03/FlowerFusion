@@ -13,75 +13,7 @@ import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
 
-const flowers = [
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {img: IMG_Flower2, name: 'Happy Wishes', price: '340.000', discount: '10%'},
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '340.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '440.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-];
+
 const arrival = [
   {name: 'Letter box friendly', quantity: 55},
   {name: 'Comes pre-arranged', quantity: 65},
@@ -150,6 +82,7 @@ const Flower = () => {
     };
     fetchflowers();
   }, []);
+
   const flowerLists = flowers.map(fl => {
     return (
       <NavLink
@@ -158,7 +91,7 @@ const Flower = () => {
         exact={true}>
         <ItemFlower
           className={styles.itemFlower}
-          img={fl.img}
+          img={fl.imgPath}
           name={fl.name}
           price={fl.price}
           discount={fl.discount}

@@ -4,6 +4,7 @@ import users from "./data/users.js";
 import flowers from "./data/flower.js";
 import asyncHandler from "express-async-handler";
 import FlowerModel from "./models/FlowerModel.js";
+import TrendingModel from "./models/TrendingModel.js";
 const ImportData = express.Router();
 
 ImportData.post(

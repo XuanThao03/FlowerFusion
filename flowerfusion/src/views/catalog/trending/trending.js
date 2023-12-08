@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Header} from '../../../components/header/Header';
 import {NavigationBar} from '../../../components/navigationBar/NavigationBar';
 import {BtnTab} from '../../../components/btnTab/BtnTab';
@@ -11,75 +11,8 @@ import CheckboxFilter from '../../../components/filter/checkboxFilter/checkboxFi
 import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
-const flowers = [
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {img: IMG_Flower2, name: 'Happy Wishes', price: '340.000', discount: '10%'},
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '340.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '440.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-];
+import axios from 'axios';
+
 const arrival = [
   {name: 'Letter box friendly', quantity: 55},
   {name: 'Comes pre-arranged', quantity: 65},
@@ -122,12 +55,29 @@ const quantity = [
 //     </SplideSlide>
 //   );
 // });
-const flowerLists = flowers.map(fl => {
+const Trending = () => {
+  const [trending, setTrending] = useState([]);
+  useEffect(() => {
+    const fetchtrending = async () => {
+      try {
+        await axios.get('/api/trendings').then(res => {
+          console.log(res);
+          setTrending(res.data);
+        });
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+    fetchtrending();
+  }, []);
+const flowerLists = trending.map(fl => {
   return (
-    <NavLink className="flex justify-center" to="/flowers/detail" exact={true}>
+    <NavLink className="flex justify-center" 
+    //to="/flowers/detail" 
+    exact={true}>
       <ItemFlower
         className={styles.itemFlower}
-        img={fl.img}
+        img={fl.imgPath}
         name={fl.name}
         price={fl.price}
         discount={fl.discount}
@@ -135,12 +85,6 @@ const flowerLists = flowers.map(fl => {
     </NavLink>
   );
 });
-export class Trending extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {n: 3};
-  }
-  render() {
     return (
       <div>
         {/* <Header /> */}
@@ -175,7 +119,6 @@ export class Trending extends Component {
         <BottomBanner />
       </div>
     );
-  }
-}
+  };
 
 export default Trending;

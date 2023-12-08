@@ -4,6 +4,10 @@ import dotenv from "dotenv";
 import connectDatabase from "./config/MongoDb.js";
 import ImportData from "./DataImport.js";
 import flowerRoute from "./Routes/FlowerRoutes.js";
+import candleRoute from "./Routes/CandleRoutes.js";
+import trendingRoute from "./Routes/TrendingRoutes.js";
+import occasionRoute from "./Routes/OccasionRoutes.js";
+import vaseRoute from "./Routes/VaseRoutes.js";
 import { errorHandler, notFound } from "./Middleware/Errors.js";
 import userRoute from "./Routes/UserRoutes.js";
 
@@ -13,6 +17,10 @@ const app = express();
 app.use(express.json());
 //API
 app.use("/api/import", ImportData);
+app.use("/api/trendings", trendingRoute);
+app.use("/api/candles", candleRoute);
+app.use("/api/vases", vaseRoute);
+app.use("/api/occasions", occasionRoute);
 app.use("/api/flowers", flowerRoute);
 app.use("/api/users", userRoute);
 app.use(notFound);

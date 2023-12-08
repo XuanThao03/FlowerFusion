@@ -30,5 +30,5 @@ const OccasionSchema = new mongoose.Schema(
   }
 );
 
-const OccasionModel = mongoose.model("occasion", OccasionSchemaSchema);
+const OccasionModel = mongoose.model("occasions", OccasionSchema);
 export default OccasionModel;
