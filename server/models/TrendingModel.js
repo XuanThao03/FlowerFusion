@@ -30,5 +30,5 @@ const TrendingSchema = new mongoose.Schema(
   }
 );
 
-const TrendingModel = mongoose.model("trend", TrendingSchema);
+const TrendingModel = mongoose.model("trendings", TrendingSchema);
 export default TrendingModel;
