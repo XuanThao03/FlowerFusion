@@ -5,20 +5,30 @@ import YourOder from './YourOrder/yourOrder';
 import ChangePw from './ChangePw/changePw';
 import Address from './Address/address';
 import styles from './myAccount.module.scss';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../Redux/Actions/userActions';
 const tabNames = [
   'ACCOUNT INFORMATION',
   'YOUR ORDER',
   'CHANGE PASSWORD',
   'ADDRESS (1)',
+  'LOG OUT',
 ];
 const tabs = [<Information />, <YourOder />, <ChangePw />, <Address />];
 function MyAccount() {
+  const dispatch = useDispatch();
   const [index, SetIndex] = useState(0);
   const tabList = tabNames.map(tab => {
     return (
       <li className={styles.tabContainer}>
         <button
-          onClick={() => SetIndex(tabNames.indexOf(tab))}
+          onClick={() => {
+            {
+              tab != 'LOG OUT'
+                ? SetIndex(tabNames.indexOf(tab))
+                : logoutHandler();
+            }
+          }}
           className={styles.txtTabname}>
           {tab}
         </button>
@@ -26,6 +36,9 @@ function MyAccount() {
     );
   });
 
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container1}>
