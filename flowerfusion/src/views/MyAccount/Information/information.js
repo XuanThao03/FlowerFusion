@@ -1,5 +1,9 @@
-import React from "react";
+import React from 'react';
+import {useSelector} from 'react-redux';
 const Information = () => {
+  const userLogin = useSelector(state => state.userLogin);
+  const {userInfo} = userLogin;
+
   return (
     <div>
       <h1 className="text-xl font-[Lexend] font-medium text-main-color mt-8 ">
@@ -7,10 +11,18 @@ const Information = () => {
       </h1>
       <div className="flex">
         <p className="text-xs font-[Lexend] font-medium text-main-color mt-[52px]">
-          Full name:
+          First name:
         </p>
         <p className="text-xs font-[Lexend] font-light mx-[4px] text-main-color mt-[52px]">
-          Tran Thanh Hien
+          {userInfo.firstname}
+        </p>
+      </div>
+      <div className="flex mt-[10px]">
+        <p className="text-xs font-[Lexend] font-medium text-main-color ">
+          Last name:
+        </p>
+        <p className="text-xs font-[Lexend] font-light mx-[4px] text-main-color">
+          {userInfo.lastname}
         </p>
       </div>
       <div className="flex mt-[10px]">
@@ -18,7 +30,7 @@ const Information = () => {
           Email:
         </p>
         <p className="text-xs font-[Lexend] font-light mx-[4px] text-main-color ">
-          tranthanhhien123bt@gmail.com
+          {userInfo.email}
         </p>
       </div>
       <div className="flex mt-[10px]">
@@ -26,7 +38,7 @@ const Information = () => {
           Phone number:
         </p>
         <p className="text-xs font-[Lexend] font-light mx-[4px] text-main-color ">
-          0398285020
+          {userInfo.phone}
         </p>
       </div>
       <div className="flex mt-[10px]">
@@ -34,7 +46,7 @@ const Information = () => {
           Address:
         </p>
         <p className="text-xs font-[Lexend] font-light mx-[4px] text-main-color ">
-          Ký túc xá khu B, Đông Hòa, Dĩ An, Bình Dương
+          {userInfo.address ? userInfo.address : ''}
         </p>
       </div>
     </div>
