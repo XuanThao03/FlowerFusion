@@ -28,7 +28,7 @@ userRoute.post(
   })
 );
 
-//sign up
+//REGISTER
 userRoute.post(
   "/",
   assyncHandler(async (req, res) => {
@@ -44,8 +44,9 @@ userRoute.post(
       lastname,
       email,
       password,
+    }).catch((err) => {
+      console.error(err);
     });
-    console.log(user);
 
     if (user) {
       res.status(201).json({

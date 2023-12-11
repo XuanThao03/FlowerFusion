@@ -6,6 +6,7 @@ import {login} from '../../Redux/Actions/userActions';
 import Message from '../LoadingError/Error';
 import Loading from '../LoadingError/Loading';
 const LoginInput = (location, history) => {
+  window.scrollTo(0, 0);
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
