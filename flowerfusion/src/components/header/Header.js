@@ -3,6 +3,7 @@ import {IC_Account, IC_Bag, IC_Heart, IC_Search} from '../../assets/icons';
 import styles from './header.module.scss';
 import {NavLink} from 'react-router-dom';
 import ItemProductInCart from '../itemProduct_Cart/itemProduct_cart';
+import {useSelector} from 'react-redux';
 
 export const Header = () => {
   const product = [
@@ -21,6 +22,8 @@ export const Header = () => {
     );
   });
 
+  const userLogin = useSelector(state => state.userLogin);
+  const {error, loading, userInfo} = userLogin;
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container1}>
@@ -99,7 +102,7 @@ export const Header = () => {
             </div>
           </li>
           <li className={styles.icon}>
-            <NavLink to="/login" exact={true}>
+            <NavLink to={userInfo ? '/myaccount' : '/login'} exact={true}>
               <img src={IC_Account} alt="Select Icon" />
             </NavLink>
           </li>
