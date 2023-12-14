@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Header} from '../../../components/header/Header';
 import {NavigationBar} from '../../../components/navigationBar/NavigationBar';
 import {BtnTab} from '../../../components/btnTab/BtnTab';
@@ -11,6 +11,7 @@ import CheckboxFilter from '../../../components/filter/checkboxFilter/checkboxFi
 import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
+import axios from 'axios';
 const vases = [
   {
     img: IMG_Vase2,
@@ -104,12 +105,27 @@ const colors = [
   {name: 'Purple', quantity: ''},
   {name: 'Black', quantity: ''},
 ];
+const Vase = () => {
+  const [vases, setVases] = useState([]);
+  useEffect(() => {
+    const fetchvases = async () => {
+      try {
+        await axios.get('/api/vases').then(res => {
+          console.log(res);
+          setVases(res.data);
+        });
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+    fetchvases();
+  }, []);
 const vaseLists = vases.map(vase => {
   return (
     <Link className="flex justify-center" to="/vases/detail" exact={true}>
       <ItemFlower
         className={styles.itemFlower}
-        img={vase.img}
+        img={vase.imgPath}
         name={vase.name}
         price={vase.price}
         discount={vase.discount}
@@ -117,12 +133,6 @@ const vaseLists = vases.map(vase => {
     </Link>
   );
 });
-export class Vase extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {n: 3};
-  }
-  render() {
     return (
       <div>
         <NavigationBar />
@@ -137,7 +147,6 @@ export class Vase extends Component {
         <BottomBanner />
       </div>
     );
-  }
-}
+  };
 
 export default Vase;

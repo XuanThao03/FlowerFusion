@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Header} from '../../../components/header/Header';
 import {NavigationBar} from '../../../components/navigationBar/NavigationBar';
 import {BtnTab} from '../../../components/btnTab/BtnTab';
@@ -11,80 +11,8 @@ import CheckboxFilter from '../../../components/filter/checkboxFilter/checkboxFi
 import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
-const candles = [
-  {
-    img: IMG_Candle2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle2,
-    name: 'Happy Wishes',
-    price: '340.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle2,
-    name: 'Joyful Wishes',
-    price: '340.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle1,
-    name: 'Joyful Wishes',
-    price: '440.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Candle2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-];
+import axios from 'axios';
+
 const categories = [
   {name: 'Candle', quantity: 46},
   {name: 'CandleStick ', quantity: 47},
@@ -101,12 +29,27 @@ const colors = [
   {name: 'Purple', quantity: ''},
   {name: 'Black', quantity: ''},
 ];
+const Candle = () => {
+  const [candles, setCandles] = useState([]);
+  useEffect(() => {
+    const fetchcandles = async () => {
+      try {
+        await axios.get('/api/candles').then(res => {
+          console.log(res);
+          setCandles(res.data);
+        });
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
+    };
+    fetchcandles();
+  }, []);
 const CandleLists = candles.map(Candle => {
   return (
     <NavLink className="flex justify-center" to="/candles/detail" exact={true}>
       <ItemFlower
         className={styles.itemFlower}
-        img={Candle.img}
+        img={Candle.imgPath}
         name={Candle.name}
         price={Candle.price}
         discount={Candle.discount}
@@ -114,12 +57,6 @@ const CandleLists = candles.map(Candle => {
     </NavLink>
   );
 });
-export class Candle extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {n: 3};
-  }
-  render() {
     return (
       <div>
         <NavigationBar />
@@ -134,7 +71,6 @@ export class Candle extends Component {
         <BottomBanner />
       </div>
     );
-  }
-}
+  };
 
 export default Candle;

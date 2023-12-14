@@ -12,76 +12,10 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFlowers, setSelectedFlower } from '../../../Redux/Actions/flowerAction';
 
-const flowers = [
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {img: IMG_Flower2, name: 'Happy Wishes', price: '340.000', discount: '10%'},
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '340.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '440.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower3,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Flower2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-];
+
 const arrival = [
   {name: 'Letter box friendly', quantity: 55},
   {name: 'Comes pre-arranged', quantity: 65},
@@ -128,39 +62,53 @@ const quantity = [
   {name: '91-100', quantity: ''},
   {name: 'Other', quantity: ''},
 ];
-// const typeLists = typeProducts.map((type) => {
-//   return (
-//     <SplideSlide className={styles.btnTab}>
-//       <BtnTab text={type} />
-//     </SplideSlide>
-//   );
-// });
 const Flower = () => {
-  const [flowers, setFlowers] = useState([]);
+  const dispatch = useDispatch();
+  const flowers = useSelector((state) => state.flowers);
   useEffect(() => {
     const fetchflowers = async () => {
       try {
-        await axios.get('/api/flowers').then(res => {
-          console.log(res);
-          setFlowers(res.data);
-        });
+        const response = await axios.get('/api/flowers');
+        dispatch(setFlowers(response.data));
       } catch (error) {
-        console.log(error.response.data.message);
+        //console.log(error.response.data.message);
+        console.log(error);
       }
     };
     fetchflowers();
-  }, []);
+  }, [dispatch]);
+
+  // if (!flowers) {
+  //   return <div>Loading...</div>; // hoặc hiển thị một thông báo loading khác tùy thuộc vào ý định của bạn
+  // }
+
+  // const [flowers, setFlowers] = useState([]);
+  // useEffect(() => {
+  //   const fetchflowers = async () => {
+  //     try {
+  //       await axios.get('/api/flowers').then(res => {
+  //         console.log(res);
+  //         setFlowers(res.data);
+  //       });
+  //     } catch (error) {
+  //       console.log(error.response.data.message);
+  //     }
+  //   };
+  //   fetchflowers();
+  // }, []);
+
   const flowerLists = flowers.map(fl => {
     return (
       <NavLink
-        className="flex justify-center"
-        to="/flowers/detail"
-        exact={true}>
+      className="flex justify-center" 
+      to="/flowers/detail"
+      onClick={() => dispatch(setSelectedFlower(fl))}
+      >
         <ItemFlower
           className={styles.itemFlower}
-          img={fl.img}
+          img={fl.imgPath1}
           name={fl.name}
-          price={fl.price}
+          price={fl.price1}
           discount={fl.discount}
         />
       </NavLink>

@@ -38,7 +38,6 @@ export default function App() {
           <Route path="/checkout" exact={true} element={<CheckOut />} />
           <Route
             path="/flowers/detail"
-            exact={true}
             element={<DetailFlower />}
           />
           <Route
