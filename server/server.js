@@ -22,6 +22,7 @@ app.use("/api/candles", candleRoute);
 app.use("/api/vases", vaseRoute);
 app.use("/api/occasions", occasionRoute);
 app.use("/api/flowers", flowerRoute);
+//app.use("/api/flowers/:id", flowerRoute);
 app.use("/api/users", userRoute);
 app.use(notFound);
 app.use(errorHandler);

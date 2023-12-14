@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import styles from './detailflower.module.scss';
 import {NavigationBar} from '../../components/navigationBar/NavigationBar';
 import Size from '../../components/size/size';
@@ -6,7 +6,8 @@ import {Splide, SplideSlide, SplideTrack} from '@splidejs/react-splide';
 import ListBag from '../../components/listbag/listbag';
 import AddToBag from '../../components/addtobag/addtobag';
 import Description from '../../components/description/description';
-
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import FlowerImage from '../../assets/images/IMG_Kiku1.webp';
 
 import '@splidejs/splide/dist/css/splide.min.css';
@@ -24,11 +25,14 @@ import {
 } from '../../assets/images';
 
 const DetailFlower = () => {
-  const [imgLink, setLink] = useState(IMG_Kiku1);
+  const selectedFlower = useSelector((state) => state.selectedFlower);
+  const { name, imgPath1, imgPath2, imgPath3, price1, price2, price3, description } = selectedFlower || {};
+
+  const [imgLink, setLink] = useState(imgPath1);
   const options = [
-    {pieces: '12 pieces', price: '240.000'},
-    {pieces: '24 pieces', price: '450.000'},
-    {pieces: '36 pieces', price: '600.000'},
+    {pieces: '12 pieces', price: price1 },
+    {pieces: '24 pieces', price: price2 },
+    {pieces: '36 pieces', price: price3 },
   ];
   const lists = [
     {productName: 'Ceramic Vase', productPrice: '120.000'},
@@ -86,25 +90,25 @@ const DetailFlower = () => {
         <div
           className="flex flex-col space-y-2 ml-11 mr-6 min-h-screen justify-end"
           style={{flex: '0.6'}}>
-          <button onClick={() => setLink(IMG_Kiku1)}>
+          <button onClick={() => setLink(imgPath1)}>
             <img
-              src={IMG_Kiku1}
+              src={imgPath1}
               alt="Image 1"
               className="w-20 h-28 object-cover"
             />
           </button>
 
-          <button onClick={() => setLink(IMG_Kiku2)}>
+          <button onClick={() => setLink(imgPath2)}>
             <img
-              src={IMG_Kiku2}
+              src={imgPath2}
               alt="Image 1"
               className="w-20 h-28 object-cover"
             />
           </button>
 
-          <button onClick={() => setLink(IMG_Kiku3)}>
+          <button onClick={() => setLink(imgPath3)}>
             <img
-              src={IMG_Kiku3}
+              src={imgPath3}
               alt="Image 1"
               className="w-20 h-28 object-cover"
             />
@@ -119,7 +123,7 @@ const DetailFlower = () => {
         </div>
         <div style={{flex: '4.8'}}>
           <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">
-            FAUX KIKU FLOWER
+            {name}
           </h1>
           <p className="text-xs font-Lexend font-medium font-semibold text-main-color ml-10 mt-6">
             Pick a size
@@ -148,7 +152,7 @@ const DetailFlower = () => {
       <div className="mt-20 ">
         <Description
           placeholder={
-            'Make a statement with this beautiful Cream Faux Pampas Grass; an absolutely stunning must have statement for your home. This artificial pampas grass is the perfect alternative to dried pampas grass.\nWe recommend pairing our Cream Faux Pampas with our Black Outline Vase no2 as pictured. Total length: 60cm; Flower plume length: 40cm. Vase not included. You can purchase the vase here - Black Outline Vase no2'
+            description
           }
         />
       </div>
