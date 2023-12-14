@@ -12,6 +12,8 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCandles, setSelectedCandle } from '../../../Redux/Actions/candleAction';
 
 const categories = [
   {name: 'Candle', quantity: 46},
@@ -30,26 +32,28 @@ const colors = [
   {name: 'Black', quantity: ''},
 ];
 const Candle = () => {
-  const [candles, setCandles] = useState([]);
+  const dispatch = useDispatch();
+  const candles = useSelector((state) => state.candles);
   useEffect(() => {
     const fetchcandles = async () => {
       try {
-        await axios.get('/api/candles').then(res => {
-          console.log(res);
-          setCandles(res.data);
-        });
+        const response = await axios.get('/api/candles');
+        dispatch(setCandles(response.data));
       } catch (error) {
-        console.log(error.response.data.message);
+        //console.log(error.response.data.message);
+        console.log(error);
       }
     };
     fetchcandles();
-  }, []);
+  }, [dispatch]);
 const CandleLists = candles.map(Candle => {
   return (
-    <NavLink className="flex justify-center" to="/candles/detail" exact={true}>
+    <NavLink className="flex justify-center" 
+             to="/candles/detail" 
+             onClick={() => dispatch(setSelectedCandle(Candle))}>
       <ItemFlower
         className={styles.itemFlower}
-        img={Candle.imgPath}
+        img={Candle.imgPath1}
         name={Candle.name}
         price={Candle.price}
         discount={Candle.discount}

@@ -6,18 +6,19 @@ import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Quantity from "../../components/quantity/quantity";
 import AddToBag from "../../components/addtobag/addtobag";
 import Description from "../../components/description/description";
-import CandleImage from '../../assets/images/IMG_Candle1.png';
 import { IMG_Candle1, IMG_Candle2 } from "../../assets/images";
 import '@splidejs/splide/dist/css/splide.min.css';
 import ItemFlower from "../../components/itemFlower/ItemFlower";
 import { NavLink, Link } from "react-router-dom";
 import Banner from "../../components/banner/banner";
+import { useSelector } from 'react-redux';
+
 const DetailCandle = () => {
-  const options = [
-    { pieces: '12 pieces', price: '240.000' },
-    { pieces: '24 pieces', price: '450.000' },
-    { pieces: '36 pieces', price: '600.000' },
-  ];
+  const selectedCandle = useSelector((state) => state.selectedCandle);
+  const { name, imgPath1, imgPath2, imgPath3, description } = selectedCandle || {};
+
+  const [imgLink, setLink] = useState(imgPath1);
+  
 const lists = [
     { productName: 'Ceramic Vase', productPrice: '120.000' },
     { productName: 'Ceramic Vase', productPrice: '120.000' },
@@ -69,15 +70,21 @@ return (
         </div>
         <div className="flex">
             <div className="flex flex-col space-y-2 ml-11 mr-6 min-h-screen justify-end" style={{ flex: '0.6' }}>
-              <img src={CandleImage} alt="Image 1" className="w-20 h-28 object-cover" />
-              <img src={CandleImage} alt="Image 2" className="w-20 h-28 object-cover" />
-              <img src={CandleImage} alt="Image 3" className="w-20 h-28 object-cover" />
+              <button onClick={() => setLink(imgPath1)}>
+                <img src={imgPath1} alt="Image 1" className="w-20 h-28 object-cover" />
+              </button>
+              <button onClick={() => setLink(imgPath2)}>
+                <img src={imgPath2} alt="Image 2" className="w-20 h-28 object-cover" />
+              </button>
+              <button onClick={() => setLink(imgPath3)}>
+                <img src={imgPath3} alt="Image 3" className="w-20 h-28 object-cover" />
+              </button>
             </div>
             <div style={{ flex: '4.6' }}>
-                <img src={CandleImage} alt="FLOWER" className="w-full h-full object-cover" />
+                <img src={imgLink} alt="CANDLE" className="w-full h-full object-cover" />
             </div>
             <div style={{ flex: '4.8' }}>
-            <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">DINNER CANDLE 8" - TAUPE</h1>
+            <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">{name}</h1>
                 <p className="text-xs font-Lexend font-medium font-semibold text-main-color ml-10 mt-6">Quantity</p>
                 <div className="mt-3.5 ml-10 mr-16">
                     <Quantity/>
@@ -97,7 +104,8 @@ return (
             </div>
         </div>
         <div className="mt-20 ">
-            <Description placeholder="8 inch Taupe Dinner Candles in a box of 6. These stunning hand-drawn table unscented candles are ideal for dining arrangements. Each candle has a height of 203mm and a a Diameter of 21mm. Handmade in the UK, these candles can be the statement feature piece in your home, the candles have a burn time of 8 hours. These beautiful candles make a Perfect Gift."/>
+            <Description placeholder= {description} 
+          />
         </div>
         <div>
             <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>

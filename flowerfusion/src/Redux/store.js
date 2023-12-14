@@ -3,12 +3,21 @@ import {thunk} from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {userLoginReducer, userRegisterReducer} from './Reducers/userReducers';
 import { flowersReducer, selectedFlowerReducer } from './Reducers/flowerReducers';
+import { candlesReducer, selectedCandleReducer } from './Reducers/candleReducers';
+import { vasesReducer, selectedVaseReducer } from './Reducers/vaseReducers';
+import { occasionsReducer, selectedOccasionReducer } from './Reducers/occasionReducers';
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   flowers: flowersReducer, 
   selectedFlower: selectedFlowerReducer,
+  candles: candlesReducer, 
+  selectedCandle: selectedCandleReducer,
+  vases: vasesReducer, 
+  selectedVase: selectedVaseReducer,
+  occasions: occasionsReducer, 
+  selectedOccasion: selectedOccasionReducer,
 });
 
 
