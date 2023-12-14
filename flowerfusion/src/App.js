@@ -7,6 +7,7 @@ import LoginInput from './components/login/login';
 import CheckOut from './views/checkout/checkout';
 import DetailFlower from './views/detailflower/detailflower';
 import DetailCandle from './views/detailcandle/detailcandle';
+import DetailOccasion from './views/detailoccasion/detailoccasion';
 import DetailVase from './views/detailvase/detailvase';
 import Signup from './components/singup/singup';
 import Detail from './views/detail/detail';
@@ -41,11 +42,16 @@ export default function App() {
             element={<DetailFlower />}
           />
           <Route
-            path="/candles//detail"
-            exact={true}
+            path="/candles/detail"
             element={<DetailCandle />}
           />
-          <Route path="/vases/detail" exact={true} element={<DetailVase />} />
+          <Route
+            path="/occasions/detail"
+            element={<DetailOccasion />}
+          />
+          <Route 
+            path="/vases/detail"
+            element={<DetailVase />} />
           <Route path="/signup" exact={true} element={<Signup />} />
           <Route path="/myaccount" exact={true} element={<MyAccount />} />
           <Route path="/faq" exact={true} element={<FAQ />} />

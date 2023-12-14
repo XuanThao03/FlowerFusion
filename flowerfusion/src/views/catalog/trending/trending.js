@@ -4,7 +4,6 @@ import {NavigationBar} from '../../../components/navigationBar/NavigationBar';
 import {BtnTab} from '../../../components/btnTab/BtnTab';
 import styles from '../catalog.module.scss';
 import {Splide, SplideSlide, SplideTrack} from '@splidejs/react-splide';
-import {IMG_Flower1, IMG_Flower2, IMG_Flower3} from '../../../assets/images';
 import '@splidejs/react-splide/css';
 import PriceSlider from '../../../components/filter/price/PriceSlider';
 import CheckboxFilter from '../../../components/filter/checkboxFilter/checkboxFilter';
@@ -12,6 +11,7 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
+
 
 const arrival = [
   {name: 'Letter box friendly', quantity: 55},
@@ -77,9 +77,9 @@ const flowerLists = trending.map(fl => {
     exact={true}>
       <ItemFlower
         className={styles.itemFlower}
-        img={fl.imgPath}
+        img={fl.imgPath1}
         name={fl.name}
-        price={fl.price}
+        price={fl.price1}
         discount={fl.discount}
       />
     </NavLink>

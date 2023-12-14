@@ -7,22 +7,23 @@ import Quantity from "../../components/quantity/quantity";
 import AddToBag from "../../components/addtobag/addtobag";
 import Description from "../../components/description/description";
 import VaseImage from '../../assets/images/IMG_vase1.png';
+import { useSelector } from 'react-redux';
 import { IMG_Vase1, IMG_Vase2 } from "../../assets/images";
 import '@splidejs/splide/dist/css/splide.min.css';
 import ItemFlower from "../../components/itemFlower/ItemFlower";
 import { NavLink, Link } from "react-router-dom";
 import Banner from "../../components/banner/banner";
 const DetailVase = () => {
-  const options = [
-    { pieces: '12 pieces', price: '240.000' },
-    { pieces: '24 pieces', price: '450.000' },
-    { pieces: '36 pieces', price: '600.000' },
-  ];
-const lists = [
-    { productName: 'Ceramic Vase', productPrice: '120.000' },
-    { productName: 'Ceramic Vase', productPrice: '120.000' },
-    { productName: 'Ceramic Vase', productPrice: '120.000' },
-  ];
+  const selectedVase = useSelector((state) => state.selectedVase);
+  const { name, imgPath1, imgPath2, imgPath3, description } = selectedVase || {};
+
+  const [imgLink, setLink] = useState(imgPath1);
+
+  const lists = [
+      { productName: 'Ceramic Vase', productPrice: '120.000' },
+      { productName: 'Ceramic Vase', productPrice: '120.000' },
+      { productName: 'Ceramic Vase', productPrice: '120.000' },
+    ];
   const flowers = [
     {
       img: IMG_Vase1,
@@ -69,15 +70,32 @@ return (
         </div>
         <div className="flex">
             <div className="flex flex-col space-y-2 ml-11 mr-6 min-h-screen justify-end" style={{ flex: '0.6' }}>
-              <img src={VaseImage} alt="Image 1" className="w-20 h-28 object-cover" />
-              <img src={VaseImage} alt="Image 2" className="w-20 h-28 object-cover" />
-              <img src={VaseImage} alt="Image 3" className="w-20 h-28 object-cover" />
+              <button onClick={() => setLink(imgPath1)}>
+                <img
+                  src={imgPath1}
+                  alt="Image 1"
+                  className="w-20 h-28 object-cover"
+                />
+              </button>
+              <button onClick={() => setLink(imgPath2)}>
+              <img
+                src={imgPath2}
+                alt="Image 2"
+                className="w-20 h-28 object-cover"
+              />
+              </button><button onClick={() => setLink(imgPath3)}>
+                <img
+                  src={imgPath3}
+                  alt="Image 3"
+                  className="w-20 h-28 object-cover"
+                />
+              </button>
             </div>
             <div style={{ flex: '4.6' }}>
-                <img src={VaseImage} alt="FLOWER" className="w-full h-full object-cover" />
+                <img src={imgLink} alt="VASE" className="w-full h-full object-cover" />
             </div>
             <div style={{ flex: '4.8' }}>
-            <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">ARIA GLASS VASE - MAPPLE BLACK</h1>
+            <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">{name}</h1>
                 <p className="text-xs font-Lexend font-medium font-semibold text-main-color ml-10 mt-6">Quantity</p>
                 <div className="mt-3.5 ml-10 mr-16">
                     <Quantity/>
@@ -97,8 +115,7 @@ return (
             </div>
         </div>
         <div className="mt-20 ">
-            <Description placeholder="This vase is perfect for our 60cm faux pampas. The perfect statement vase.
-                                        This vase is made with Glass and is 25cm tall, 11cm wide."/>
+            <Description placeholder={description} />
         </div>
         <div>
             <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>

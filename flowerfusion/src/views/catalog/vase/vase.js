@@ -12,75 +12,9 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
-const vases = [
-  {
-    img: IMG_Vase2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {img: IMG_Vase2, name: 'Happy Wishes', price: '340.000', discount: '10%'},
-  {
-    img: IMG_Vase1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase2,
-    name: 'Joyful Wishes',
-    price: '340.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase1,
-    name: 'Joyful Wishes',
-    price: '440.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase1,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-  {
-    img: IMG_Vase2,
-    name: 'Joyful Wishes',
-    price: '240.000',
-    discount: '10%',
-  },
-];
+import { useSelector, useDispatch } from 'react-redux';
+import { setVases, setSelectedVase } from '../../../Redux/Actions/vaseAction';
+
 const categories = [
   {name: 'Mason Jar', quantity: 46},
   {name: 'Bud Vase', quantity: 47},
@@ -106,26 +40,26 @@ const colors = [
   {name: 'Black', quantity: ''},
 ];
 const Vase = () => {
-  const [vases, setVases] = useState([]);
+  const dispatch = useDispatch();
+  const vases = useSelector((state) => state.vases);
   useEffect(() => {
     const fetchvases = async () => {
       try {
-        await axios.get('/api/vases').then(res => {
-          console.log(res);
-          setVases(res.data);
-        });
+        const response = await axios.get('/api/vases');
+        dispatch(setVases(response.data));
       } catch (error) {
-        console.log(error.response.data.message);
+        //console.log(error.response.data.message);
+        console.log(error);
       }
     };
     fetchvases();
-  }, []);
+  }, [dispatch]);
 const vaseLists = vases.map(vase => {
   return (
-    <Link className="flex justify-center" to="/vases/detail" exact={true}>
+    <Link className="flex justify-center" to="/vases/detail" onClick={() => dispatch(setSelectedVase(vase))}>
       <ItemFlower
         className={styles.itemFlower}
-        img={vase.imgPath}
+        img={vase.imgPath1}
         name={vase.name}
         price={vase.price}
         discount={vase.discount}

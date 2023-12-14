@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react';
-import styles from './detailflower.module.scss';
+import styles from './detailoccasion.module.scss';
 import {NavigationBar} from '../../components/navigationBar/NavigationBar';
 import Size from '../../components/size/size';
 import {Splide, SplideSlide, SplideTrack} from '@splidejs/react-splide';
@@ -22,9 +22,9 @@ import {
   IMG_Kiku3,
 } from '../../assets/images';
 
-const DetailFlower = () => {
-  const selectedFlower = useSelector((state) => state.selectedFlower);
-  const { name, imgPath1, imgPath2, imgPath3, price1, price2, price3, description } = selectedFlower || {};
+const DetailOccasion = () => {
+  const selectedOccasion = useSelector((state) => state.selectedOccasion);
+  const { name, imgPath1, imgPath2, imgPath3, price1, price2, price3, description } = selectedOccasion || {};
 
   const [imgLink, setLink] = useState(imgPath1);
   const options = [
@@ -115,7 +115,7 @@ const DetailFlower = () => {
         <div style={{flex: '4.6'}}>
           <img
             src={imgLink}
-            alt="FLOWER"
+            alt="OCCASION"
             className="w-full h-full object-cover"
           />
         </div>
@@ -165,4 +165,4 @@ const DetailFlower = () => {
   );
 };
 
-export default DetailFlower;
+export default DetailOccasion;
