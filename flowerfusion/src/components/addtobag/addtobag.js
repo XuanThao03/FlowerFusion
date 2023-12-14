@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './addtobag.module.scss';
 
-const AddToBag = () => {
+const AddToBag = ({ totalPrice }) => {
   return (
     <div className="flex-col flex">
       <div className="flex justify-between items-center">
@@ -11,7 +11,7 @@ const AddToBag = () => {
         </div>
         <div>
           <span className="text-total-price font-semibold mr-2">Total</span>
-          <span className="text-pine-tree font-bold">120.000</span>
+          <span className="text-pine-tree font-bold">{totalPrice.toLocaleString('vi-VN')}</span>
         </div>
       </div>
       <button className="bg-button-black rounded-[10px] text-white text-xs font-semibold py-4 px-4 mt-11">

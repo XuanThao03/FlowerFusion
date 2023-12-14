@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import styles from "./detailcandle.module.scss";
 import { NavigationBar } from "../../components/navigationBar/NavigationBar";
 import ListBag from "../../components/listbag/listbag";
@@ -15,7 +15,7 @@ import { useSelector } from 'react-redux';
 
 const DetailCandle = () => {
   const selectedCandle = useSelector((state) => state.selectedCandle);
-  const { name, imgPath1, imgPath2, imgPath3, description } = selectedCandle || {};
+  const { name, imgPath1, imgPath2, imgPath3, price, description } = selectedCandle || {};
 
   const [imgLink, setLink] = useState(imgPath1);
   
@@ -50,6 +50,17 @@ const lists = [
       discount: "10%",
     },
   ];
+  const [quantity, setQuantity] = useState(1);
+  const basePrice = parseInt(price.replace(/\./g, '')); // Chuyển giá thành số nguyên
+
+  // Tính toán totalPrice dựa trên quantity và basePrice
+  const [totalPrice, setTotalPrice] = useState(basePrice);
+
+  // Cập nhật tổng giá mỗi khi quantity thay đổi
+  useEffect(() => {
+    setTotalPrice(quantity * basePrice);
+  }, [quantity, basePrice]);
+  
   const flowerLists = flowers.map((fl) => {
     return (
       <NavLink className="flex justify-center" to="/flowers/detail" exact={true}>
@@ -87,7 +98,9 @@ return (
             <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">{name}</h1>
                 <p className="text-xs font-Lexend font-medium font-semibold text-main-color ml-10 mt-6">Quantity</p>
                 <div className="mt-3.5 ml-10 mr-16">
-                    <Quantity/>
+                    <Quantity quantity={quantity}
+                              onIncrement={() => setQuantity(quantity + 1)}
+                              onDecrement={() => setQuantity(quantity - 1)}/>
                 </div>
                 <h1 className="text-lg font-Lexend font-medium font-semibold text-main-color ml-10 mt-11">Add a matching candle holder (optional)</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3.5 ml-10 mr-16">
@@ -99,7 +112,7 @@ return (
                   ))}
               </div>
                 <div className="mt-8 ml-10 mr-16">
-                    <AddToBag/>
+                    <AddToBag totalPrice={totalPrice}/>
                 </div>
             </div>
         </div>

@@ -63,6 +63,11 @@ const DetailOccasion = () => {
       discount: '10%',
     },
   ];
+  const [totalPrice, setTotalPrice] = useState(price1); // Khởi tạo với giá price1
+  // Hàm để xử lý sự kiện nhấp vào các tùy chọn kích thước
+  const handleSizeClick = (price) => {
+    setTotalPrice(price); // Cập nhật state tổng giá với giá được chọn
+  };
   const flowerLists = flowers.map(fl => {
     return (
       <NavLink
@@ -128,7 +133,7 @@ const DetailOccasion = () => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3.5 ml-10 mr-16">
             {options.map(option => (
-              <Size pieces={option.pieces} price={option.price} />
+              <Size pieces={option.pieces} price={option.price} onClick={handleSizeClick}/>
             ))}
           </div>
           <h1 className="text-lg font-Lexend font-medium font-semibold text-main-color ml-10 mt-11">
@@ -143,7 +148,7 @@ const DetailOccasion = () => {
             ))}
           </div>
           <div className="mt-8 ml-10 mr-16">
-            <AddToBag />
+            <AddToBag totalPrice={totalPrice}/>
           </div>
         </div>
       </div>
