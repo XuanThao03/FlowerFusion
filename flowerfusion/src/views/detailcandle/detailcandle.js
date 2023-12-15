@@ -12,14 +12,21 @@ import ItemFlower from "../../components/itemFlower/ItemFlower";
 import { NavLink, Link } from "react-router-dom";
 import Banner from "../../components/banner/banner";
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/Actions/cartAction';
 
 const DetailCandle = () => {
   const selectedCandle = useSelector((state) => state.selectedCandle);
   const { name, imgPath1, imgPath2, imgPath3, price, description } = selectedCandle || {};
 
   const [imgLink, setLink] = useState(imgPath1);
-  
-const lists = [
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    const item = { imgPath: imgPath1, price: formattedTotalPrice, name, quantity };
+    dispatch(addToCart(item));
+  };
+
+  const lists = [
     { productName: 'Ceramic Vase', productPrice: '120.000' },
     { productName: 'Ceramic Vase', productPrice: '120.000' },
     { productName: 'Ceramic Vase', productPrice: '120.000' },
@@ -51,12 +58,10 @@ const lists = [
     },
   ];
   const [quantity, setQuantity] = useState(1);
-  const basePrice = parseInt(price.replace(/\./g, '')); // Chuyển giá thành số nguyên
-
-  // Tính toán totalPrice dựa trên quantity và basePrice
+  const basePrice = parseInt(price.replace(/\./g, ''));
   const [totalPrice, setTotalPrice] = useState(basePrice);
-
-  // Cập nhật tổng giá mỗi khi quantity thay đổi
+  const formattedTotalPrice = totalPrice ? totalPrice.toLocaleString('vi-VN') : '0';
+  
   useEffect(() => {
     setTotalPrice(quantity * basePrice);
   }, [quantity, basePrice]);
@@ -112,7 +117,7 @@ return (
                   ))}
               </div>
                 <div className="mt-8 ml-10 mr-16">
-                    <AddToBag totalPrice={totalPrice}/>
+                    <AddToBag totalPrice={totalPrice} onAddToCart={handleAddToCart}/>
                 </div>
             </div>
         </div>

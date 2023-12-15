@@ -6,8 +6,9 @@ import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Quantity from "../../components/quantity/quantity";
 import AddToBag from "../../components/addtobag/addtobag";
 import Description from "../../components/description/description";
-import VaseImage from '../../assets/images/IMG_vase1.png';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/Actions/cartAction';
 import { IMG_Vase1, IMG_Vase2 } from "../../assets/images";
 import '@splidejs/splide/dist/css/splide.min.css';
 import ItemFlower from "../../components/itemFlower/ItemFlower";
@@ -18,7 +19,11 @@ const DetailVase = () => {
   const { name, price, imgPath1, imgPath2, imgPath3, description } = selectedVase || {};
 
   const [imgLink, setLink] = useState(imgPath1);
-
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    const item = { imgPath: imgPath1, price: formattedTotalPrice, name, quantity };
+    dispatch(addToCart(item));
+  };
   const lists = [
       { productName: 'Ceramic Vase', productPrice: '120.000' },
       { productName: 'Ceramic Vase', productPrice: '120.000' },
@@ -51,16 +56,13 @@ const DetailVase = () => {
     },
   ];
   const [quantity, setQuantity] = useState(1);
-  const basePrice = parseInt(price.replace(/\./g, '')); // Chuyển giá thành số nguyên
-
-  // Tính toán totalPrice dựa trên quantity và basePrice
+  const basePrice = parseInt(price.replace(/\./g, '')); 
   const [totalPrice, setTotalPrice] = useState(basePrice);
 
-  // Cập nhật tổng giá mỗi khi quantity thay đổi
   useEffect(() => {
     setTotalPrice(quantity * basePrice);
   }, [quantity, basePrice]);
-
+  const formattedTotalPrice = totalPrice ? totalPrice.toLocaleString('vi-VN') : '0';
   const flowerLists = flowers.map((fl) => {
     return (
       <NavLink className="flex justify-center" to="/flowers/detail" exact={true}>
@@ -123,7 +125,7 @@ return (
                   ))}
               </div>
                 <div className="mt-8 ml-10 mr-16">
-                    <AddToBag totalPrice={totalPrice}/>
+                    <AddToBag totalPrice={totalPrice} onAddToCart={handleAddToCart}/>
                 </div>
             </div>
         </div>

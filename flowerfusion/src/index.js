@@ -13,13 +13,6 @@ root.render(
     </React.StrictMode>
   </Provider>,
 );
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//   <Provider store={store}>
-//     <React.StrictMode>
-//       <App />
-//     </React.StrictMode>
-//   </Provider>
-// );
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
