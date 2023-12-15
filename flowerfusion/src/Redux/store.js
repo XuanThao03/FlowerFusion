@@ -6,6 +6,7 @@ import { flowersReducer, selectedFlowerReducer } from './Reducers/flowerReducers
 import { candlesReducer, selectedCandleReducer } from './Reducers/candleReducers';
 import { vasesReducer, selectedVaseReducer } from './Reducers/vaseReducers';
 import { occasionsReducer, selectedOccasionReducer } from './Reducers/occasionReducers';
+import { cartReducer } from './Reducers/cartReducers';
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   selectedVase: selectedVaseReducer,
   occasions: occasionsReducer, 
   selectedOccasion: selectedOccasionReducer,
+  cart: cartReducer,
 });
 
 

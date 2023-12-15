@@ -7,7 +7,8 @@ import ListBag from '../../components/listbag/listbag';
 import AddToBag from '../../components/addtobag/addtobag';
 import Description from '../../components/description/description';
 import { useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/Actions/cartAction';
 import '@splidejs/splide/dist/css/splide.min.css';
 
 import {NavLink, Link} from 'react-router-dom';
@@ -27,6 +28,12 @@ const DetailOccasion = () => {
   const { name, imgPath1, imgPath2, imgPath3, price1, price2, price3, description } = selectedOccasion || {};
 
   const [imgLink, setLink] = useState(imgPath1);
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    const item = { imgPath: imgPath1, price: totalPrice, name, quantity: 1, type: 'flower' };
+    dispatch(addToCart(item));
+  };
+
   const options = [
     {pieces: '12 pieces', price: price1 },
     {pieces: '24 pieces', price: price2 },
@@ -63,11 +70,11 @@ const DetailOccasion = () => {
       discount: '10%',
     },
   ];
-  const [totalPrice, setTotalPrice] = useState(price1); // Khởi tạo với giá price1
-  // Hàm để xử lý sự kiện nhấp vào các tùy chọn kích thước
+  const [totalPrice, setTotalPrice] = useState(price1); 
   const handleSizeClick = (price) => {
-    setTotalPrice(price); // Cập nhật state tổng giá với giá được chọn
+    setTotalPrice(price); 
   };
+
   const flowerLists = flowers.map(fl => {
     return (
       <NavLink
@@ -148,7 +155,7 @@ const DetailOccasion = () => {
             ))}
           </div>
           <div className="mt-8 ml-10 mr-16">
-            <AddToBag totalPrice={totalPrice}/>
+            <AddToBag totalPrice={totalPrice} onAddToCart={handleAddToCart}/>
           </div>
         </div>
       </div>

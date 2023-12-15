@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {IC_Account, IC_Bag, IC_Heart, IC_Search} from '../../assets/icons';
 import styles from './header.module.scss';
 import {NavLink} from 'react-router-dom';
@@ -6,21 +6,21 @@ import ItemProductInCart from '../itemProduct_Cart/itemProduct_cart';
 import {useSelector} from 'react-redux';
 
 export const Header = () => {
-  const product = [
-    'FAUX KIKU FLOWER - CREAM ',
-    'FAUX PAMPAS GRASS - PLUSH PINK ',
-    'FAUX PAMPAS GRASS - PLUSH PINK ',
-    'FAUX PAMPAS GRASS - PLUSH PINK ',
-    'FAUX PAMPAS GRASS - PLUSH PINK ',
-    'FAUX PAMPAS GRASS - PLUSH PINK ',
-  ];
-  const productList = product.map(type => {
-    return (
-      <div className=" px-5 py-4 border-t-2">
-        <ItemProductInCart text={type} />
-      </div>
-    );
-  });
+  const cartItems = useSelector((state) => state.cart.items);
+  const totalAmount = useMemo(() => {
+    if (cartItems.length === 0) {
+      return '0 VND';
+    }
+    const total = cartItems.reduce((acc, item) => {
+      console.log('Item Price:', item.totalPrice);
+      if (item.price && item.price.trim() !== "") {
+        const priceAsNumber = parseFloat(item.price.replace(/\./g, ''));
+        return acc + priceAsNumber;
+      }
+      return acc;
+    }, 0);
+    return total.toLocaleString('vi-VN') + ' VND';
+  }, [cartItems]);
 
   const userLogin = useSelector(state => state.userLogin);
   const {error, loading, userInfo} = userLogin;
@@ -78,7 +78,11 @@ export const Header = () => {
                 <div className={styles.headerContainer}>
                   <p className={styles.txtHeader}>MY CART</p>
                   <div className="w-full h-2/3  overflow-x-scroll no-scrollbar">
-                    {productList}
+                    {cartItems.map((item, index) => (
+                      <div className=" px-5 py-4 border-t-2">
+                        <ItemProductInCart key={index} item={item} />
+                      </div>  
+                    ))}
                   </div>
                   <p className={styles.txtDiscount}>Discount</p>
                   <div className={styles.discountContainer}>
@@ -94,7 +98,7 @@ export const Header = () => {
                   </div>
                   <div className={styles.totalContainer}>
                     <p className={styles.txtTotal}>Total</p>
-                    <p className={styles.valueTotal}>1.500.000 VND</p>
+                    <p className={styles.valueTotal}>{totalAmount}</p>
                   </div>
                   <button className={styles.btnCheckout}>Go to Checkout</button>
                 </div>
