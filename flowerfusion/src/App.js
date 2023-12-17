@@ -38,7 +38,7 @@ export default function App() {
           <Route path="/login" exact={true} element={<LoginInput />} />
           <Route path="/checkout" exact={true} element={<CheckOut />} />
           <Route
-            path="/flowers/detail"
+            path="/flowers/detail/:key"
             element={<DetailFlower />}
           />
           <Route

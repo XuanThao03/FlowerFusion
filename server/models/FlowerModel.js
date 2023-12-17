@@ -39,6 +39,10 @@ const FlowerSchema = new mongoose.Schema(
       require: true,
       default: false,
     },
+    key: {
+      type: String,
+      require: true,
+    },
   },
   {
     versionKey: false,
