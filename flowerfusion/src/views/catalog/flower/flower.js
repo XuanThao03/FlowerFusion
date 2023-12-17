@@ -82,7 +82,8 @@ const Flower = () => {
     return (
       <NavLink
       className="flex justify-center" 
-      to="/flowers/detail"
+      //to="/flowers/detail"
+      to={`/flowers/detail/${fl.key}`}
       onClick={() => dispatch(setSelectedFlower(fl))}
       >
         <ItemFlower

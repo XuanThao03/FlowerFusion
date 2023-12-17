@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/Actions/cartAction';
 import '@splidejs/splide/dist/css/splide.min.css';
-
+import { useParams } from 'react-router-dom'; 
 import {NavLink, Link} from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
@@ -24,6 +24,8 @@ import {
 } from '../../assets/images';
 
 const DetailFlower = () => {
+
+
   const selectedFlower = useSelector((state) => state.selectedFlower);
   const { name, imgPath1, imgPath2, imgPath3, price1, price2, price3, description } = selectedFlower || {};
 
@@ -31,7 +33,7 @@ const DetailFlower = () => {
 
   const dispatch = useDispatch();
   const handleAddToCart = () => {
-    const item = { imgPath: imgPath1, 
+    const item = { imgPath: imgPath1,
                    price: totalPrice, 
                    name, 
                    quantity: 1, 
