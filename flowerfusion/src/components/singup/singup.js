@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
-import axios from 'axios';
 import {useDispatch, useSelector} from 'react-redux';
 import {register} from '../../Redux/Actions/userActions';
 import Message from '../LoadingError/Error';
 import Loading from '../LoadingError/Loading';
 const Signup = ({location, history}) => {
+  const form = useRef();
+
   window.scrollTo(0, 0);
   const navigate = useNavigate();
   const [firstname, setFirstname] = useState('');
@@ -31,6 +32,7 @@ const Signup = ({location, history}) => {
     e.preventDefault();
     dispatch(register(firstname, lastname, email, password));
   };
+
   return (
     <div className=" align-middle flex flex-col items-center ">
       <h1 className="text-2xl font-[Lexend] font-medium text-main-color mt-8 ">
@@ -41,9 +43,10 @@ const Signup = ({location, history}) => {
       </p>
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} ref={form}>
         <div className="text-xs font-[Lexend] font-light text-main-color">
           <input
+            name="user_name"
             className="w-72 border-[1.4px] font-[Lexend] boder-gainsboro rounded-md h-11 p-4 mt-12 bg-transparent"
             placeholder="Firstname"
             onChange={e => setFirstname(e.target.value)}
@@ -51,6 +54,7 @@ const Signup = ({location, history}) => {
         </div>
         <div className="text-xs font-[Lexend] font-light text-main-color">
           <input
+            name="message"
             className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
             placeholder="Lastname"
             onChange={e => setLastname(e.target.value)}
@@ -59,8 +63,10 @@ const Signup = ({location, history}) => {
 
         <div className="text-xs font-[Lexend] font-light text-main-color">
           <input
+            name="user_email"
             className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
             placeholder="Email"
+            type="Email"
             onChange={e => setEmail(e.target.value)}
           />
         </div>
@@ -69,6 +75,7 @@ const Signup = ({location, history}) => {
           <input
             className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
             placeholder="Password"
+            type="password"
             onChange={e => setPassword(e.target.value)}
           />
         </div>

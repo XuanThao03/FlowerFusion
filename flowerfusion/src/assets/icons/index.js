@@ -6,3 +6,5 @@ export {default as IC_DownArrow} from './IC_DownArrow.svg';
 export {default as IC_NextArrow} from './IC_NextArrow.svg';
 export {default as IC_Search} from './IC_Search.svg';
 export {default as IC_Edit} from './IC_Edit.svg';
+export {default as IC_Eye} from './IC_Eye.svg';
+export {default as IC_EyeOff} from './IC_EyeOff.svg';

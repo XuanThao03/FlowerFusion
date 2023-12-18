@@ -16,7 +16,7 @@ import {IC_DownArrow, IC_NextArrow} from '../../assets/icons';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
 import {NavLink} from 'react-router-dom';
 import BottomBanner from '../../components/banner/bottomBanner';
-function Home() {
+const Home = user => {
   const flowers = [
     {
       img: IMG_Flower2,
@@ -122,6 +122,7 @@ function Home() {
         </button>
       </div>
       <div className={styles.greetingContainer}>
+        <p>{('hi', user.name)}</p>
         <p className={styles.txtHeader}>WELCOME TO OUR FLOWER SHOP!</p>
         <p className={styles.txtDetail}>
           We are a women-owned business on a mission to bring the magic of
@@ -220,6 +221,6 @@ function Home() {
       <BottomBanner />
     </div>
   );
-}
+};
 
 export default Home;
