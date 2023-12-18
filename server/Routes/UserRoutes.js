@@ -87,7 +87,6 @@ userRoute.post(
   })
 );
 
-
 //delete user
 userRoute.delete(
   "/delete/profile",
@@ -102,7 +101,8 @@ userRoute.delete(
     await user.deleteOne();
 
     res.status(200).json({ email: req.params.email });
-
+  })
+);
 //update userprofile
 userRoute.put(
   "/profile",
@@ -110,21 +110,21 @@ userRoute.put(
   assyncHandler(async (req, res) => {
     const user = await UserModel.findById(req.user._id);
     if (user) {
-     user.name = req.body.name || user.name
-     user.email = req.body.email || user.email
-     if(req.body.password) {
-      user.password = req.body.password
-     }
-     const updateUser = await user.save() 
-     res.json({
-      _id: updateUser._id,
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      if (req.body.password) {
+        user.password = req.body.password;
+      }
+      const updateUser = await user.save();
+      res.json({
+        _id: updateUser._id,
         firstname: updateUser.firstname,
         lastname: updateUser.lastname,
         email: updateUser.email,
         isAdmin: updateUser.isAdmin,
         token: generateToken(updateUser._id),
         createdAt: updateUser.createdAt,
-     })
+      });
     } else {
       res.status(404);
       throw new Error("User not found");
