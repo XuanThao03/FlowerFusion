@@ -86,6 +86,23 @@ userRoute.post(
     }
   })
 );
+
+
+//delete user
+userRoute.delete(
+  "/delete/profile",
+  assyncHandler(async (req, res) => {
+    const user = await UserModel.findOne({ email: req.body.email });
+
+    if (!user) {
+      res.status(400);
+      throw new Error("User not found");
+    }
+
+    await user.deleteOne();
+
+    res.status(200).json({ email: req.params.email });
+
 //update userprofile
 userRoute.put(
   "/profile",
