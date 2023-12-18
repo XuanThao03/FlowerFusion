@@ -6,11 +6,27 @@ const OccasionSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    price: {
+    price1: {
       type: String,
       require: true,
     },
-    imgPath: {
+    price2: {
+      type: String,
+      require: true,
+    },
+    price3: {
+      type: String,
+      require: true,
+    },
+    imgPath1: {
+      type: String,
+      require: true,
+    },
+    imgPath2: {
+      type: String,
+      require: true,
+    },
+    imgPath3: {
       type: String,
       require: true,
     },

@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react';
-import styles from './detailflower.module.scss';
+import styles from './detailoccasion.module.scss';
 import {NavigationBar} from '../../components/navigationBar/NavigationBar';
 import Size from '../../components/size/size';
 import {Splide, SplideSlide, SplideTrack} from '@splidejs/react-splide';
@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/Actions/cartAction';
 import '@splidejs/splide/dist/css/splide.min.css';
-import { useParams } from 'react-router-dom'; 
+
 import {NavLink, Link} from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
@@ -23,21 +23,14 @@ import {
   IMG_Kiku3,
 } from '../../assets/images';
 
-const DetailFlower = () => {
-
-
-  const selectedFlower = useSelector((state) => state.selectedFlower);
-  const { name, imgPath1, imgPath2, imgPath3, price1, price2, price3, description } = selectedFlower || {};
+const DetailOccasion = () => {
+  const selectedOccasion = useSelector((state) => state.selectedOccasion);
+  const { name, imgPath1, imgPath2, imgPath3, price1, price2, price3, description } = selectedOccasion || {};
 
   const [imgLink, setLink] = useState(imgPath1);
-
   const dispatch = useDispatch();
   const handleAddToCart = () => {
-    const item = { imgPath: imgPath1,
-                   price: totalPrice, 
-                   name, 
-                   quantity: 1, 
-                   type: 'flower' };
+    const item = { imgPath: imgPath1, price: totalPrice, name, quantity: 1, type: 'flower' };
     dispatch(addToCart(item));
   };
 
@@ -78,7 +71,6 @@ const DetailFlower = () => {
     },
   ];
   const [totalPrice, setTotalPrice] = useState(price1); 
-  
   const handleSizeClick = (price) => {
     setTotalPrice(price); 
   };
@@ -135,7 +127,7 @@ const DetailFlower = () => {
         <div style={{flex: '4.6'}}>
           <img
             src={imgLink}
-            alt="FLOWER"
+            alt="OCCASION"
             className="w-full h-full object-cover"
           />
         </div>
@@ -148,10 +140,7 @@ const DetailFlower = () => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3.5 ml-10 mr-16">
             {options.map(option => (
-              <Size 
-              pieces={option.pieces} 
-              price={option.price}
-              onClick={handleSizeClick} />
+              <Size pieces={option.pieces} price={option.price} onClick={handleSizeClick}/>
             ))}
           </div>
           <h1 className="text-lg font-Lexend font-medium font-semibold text-main-color ml-10 mt-11">
@@ -188,4 +177,4 @@ const DetailFlower = () => {
   );
 };
 
-export default DetailFlower;
+export default DetailOccasion;

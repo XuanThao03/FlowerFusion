@@ -12,6 +12,8 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFlowers, setSelectedFlower } from '../../../Redux/Actions/flowerAction';
 
 
 const arrival = [
@@ -60,40 +62,35 @@ const quantity = [
   {name: '91-100', quantity: ''},
   {name: 'Other', quantity: ''},
 ];
-// const typeLists = typeProducts.map((type) => {
-//   return (
-//     <SplideSlide className={styles.btnTab}>
-//       <BtnTab text={type} />
-//     </SplideSlide>
-//   );
-// });
 const Flower = () => {
-  const [flowers, setFlowers] = useState([]);
+  const dispatch = useDispatch();
+  const flowers = useSelector((state) => state.flowers);
   useEffect(() => {
     const fetchflowers = async () => {
       try {
-        await axios.get('/api/flowers').then(res => {
-          console.log(res);
-          setFlowers(res.data);
-        });
+        const response = await axios.get('/api/flowers');
+        dispatch(setFlowers(response.data));
       } catch (error) {
-        console.log(error.response.data.message);
+        //console.log(error.response.data.message);
+        console.log(error);
       }
     };
     fetchflowers();
-  }, []);
+  }, [dispatch]);
 
   const flowerLists = flowers.map(fl => {
     return (
       <NavLink
-        className="flex justify-center"
-        to="/flowers/detail"
-        exact={true}>
+      className="flex justify-center" 
+      //to="/flowers/detail"
+      to={`/flowers/detail/${fl.key}`}
+      onClick={() => dispatch(setSelectedFlower(fl))}
+      >
         <ItemFlower
           className={styles.itemFlower}
-          img={fl.imgPath}
+          img={fl.imgPath1}
           name={fl.name}
-          price={fl.price}
+          price={fl.price1}
           discount={fl.discount}
         />
       </NavLink>

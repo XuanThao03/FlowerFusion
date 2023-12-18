@@ -10,7 +10,15 @@ const CandleSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    imgPath: {
+    imgPath1: {
+      type: String,
+      require: true,
+    },
+    imgPath2: {
+      type: String,
+      require: true,
+    },
+    imgPath3: {
       type: String,
       require: true,
     },
