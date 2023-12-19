@@ -42,15 +42,15 @@ export default function App() {
             element={<DetailFlower />}
           />
           <Route
-            path="/candles/detail"
+            path="/candles/detail/:key"
             element={<DetailCandle />}
           />
           <Route
-            path="/occasions/detail"
+            path="/occasions/detail/:key"
             element={<DetailOccasion />}
           />
           <Route 
-            path="/vases/detail"
+            path="/vases/detail/:key"
             element={<DetailVase />} />
           <Route path="/signup" exact={true} element={<Signup />} />
           <Route path="/myaccount" exact={true} element={<MyAccount />} />
