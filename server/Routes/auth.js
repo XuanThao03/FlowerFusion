@@ -9,18 +9,57 @@ import protect from "../Middleware/AuthMiddleware.js";
 dotenv.config();
 const router = express.Router();
 
-router.get("/login/success", (req, res) => {
+//Google login successfully
+router.get("/login/success", async (req, res) => {
   if (req.user) {
-    res.status(200).json({
-      error: false,
-      message: "Successfully Loged In",
-      user: req.user,
-    });
+    //check account in mongodb
+    const user = await UserModel.findOne({ email: req.user._json.email });
+    if (user) {
+      res.json({
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+        createdAt: user.createdAt,
+        isNew: false,
+      });
+    } else {
+      const { given_name, family_name, email, isAdmin } = req.user._json;
+      const firstname = given_name;
+      const lastname = family_name;
+      const password = "123456";
+      const user = await UserModel.create({
+        firstname,
+        lastname,
+        email,
+        password,
+      }).catch((err) => {
+        console.error(err);
+      });
+      if (user) {
+        res.status(201).json({
+          _id: user._id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          email: user.email,
+          isAdmin: user.isAdmin,
+          token: generateToken(user._id),
+          isNew: true,
+        });
+      } else {
+        res.status(400);
+        throw new Error("Invalid User Data");
+      }
+    }
   } else {
     res.status(403).json({ error: true, message: "Not Authorized" });
+    6;
   }
 });
 
+//google login fail
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
     error: true,
@@ -28,6 +67,7 @@ router.get("/login/failed", (req, res) => {
   });
 });
 
+//google login
 router.get("/google", passport.authenticate("google", ["profile", "email"]));
 
 router.get(
@@ -38,48 +78,10 @@ router.get(
   })
 );
 
+//google logout
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("http://localhost:3000/login");
 });
 
-//SaveDatabase
-router.post(
-  "/googlesave",
-  assyncHandler(async (req, res) => {
-    const { given_name, family_name, email, isAdmin } = req.body;
-    const firstname = given_name;
-    const lastname = family_name;
-    const password = "123456";
-
-    const userExists = await UserModel.findOne({ email });
-
-    if (userExists) {
-      res.status(400);
-      throw new Error("User already exists");
-    }
-    const user = await UserModel.create({
-      firstname,
-      lastname,
-      email,
-      password,
-    }).catch((err) => {
-      console.error(err);
-    });
-
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        firstname: user.given_name,
-        lastname: user.family_name,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-      });
-    } else {
-      res.status(400);
-      throw new Error("Invalid User Data");
-    }
-  })
-);
 export default router;
