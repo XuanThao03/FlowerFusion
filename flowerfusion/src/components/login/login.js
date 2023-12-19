@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import styles from './logininput.module.scss';
 import {NavLink, useNavigate} from 'react-router-dom';
-import {googleLogin, login} from '../../Redux/Actions/userActions';
+import {login} from '../../Redux/Actions/userActions';
 import Message from '../LoadingError/Error';
 import Loading from '../LoadingError/Loading';
 import axios from 'axios';
@@ -79,16 +79,24 @@ const LoginInput = (location, history) => {
           </button>
         </div>
       </form>
-      <button
-        onClick={googleAuth}
-        className=" mt-10 bg-button-black w-72 h-10 rounded-[10px] text-white text-xs font-[Lexend] font-normal">
-        Login with google
-      </button>
+      <div className="mt-5 flex flex-col justify-center items-center">
+        <p
+          className=" text-main-color
+        ">
+          - Or -
+        </p>
+        <button
+          onClick={googleAuth}
+          className=" mt-3  bg-button-black w-72 h-10 rounded-[10px] text-white text-xs font-[Lexend] font-normal">
+          Login with Google
+        </button>
+      </div>
+
       <NavLink
         to={redirect ? `/signup?redirect=${redirect}` : '/signup'}
         exact={true}
         className="py-2">
-        Create account
+        New to Flowerfusion? <strong>Create account</strong>
       </NavLink>
     </div>
   );

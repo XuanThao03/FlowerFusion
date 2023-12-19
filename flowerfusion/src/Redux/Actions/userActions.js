@@ -71,24 +71,24 @@ export const register =
       dispatch({type: USER_LOGIN_SUCCESS, payload: data});
 
       localStorage.setItem('userInfo', JSON.stringify(data));
-      // var templateParams = {
-      //   name: `${firstname} ${lastname}`,
-      // };
-      // emailjs
-      //   .send(
-      //     'service_32cvm54',
-      //     'template_1158atm',
-      //     templateParams,
-      //     '7beaQSbI_ePACoK5c',
-      //   )
-      //   .then(
-      //     result => {
-      //       console.log(result.text);
-      //     },
-      //     error => {
-      //       console.log(error.text);
-      //     },
-      //   );
+      var templateParams = {
+        name: `${firstname} ${lastname}`,
+      };
+      emailjs
+        .send(
+          'service_32cvm54',
+          'template_1158atm',
+          templateParams,
+          '7beaQSbI_ePACoK5c',
+        )
+        .then(
+          result => {
+            console.log(result.text);
+          },
+          error => {
+            console.log(error.text);
+          },
+        );
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -99,38 +99,3 @@ export const register =
       });
     }
   };
-
-//gglogin
-export const googleLogin = data => async dispatch => {
-  try {
-    dispatch({type: USER_GGLOGIN_REQUEST});
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    console.log('hi');
-
-    // const {data} = await axios
-    //   .get(`/auth/login/success`, {withCredentials: true})
-    //   .then(function (response) {
-    //     console.log(data);
-    //   });
-    // dispatch({type: USER_GGLOGIN_SUCCESS, payload: data});
-    const {saveddata} = await axios.post(`/auth/googlesave`, {data}, config);
-    dispatch({type: USER_GGLOGIN_SUCCESS, payload: data});
-
-    localStorage.setItem('userInfo', JSON.stringify(data));
-
-    //localStorage.setItem('userInfo', JSON.stringify(data));
-  } catch (error) {
-    dispatch({
-      type: USER_GGLOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
