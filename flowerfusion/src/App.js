@@ -95,10 +95,21 @@ export default function App() {
           <Route path="/trending" element={<Trending />} />
           <Route path="/login" exact={true} element={<LoginInput />} />
           <Route path="/checkout" exact={true} element={<CheckOut />} />
-          <Route path="/flowers/detail/:key" element={<DetailFlower />} />
-          <Route path="/candles/detail" element={<DetailCandle />} />
-          <Route path="/occasions/detail" element={<DetailOccasion />} />
-          <Route path="/vases/detail" element={<DetailVase />} />
+          <Route
+            path="/flowers/detail/:key"
+            element={<DetailFlower />}
+          />
+          <Route
+            path="/candles/detail/:key"
+            element={<DetailCandle />}
+          />
+          <Route
+            path="/occasions/detail/:key"
+            element={<DetailOccasion />}
+          />
+          <Route 
+            path="/vases/detail/:key"
+            element={<DetailVase />} />
           <Route path="/signup" exact={true} element={<Signup />} />
           <Route path="/myaccount" exact={true} element={<MyAccount />} />
           <Route path="/faq" exact={true} element={<FAQ />} />

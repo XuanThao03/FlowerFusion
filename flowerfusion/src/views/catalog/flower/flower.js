@@ -65,6 +65,12 @@ const quantity = [
 const Flower = () => {
   const dispatch = useDispatch();
   const flowers = useSelector((state) => state.flowers);
+
+  const handleFlowerClick = (selectedFlower) => {
+    dispatch(setSelectedFlower(selectedFlower));
+    localStorage.setItem('selectedFlower', JSON.stringify(selectedFlower));
+  };
+
   useEffect(() => {
     const fetchflowers = async () => {
       try {
@@ -82,9 +88,9 @@ const Flower = () => {
     return (
       <NavLink
       className="flex justify-center" 
-      //to="/flowers/detail"
       to={`/flowers/detail/${fl.key}`}
-      onClick={() => dispatch(setSelectedFlower(fl))}
+      onClick={() => handleFlowerClick(fl)}
+      key={fl.key}
       >
         <ItemFlower
           className={styles.itemFlower}

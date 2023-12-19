@@ -31,6 +31,14 @@ const CandleSchema = new mongoose.Schema(
       require: true,
       default: false,
     },
+    key: {
+      type: String,
+      require: true,
+    },
+    type: {
+      type: String,
+      require: true,
+    },
   },
   {
     versionKey: false,

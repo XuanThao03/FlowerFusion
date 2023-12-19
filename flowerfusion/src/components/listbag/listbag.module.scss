@@ -1,0 +1,40 @@
+.mainContainer {
+    @apply w-[267px] h-[450px]  flex-col flex;
+  }
+  .imgContainer {
+    @apply w-full h-4/5 bg-cookies-and-cream;
+  }
+  .bottomContainer {
+    @apply w-full flex h-1/5 items-center justify-between;
+  }
+  .btnAdd2Cart {
+    @apply text-cookies-and-cream font-Montserrat text-xs font-medium
+    hover:text-white px-4 py-3 border-2 border-cookies-and-cream hover:bg-cookies-and-cream;
+  }
+  .txtAdd2Cart {
+    @apply text-cookies-and-cream font-Montserrat text-xs font-medium
+    hover:text-white;
+  }
+  .inforContainer {
+    @apply w-7/12 justify-center;
+  }
+  .txtName {
+    @apply font-medium font-Montserrat text-granite-gra text-base;
+  }
+  .txtPrice {
+    @apply font-semibold font-Montserrat text-pine-tree text-xs;
+  }
+  .coupon {
+    @apply w-12 h-12 rounded-full opacity-90
+    inline-flex items-center justify-center
+     bg-silver-pink text-white text-xs font-medium  top-3 left-3  font-Lexend;
+  }
+  .favorite {
+    @apply w-12 h-12 rounded-full opacity-90
+    inline-flex items-center justify-center
+     bg-white text-white text-xs font-medium  top-3 left-52  font-Lexend;
+  }
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  

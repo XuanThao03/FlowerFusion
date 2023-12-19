@@ -13,13 +13,33 @@ import { IMG_Vase1, IMG_Vase2 } from "../../assets/images";
 import '@splidejs/splide/dist/css/splide.min.css';
 import ItemFlower from "../../components/itemFlower/ItemFlower";
 import { NavLink, Link } from "react-router-dom";
+import axios from 'axios';
 import Banner from "../../components/banner/banner";
+import { setVases, setSelectedVase } from '../../Redux/Actions/vaseAction';
 const DetailVase = () => {
+  const dispatch = useDispatch();
+
   const selectedVase = useSelector((state) => state.selectedVase);
-  const { name, price, imgPath1, imgPath2, imgPath3, description } = selectedVase || {};
+  const {
+    name,
+    imgPath1,
+    imgPath2,
+    imgPath3,
+    price,
+    description,
+  } = selectedVase || {};
+
+  useEffect(() => {
+    const storedVase = localStorage.getItem('selectedVase');
+    if (storedVase) {
+      const parsedVase = JSON.parse(storedVase);
+      dispatch(setSelectedVase(parsedVase));
+      setLink(parsedVase.imgPath1);
+    }
+  }, [dispatch]);
+
 
   const [imgLink, setLink] = useState(imgPath1);
-  const dispatch = useDispatch();
   const handleAddToCart = () => {
     const item = { imgPath: imgPath1, price: formattedTotalPrice, name, quantity };
     dispatch(addToCart(item));
@@ -29,53 +49,52 @@ const DetailVase = () => {
       { productName: 'Ceramic Vase', productPrice: '120.000' },
       { productName: 'Ceramic Vase', productPrice: '120.000' },
     ];
-  const flowers = [
-    {
-      img: IMG_Vase1,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Vase1,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Vase2,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Vase2,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-  ];
   const [quantity, setQuantity] = useState(1);
-  const basePrice = parseInt(price.replace(/\./g, '')); 
+  const basePrice = parseInt(price ? price.replace(/\./g, '') : '0');
   const [totalPrice, setTotalPrice] = useState(basePrice);
 
   useEffect(() => {
     setTotalPrice(quantity * basePrice);
   }, [quantity, basePrice]);
+
   const formattedTotalPrice = totalPrice ? totalPrice.toLocaleString('vi-VN') : '0';
-  const flowerLists = flowers.map((fl) => {
+
+  const vases = useSelector((state) => state.vases);
+  const handleVaseClick = (selectedVase) => {
+    dispatch(setSelectedVase(selectedVase));
+    localStorage.setItem('selectedVase', JSON.stringify(selectedVase));
+    setLink(selectedVase.imgPath1);
+    window.location = `/vases/detail/${selectedVase.key}`;
+  };
+  useEffect(() => {
+    const fetchvases = async () => {
+      try {
+        const response = await axios.get('/api/vases');
+        dispatch(setVases(response.data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchvases();
+  }, [dispatch]);
+  const vaseLists = vases.map(vase => {
     return (
-      <NavLink className="flex justify-center" to="/flowers/detail" exact={true}>
-        <ItemFlower
-          className="flex-shrink-0  justify-center flex"
-          img={fl.img}
-          name={fl.name}
-          price={fl.price}
-          discount={fl.discount}
-        />
-      </NavLink>
+      <SplideSlide key={vase.key}>
+        <NavLink  className="flex justify-center" 
+                  // to={`/vases/detail/${vase.key}`}
+                  onClick={() => handleVaseClick(vase)}>
+          <ItemFlower
+            className={styles.itemFlower}
+            img={vase.imgPath1}
+            name={vase.name}
+            price={vase.price}
+            discount={vase.discount}
+          />
+        </NavLink>
+      </SplideSlide>
     );
   });
+
 return ( 
     <div>
         <div>
@@ -135,7 +154,18 @@ return (
         <div>
             <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>
         </div>
-        <div className="w-full grid grid-cols-4 justify-center items-stretch">{flowerLists}</div>
+
+        <Splide className="mt-8"
+          options={{
+            perPage: 4,
+            arrows: true,
+            pagination: false,
+            drag: 'free',
+            gap: '1rem',
+          }}
+        >
+          {vaseLists}
+        </Splide>
     </div>
   );
 };

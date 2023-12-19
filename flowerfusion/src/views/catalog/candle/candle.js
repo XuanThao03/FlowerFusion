@@ -34,6 +34,12 @@ const colors = [
 const Candle = () => {
   const dispatch = useDispatch();
   const candles = useSelector((state) => state.candles);
+
+  const handleCandleClick = (selectedCandle) => {
+    dispatch(setSelectedCandle(selectedCandle));
+    localStorage.setItem('selectedCandle', JSON.stringify(selectedCandle));
+  };
+
   useEffect(() => {
     const fetchcandles = async () => {
       try {
@@ -49,8 +55,8 @@ const Candle = () => {
 const CandleLists = candles.map(Candle => {
   return (
     <NavLink className="flex justify-center" 
-             to="/candles/detail" 
-             onClick={() => dispatch(setSelectedCandle(Candle))}>
+             to={`/candles/detail/${Candle.key}`}
+             onClick={() => handleCandleClick(Candle)}>
       <ItemFlower
         className={styles.itemFlower}
         img={Candle.imgPath1}
