@@ -14,7 +14,7 @@ const Information = () => {
           First name:
         </p>
         <p className="text-xs font-[Lexend] font-light mx-[4px] text-main-color mt-[52px]">
-          {userInfo.firstname}
+          {userInfo.firstname ?? userInfo.given_name}
         </p>
       </div>
       <div className="flex mt-[10px]">
@@ -22,7 +22,7 @@ const Information = () => {
           Last name:
         </p>
         <p className="text-xs font-[Lexend] font-light mx-[4px] text-main-color">
-          {userInfo.lastname}
+          {userInfo.lastname ?? userInfo.family_name}
         </p>
       </div>
       <div className="flex mt-[10px]">

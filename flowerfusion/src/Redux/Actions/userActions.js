@@ -1,5 +1,9 @@
 import axios from 'axios';
+import emailjs from '@emailjs/browser';
 import {
+  USER_GGLOGIN_FAIL,
+  USER_GGLOGIN_REQUEST,
+  USER_GGLOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -8,6 +12,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../Constants/UserContants';
+import {useRef} from 'react';
 
 //login
 export const login = (email, password) => async dispatch => {
@@ -40,9 +45,10 @@ export const login = (email, password) => async dispatch => {
 
 // logout
 export const logout = () => dispatch => {
+  document.location.href = '/login';
+  //const {data} = axios.get(`http://localhost:5000/auth/logout`);
   localStorage.removeItem('userInfo');
   dispatch({type: USER_LOGOUT});
-  document.location.href = '/login';
 };
 
 //register
@@ -65,6 +71,24 @@ export const register =
       dispatch({type: USER_LOGIN_SUCCESS, payload: data});
 
       localStorage.setItem('userInfo', JSON.stringify(data));
+      var templateParams = {
+        name: `${firstname} ${lastname}`,
+      };
+      emailjs
+        .send(
+          'service_32cvm54',
+          'template_1158atm',
+          templateParams,
+          '7beaQSbI_ePACoK5c',
+        )
+        .then(
+          result => {
+            console.log(result.text);
+          },
+          error => {
+            console.log(error.text);
+          },
+        );
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
