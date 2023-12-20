@@ -20,6 +20,7 @@ import { setVases, setSelectedVase } from '../../Redux/Actions/vaseAction';
 
 const DetailFlower = () => {
   const dispatch = useDispatch();
+
   const { key } = useParams();
   const selectedFlower = useSelector((state) => state.selectedFlower);
   const {
@@ -206,7 +207,7 @@ const DetailFlower = () => {
                 }}
               >
                 {vaseLists}
-              </Splide> */}
+              </Splide>  */}
               <h1>AAAAAAAAAAAAAAAAAAAAAAA</h1>
           </div>
 

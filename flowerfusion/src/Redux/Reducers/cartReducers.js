@@ -3,30 +3,35 @@ const initialState = {
     items: [],
   };
   
+const storedCart = localStorage.getItem('cart');
+if (storedCart) {
+  initialState.items = JSON.parse(storedCart);
+}
+
 export const cartReducer = (state = initialState, action) => {
     switch (action.type) {
       case 'cart/addToCart':
         if (action.payload.type === 'flower') {
             const existingFlowerIndex = state.items.findIndex(
-              (item) => item.name === action.payload.name && item.price === action.payload.price && item.type === 'flower'
+              (item) => item.name === action.payload.name && item.originalPrice === action.payload.price && item.type === 'flower'
             );
             const priceAsNumber = parseInt(action.payload.price.replace(/\D/g, ''), 10);
             if (existingFlowerIndex >= 0) {
-                const newItems = [...state.items];
-                const existingItem = newItems[existingFlowerIndex];
-                const updatedQuantity = existingItem.quantity + action.payload.quantity;
-                const updatedTotalPrice = updatedQuantity * priceAsNumber;
-                const formattedTotalPrice = updatedTotalPrice.toLocaleString('vi-VN');
-                newItems[existingFlowerIndex] = {
-                    ...existingItem,
-                    quantity: updatedQuantity,
-                    price: formattedTotalPrice
-                };
+              const newItems = [...state.items];
+              const existingItem = newItems[existingFlowerIndex];
+              const updatedQuantity = existingItem.quantity + action.payload.quantity;
+              const updatedTotalPrice = updatedQuantity * priceAsNumber;
+              const formattedTotalPrice = updatedTotalPrice.toLocaleString('vi-VN');
+              newItems[existingFlowerIndex] = {
+                ...existingItem,
+                quantity: updatedQuantity,
+                price: formattedTotalPrice
+              };
               return { ...state, items: newItems };
             } else {
               return {
                 ...state,
-                items: [...state.items, { ...action.payload }]
+                items: [...state.items, { ...action.payload, originalPrice: action.payload.price }]
               };
             }
         }
@@ -113,8 +118,6 @@ export const cartReducer = (state = initialState, action) => {
           return state;
 
         case 'cart/removeFromCart':
-          // const updatedItems = state.items.filter(item => item.name !== action.payload);
-          // return { ...state, items: updatedItems };
           const { name, price } = action.payload;
           const updatedItems = state.items.filter(item => item.name !== name || item.price !== price);
           return { ...state, items: updatedItems };
