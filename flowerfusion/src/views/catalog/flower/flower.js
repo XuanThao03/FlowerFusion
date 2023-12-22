@@ -65,6 +65,12 @@ const quantity = [
 const Flower = () => {
   const dispatch = useDispatch();
   const flowers = useSelector((state) => state.flowers);
+
+  const handleFlowerClick = (selectedFlower) => {
+    dispatch(setSelectedFlower(selectedFlower));
+    localStorage.setItem('selectedFlower', JSON.stringify(selectedFlower));
+  };
+
   useEffect(() => {
     const fetchflowers = async () => {
       try {
@@ -78,31 +84,13 @@ const Flower = () => {
     fetchflowers();
   }, [dispatch]);
 
-  // if (!flowers) {
-  //   return <div>Loading...</div>; // hoặc hiển thị một thông báo loading khác tùy thuộc vào ý định của bạn
-  // }
-
-  // const [flowers, setFlowers] = useState([]);
-  // useEffect(() => {
-  //   const fetchflowers = async () => {
-  //     try {
-  //       await axios.get('/api/flowers').then(res => {
-  //         console.log(res);
-  //         setFlowers(res.data);
-  //       });
-  //     } catch (error) {
-  //       console.log(error.response.data.message);
-  //     }
-  //   };
-  //   fetchflowers();
-  // }, []);
-
   const flowerLists = flowers.map(fl => {
     return (
       <NavLink
       className="flex justify-center" 
-      to="/flowers/detail"
-      onClick={() => dispatch(setSelectedFlower(fl))}
+      to={`/flowers/detail/${fl.key}`}
+      onClick={() => handleFlowerClick(fl)}
+      key={fl.key}
       >
         <ItemFlower
           className={styles.itemFlower}

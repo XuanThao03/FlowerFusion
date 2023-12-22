@@ -27,7 +27,7 @@ function ItemFlower(props) {
           <div className={styles.txtPrice}>{props.price}</div>
         </div>
         <div>
-          <button className={styles.btnAdd2Cart}>Add to card</button>
+          <button className={styles.btnAdd2Cart}>More Detail</button>
         </div>
       </div>
     </div>

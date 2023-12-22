@@ -1,29 +1,32 @@
 import React, { useState } from "react";
-import { IMG_Flower2 } from "../../assets/images";
-function ItemProductInCart() {
-  const [temp, setTemp] = useState(1);
-  const [quantity, setQuantity] = useState(temp);
-  function onChange(event) {
-    if (event.target.value < 0) return;
-    setQuantity(+event.target.value);
-    console.log(quantity);
-  }
+import { useDispatch } from 'react-redux';
+import { incrementQuantity, decrementQuantity, removeFromCart } from '../../Redux/Actions/cartAction';
+function ItemProductInCart({item}) {
+  const dispatch = useDispatch();
   const inc = () => {
-    setQuantity(quantity + 1);
+    dispatch(incrementQuantity({ name: item.name, price: item.price }));
   };
   const dec = () => {
-    if (quantity > 0) setQuantity(quantity - 1);
+    if (item.quantity > 1) {
+      dispatch(decrementQuantity({ name: item.name, price: item.price }));
+    }
   };
+  const removeItem = () => {
+    dispatch(removeFromCart({ name: item.name, price: item.price }));
+  };
+
+  const quantity = item.quantity;
+  
   return (
     <div className="flex">
-      <img className="w-[111px] h-[131px]" src={IMG_Flower2} />
+      <img className="w-[111px] h-[131px]" src={item.imgPath} />
       <div className=" ml-6 flex flex-col justify-between">
         <div>
           <p className="font-Lexend text-base font-light">
-            FAUX KIKU FLOWER - CREAM
+            {item.name}
           </p>
           <p className=" my-2 font-Lexend text-base font-medium text-red-price">
-            240.000
+            {item.price}
           </p>
         </div>
         <div className="flex justify-between ">
@@ -38,7 +41,7 @@ function ItemProductInCart() {
               type="number"
               className=" w-10 h-6 border-0 p-0 justify-center text-center"
               value={quantity}
-              onInput={(e) => onChange(e)}
+              readOnly
             />
             <button
               onClick={inc}
@@ -47,7 +50,7 @@ function ItemProductInCart() {
               +
             </button>
           </div>
-          <button>Remove</button>
+          <button onClick={removeItem}>Remove</button>
         </div>
       </div>
     </div>

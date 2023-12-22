@@ -1,4 +1,7 @@
 import {
+  USER_GGLOGIN_FAIL,
+  USER_GGLOGIN_REQUEST,
+  USER_GGLOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -45,6 +48,28 @@ export const userRegisterReducer = (state = {}, action) => {
         userInfo: action.payload,
       };
     case USER_REGISTER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+//ggRegister
+export const userGGRegisterReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_GGLOGIN_REQUEST:
+      return {
+        loading: true,
+      };
+    case USER_GGLOGIN_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload,
+      };
+    case USER_GGLOGIN_FAIL:
       return {
         loading: false,
         error: action.payload,
