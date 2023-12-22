@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import styles from "./detailcandle.module.scss";
 import { NavigationBar } from "../../components/navigationBar/NavigationBar";
 import ListBag from "../../components/listbag/listbag";
@@ -6,62 +6,97 @@ import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import Quantity from "../../components/quantity/quantity";
 import AddToBag from "../../components/addtobag/addtobag";
 import Description from "../../components/description/description";
-import CandleImage from '../../assets/images/IMG_Candle1.png';
 import { IMG_Candle1, IMG_Candle2 } from "../../assets/images";
 import '@splidejs/splide/dist/css/splide.min.css';
 import ItemFlower from "../../components/itemFlower/ItemFlower";
 import { NavLink, Link } from "react-router-dom";
+import axios from 'axios';
 import Banner from "../../components/banner/banner";
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/Actions/cartAction';
+import { setCandles, setSelectedCandle } from '../../Redux/Actions/candleAction';
+
 const DetailCandle = () => {
-  const options = [
-    { pieces: '12 pieces', price: '240.000' },
-    { pieces: '24 pieces', price: '450.000' },
-    { pieces: '36 pieces', price: '600.000' },
-  ];
-const lists = [
+  const dispatch = useDispatch();
+  const selectedCandle = useSelector((state) => state.selectedCandle);
+  const {
+    name,
+    imgPath1,
+    imgPath2,
+    imgPath3,
+    price,
+    description,
+  } = selectedCandle || {};
+
+  useEffect(() => {
+    const storedCandle = localStorage.getItem('selectedCandle');
+    if (storedCandle) {
+      const parsedCandle = JSON.parse(storedCandle);
+      dispatch(setSelectedCandle(parsedCandle));
+      setLink(parsedCandle.imgPath1);
+    }
+  }, [dispatch]);
+
+  const [imgLink, setLink] = useState(imgPath1);
+
+  const handleAddToCart = () => {
+    const item = { imgPath: imgPath1, price: formattedTotalPrice, name, quantity };
+    dispatch(addToCart(item));
+  };
+
+  const lists = [
     { productName: 'Ceramic Vase', productPrice: '120.000' },
     { productName: 'Ceramic Vase', productPrice: '120.000' },
     { productName: 'Ceramic Vase', productPrice: '120.000' },
   ];
-  const flowers = [
-    {
-      img: IMG_Candle1,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Candle1,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Candle2,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Candle2,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-  ];
-  const flowerLists = flowers.map((fl) => {
+
+  const [quantity, setQuantity] = useState(1);
+  const basePrice = parseInt(price ? price.replace(/\./g, '') : '0');
+  
+  const [totalPrice, setTotalPrice] = useState(basePrice);
+  const formattedTotalPrice = totalPrice ? totalPrice.toLocaleString('vi-VN') : '0';
+  
+  useEffect(() => {
+    setTotalPrice(quantity * basePrice);
+  }, [quantity, basePrice]);
+  
+  const candles = useSelector((state) => state.candles);
+  const handleCandleClick = (selectedCandle) => {
+    dispatch(setSelectedCandle(selectedCandle));
+    localStorage.setItem('selectedCandle', JSON.stringify(selectedCandle));
+    setLink(selectedCandle.imgPath1);
+    window.location = `/candles/detail/${selectedCandle.key}`;
+  };
+  useEffect(() => {
+    const fetchcandles = async () => {
+      try {
+        const response = await axios.get('/api/candles');
+        dispatch(setCandles(response.data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchcandles();
+  }, [dispatch]);
+  const CandleLists = candles.map(Candle => {
     return (
-      <NavLink className="flex justify-center" to="/flowers/detail" exact={true}>
-        <ItemFlower
-          className="flex-shrink-0  justify-center flex"
-          img={fl.img}
-          name={fl.name}
-          price={fl.price}
-          discount={fl.discount}
-        />
-      </NavLink>
+      <SplideSlide key={Candle.key}>
+        <NavLink className="flex justify-center" 
+                //to={`/candles/detail/${Candle.key}`}
+                onClick={() => handleCandleClick(Candle)}>
+          <ItemFlower
+            className={styles.itemFlower}
+            img={Candle.imgPath1}
+            name={Candle.name}
+            price={Candle.price}
+            discount={Candle.discount}
+          />
+        </NavLink>
+      </SplideSlide>
     );
   });
+
 return ( 
     <div>
         <div>
@@ -69,18 +104,26 @@ return (
         </div>
         <div className="flex">
             <div className="flex flex-col space-y-2 ml-11 mr-6 min-h-screen justify-end" style={{ flex: '0.6' }}>
-              <img src={CandleImage} alt="Image 1" className="w-20 h-28 object-cover" />
-              <img src={CandleImage} alt="Image 2" className="w-20 h-28 object-cover" />
-              <img src={CandleImage} alt="Image 3" className="w-20 h-28 object-cover" />
+              <button onClick={() => setLink(imgPath1)}>
+                <img src={imgPath1} alt="Image 1" className="w-20 h-28 object-cover" />
+              </button>
+              <button onClick={() => setLink(imgPath2)}>
+                <img src={imgPath2} alt="Image 2" className="w-20 h-28 object-cover" />
+              </button>
+              <button onClick={() => setLink(imgPath3)}>
+                <img src={imgPath3} alt="Image 3" className="w-20 h-28 object-cover" />
+              </button>
             </div>
             <div style={{ flex: '4.6' }}>
-                <img src={CandleImage} alt="FLOWER" className="w-full h-full object-cover" />
+                <img src={imgLink} alt="CANDLE" className="w-full h-full object-cover" />
             </div>
             <div style={{ flex: '4.8' }}>
-            <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">DINNER CANDLE 8" - TAUPE</h1>
+            <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">{name}</h1>
                 <p className="text-xs font-Lexend font-medium font-semibold text-main-color ml-10 mt-6">Quantity</p>
                 <div className="mt-3.5 ml-10 mr-16">
-                    <Quantity/>
+                    <Quantity quantity={quantity}
+                              onIncrement={() => setQuantity(quantity + 1)}
+                              onDecrement={() => setQuantity(quantity - 1)}/>
                 </div>
                 <h1 className="text-lg font-Lexend font-medium font-semibold text-main-color ml-10 mt-11">Add a matching candle holder (optional)</h1>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3.5 ml-10 mr-16">
@@ -92,17 +135,29 @@ return (
                   ))}
               </div>
                 <div className="mt-8 ml-10 mr-16">
-                    <AddToBag/>
+                    <AddToBag totalPrice={totalPrice} onAddToCart={handleAddToCart}/>
                 </div>
             </div>
         </div>
         <div className="mt-20 ">
-            <Description placeholder="8 inch Taupe Dinner Candles in a box of 6. These stunning hand-drawn table unscented candles are ideal for dining arrangements. Each candle has a height of 203mm and a a Diameter of 21mm. Handmade in the UK, these candles can be the statement feature piece in your home, the candles have a burn time of 8 hours. These beautiful candles make a Perfect Gift."/>
+            <Description placeholder= {description} 
+          />
         </div>
         <div>
             <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>
         </div>
-        <div className="w-full grid grid-cols-4 justify-center items-stretch">{flowerLists}</div>
+        
+        <Splide className="mt-8"
+          options={{
+            perPage: 4,
+            arrows: true,
+            pagination: false,
+            drag: 'free',
+            gap: '1rem',
+          }}
+        >
+          {CandleLists}
+        </Splide>
     </div>
   );
 };

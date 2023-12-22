@@ -3,21 +3,25 @@ import styles from './listbag.module.scss';
 import {IMG_Vase1} from '../../assets/images';
 import {IC_Heart} from '../../assets/icons';
 
-const ListBag = ({productName, productPrice}) => {
+const ListBag = (props) => {
   return (
-    <div>
-      <div className="flex-col flex;">
-        <img className="" src={IMG_Vase1} alt="Joyful Wishes Bouquet" />
-        <h2 className="text-lg font-bold text-granite-gra">{productName}</h2>
-        <div className="flex flex-row">
-          <div className="flex-1">
-            <p className="text-pine-tree font-bold mt-3">{productPrice}</p>
-          </div>
-          <div className="flex-1">
-            <button className="border border-detail-border px-2 py-2 rounded text-detail-text">
-              More detail
-            </button>
-          </div>
+    <div className={styles.mainContainer}>
+      <div className={styles.imgContainer}>
+        <div
+          className="w-full h-full flex justify-center"
+          style={{
+            background: `url(${props.img})`,
+            backgroundSize: '100% 100%'
+          }}>
+        </div>
+      </div>
+      <div className={styles.bottomContainer}>
+        <div className={styles.inforContainer}>
+          <div className={styles.txtName}>{props.name}</div>
+          <div className={styles.txtPrice}>{props.price}</div>
+        </div>
+        <div>
+          <button className={styles.btnAdd2Cart}>More Detail</button>
         </div>
       </div>
     </div>

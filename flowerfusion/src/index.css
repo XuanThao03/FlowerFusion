@@ -35,6 +35,13 @@ code {
     input[type='checkbox'] {
       color: #e7e1d7;
     }
+    input[type='password'],
+    textarea {
+      border: none;
+      outline: none;
+      border: 1px solid #dbdbdb;
+      font-size: 12px;
+    }
   }
 }
 @tailwind base;

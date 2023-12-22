@@ -1,16 +1,15 @@
-
-  export const flowersReducer = (state = [], action) => {
+export const vasesReducer = (state = [], action) => {
     switch (action.type) {
-      case 'SET_FLOWERS':
+      case 'SET_VASES':
         return action.payload;
       default:
         return state;
     }
   };
   
-  export const selectedFlowerReducer = (state = {}, action) => {
+  export const selectedVaseReducer = (state = {}, action) => {
     switch (action.type) {
-      case 'SET_SELECTED_FLOWER':
+      case 'SET_SELECTED_VASE':
         return action.payload;
       default:
         return state;

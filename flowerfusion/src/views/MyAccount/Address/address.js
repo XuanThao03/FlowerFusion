@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useRef, useState} from 'react';
 import {IC_Edit} from '../../../assets/icons';
 import styles from './address.module.scss';
@@ -50,6 +51,29 @@ function Address() {
       cityInputRef.current.value = '';
 
   }
+=======
+import React, {useState} from 'react';
+import {IC_Edit} from '../../../assets/icons';
+import styles from './address.module.scss';
+import MyAddressItem from '../../../components/myaddress/MyaddressItem';
+
+const addresses = [
+  {
+    firstName: 'Hien',
+    lastName: 'Tran',
+    phoneNumber: '1111',
+    address: 'Hi',
+    country: 'VietNam',
+  },
+];
+
+function Address() {
+  const [firsname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
+  const [addess, setAddress] = useState('');
+  const [country, setCountry] = useState('');
+>>>>>>> 083c3e1de4dbcb0623778181902a8f6efb6f4505
 
   return (
     <div>
@@ -70,6 +94,59 @@ function Address() {
             </button>
           </form >
           <form>
+          <div className="flex mt-[20px]">
+            <div className="text-xs font-[Lexend] font-light text-main-color">
+              <input
+                onChange={e => setFirstname(e.target.value)}
+                className="w-[285px] border-[1.3px] boder-gainsboro rounded-md h-11 p-4 bg-transparent"
+                placeholder="First name"
+              />
+            </div>
+            <div className="text-xs font-[Lexend] font-light text-main-color">
+              <input
+                onChange={e => setLastname(e.target.value)}
+                className="w-[285px] ml-[15px] border-[1.3px] boder-gainsboro rounded-md h-11 p-4 bg-transparent"
+                placeholder="Last name"
+              />
+            </div>
+          </div>
+          <div className="text-xs font-[Lexend] font-light text-main-color">
+            <input
+              onChange={e => setPhonenumber(e.target.value)}
+              className="w-[586px] mt-[15px] border-[1.3px] boder-gainsboro rounded-md h-11 p-4 bg-transparent"
+              placeholder="Phone number"
+            />
+          </div>
+          <div className="text-xs font-[Lexend] font-light text-main-color">
+            <input
+              onChange={e => setAddress(e.target.value)}
+              className="w-[586px] mt-[15px] border-[1.3px] boder-gainsboro rounded-md h-11 p-4 bg-transparent"
+              placeholder="Address"
+            />
+          </div>
+          <div className="text-xs font-[Lexend] font-light text-main-color">
+            <input
+              onChange={e => setCountry(e.target.value)}
+              className="w-[586px] mt-[15px] border-[1.3px] boder-gainsboro rounded-md h-11 p-4 bg-transparent"
+              placeholder="Country"
+            />
+          </div>
+          <div className="mt-[20px] ml-[415px]">
+            <button className="btn btn-neutral bg-button-black w-[170px] h-[50px] rounded-[10px] text-white text-xs font-[Lexend] font-normal">
+              Save
+            </button>
+          </div>
+        </div>
+      </dialog>
+      <MyAddressItem />
+      <dialog id="my_modal_4" className="modal">
+        <div className="modal-box h-[360px] w-[636px] max-w-5xl">
+          <form method="dialog">
+            {}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
           <div className="flex mt-[20px]">
             <div className="text-xs font-[Lexend] font-light text-main-color">
               <input
@@ -104,6 +181,7 @@ function Address() {
           <div className="text-xs font-[Lexend] font-light text-main-color">
             <input
               className="w-[586px] mt-[15px] border-[1.3px] boder-gainsboro rounded-md h-11 p-4 bg-transparent"
+<<<<<<< HEAD
               placeholder="City"
               ref={cityInputRef}
             />
@@ -113,6 +191,14 @@ function Address() {
             {}
             <button onClick={submitHandler} className="btn btn-neutral bg-black w-[170px] h-[50px] rounded-[10px] text-white text-xs font-[Lexend] font-normal">
               Save
+=======
+              placeholder="Country"
+            />
+          </div>
+          <div className="mt-[20px] ml-[415px]">
+            <button className="btn btn-neutral bg-button-black w-[170px] h-[50px] rounded-[10px] text-white text-xs font-[Lexend] font-normal">
+              Update Address
+>>>>>>> 083c3e1de4dbcb0623778181902a8f6efb6f4505
             </button>
           </form >
             
@@ -120,6 +206,7 @@ function Address() {
           </form>
         </div>
       </dialog>
+<<<<<<< HEAD
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box h-[360px] w-[636px] max-w-5xl">
           <form method="dialog">
@@ -182,6 +269,8 @@ function Address() {
           address={e.address}
         />
       )}
+=======
+>>>>>>> 083c3e1de4dbcb0623778181902a8f6efb6f4505
     </div>
   );
 }
