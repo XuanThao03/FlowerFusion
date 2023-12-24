@@ -2,14 +2,16 @@ import React from 'react';
 import styles from '../../views/MyAccount/Address/address.module.scss';
 import {IC_Edit} from '../../assets/icons';
 
-function MyAddressItem() {
+function MyAddressItem(props) {
   return (
     <div className={styles.bgItem}>
       <div>
         <div className={styles.subContainer}>
           <div className="flex">
             <p className={styles.txtTitle}>Your name:</p>
-            <p className={styles.txtValue}>Hien Tran</p>
+            <p className={styles.txtValue}>
+              {props.firstname} {props.lastName}
+            </p>
             <div className={styles.bgStatus}>
               <p className={styles.txtStatus}>Default</p>
             </div>

@@ -131,4 +131,27 @@ userRoute.put(
     }
   })
 );
+
+//find user
+userRoute.post(
+  "/finduser",
+  assyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const user = await UserModel.findOne({ email: email });
+    if (user) {
+      res.json({
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+        createdAt: user.createdAt,
+      });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  })
+);
 export default userRoute;

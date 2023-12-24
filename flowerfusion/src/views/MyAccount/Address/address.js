@@ -14,11 +14,30 @@ const addresses = [
 ];
 
 function Address() {
-  const [firsname, setFirstname] = useState('');
+  const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
   const [addess, setAddress] = useState('');
   const [country, setCountry] = useState('');
+
+  const [addressList, setAddressList] = useState([
+    {
+      firstName: 'Hien',
+      lastName: 'Tran',
+      phoneNumber: '1111',
+      address: 'Hi',
+      country: 'VietNam',
+    },
+  ]);
+
+  const createList = addressList.map(address => {
+    return (
+      <MyAddressItem
+        firstname={address.firstName}
+        lastName={address.lastName}
+      />
+    );
+  });
 
   return (
     <div>
@@ -76,13 +95,28 @@ function Address() {
             />
           </div>
           <div className="mt-[20px] ml-[415px]">
-            <button className="btn btn-neutral bg-button-black w-[170px] h-[50px] rounded-[10px] text-white text-xs font-[Lexend] font-normal">
+            <button
+              onClick={() =>
+                setAddressList([
+                  ...addressList,
+                  {
+                    firstName: firstname,
+                    lastName: lastname,
+                    phoneNumber: '1111',
+                    address: 'Hi',
+                    country: 'VietNam',
+                  },
+                ])
+              }
+              className="btn btn-neutral bg-button-black w-[170px] h-[50px] rounded-[10px] text-white text-xs font-[Lexend] font-normal">
               Save
             </button>
           </div>
         </div>
       </dialog>
-      <MyAddressItem />
+      {/* <MyAddressItem firstname={'Hule'} />
+      <MyAddressItem /> */}
+      {createList}
       <dialog id="my_modal_4" className="modal">
         <div className="modal-box h-[360px] w-[636px] max-w-5xl">
           <form method="dialog">
