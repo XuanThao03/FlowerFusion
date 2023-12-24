@@ -10,10 +10,11 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/Actions/cartAction';
 import '@splidejs/splide/dist/css/splide.min.css';
-
+import axios from 'axios';
 import {NavLink, Link} from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
+import { setOccasions, setSelectedOccasion } from '../../Redux/Actions/occasionAction';
 import {
   IMG_Flower13x,
   IMG_Flower2,
@@ -24,11 +25,31 @@ import {
 } from '../../assets/images';
 
 const DetailOccasion = () => {
+
+  const dispatch = useDispatch();
   const selectedOccasion = useSelector((state) => state.selectedOccasion);
-  const { name, imgPath1, imgPath2, imgPath3, price1, price2, price3, description } = selectedOccasion || {};
+  const {
+    name,
+    imgPath1,
+    imgPath2,
+    imgPath3,
+    price1,
+    price2,
+    price3,
+    description,
+  } = selectedOccasion || {};
+
+  useEffect(() => {
+    const storedOccasion = localStorage.getItem('selectedOccasion');
+    if (storedOccasion) {
+      const parsedOccasion = JSON.parse(storedOccasion);
+      dispatch(setSelectedOccasion(parsedOccasion));
+      setLink(parsedOccasion.imgPath1);
+      setTotalPrice(parsedOccasion.price1);
+    }
+  }, [dispatch]);
 
   const [imgLink, setLink] = useState(imgPath1);
-  const dispatch = useDispatch();
   const handleAddToCart = () => {
     const item = { imgPath: imgPath1, price: totalPrice, name, quantity: 1, type: 'flower' };
     dispatch(addToCart(item));
@@ -44,53 +65,48 @@ const DetailOccasion = () => {
     {productName: 'Ceramic Vase', productPrice: '120.000'},
     {productName: 'Ceramic Vase', productPrice: '120.000'},
   ];
-  const flowers = [
-    {
-      img: IMG_Flower2,
-      name: 'Joyful Wishes',
-      price: '240.000',
-      discount: '10%',
-    },
-    {
-      img: IMG_Flower2,
-      name: 'Joyful Wishes',
-      price: '240.000',
-      discount: '10%',
-    },
-    {
-      img: IMG_Flower3,
-      name: 'Joyful Wishes',
-      price: '240.000',
-      discount: '10%',
-    },
-    {
-      img: IMG_Flower3,
-      name: 'Joyful Wishes',
-      price: '240.000',
-      discount: '10%',
-    },
-  ];
   const [totalPrice, setTotalPrice] = useState(price1); 
   const handleSizeClick = (price) => {
     setTotalPrice(price); 
   };
 
-  const flowerLists = flowers.map(fl => {
+  const occasions = useSelector((state) => state.occasions);
+  const handleOccasionClick = (selectedOccasion) => {
+    dispatch(setSelectedOccasion(selectedOccasion));
+    localStorage.setItem('selectedOccasion', JSON.stringify(selectedOccasion));
+    setLink(selectedOccasion.imgPath1);
+    setTotalPrice(selectedOccasion.price1);
+    window.location = `/occasions/detail/${selectedOccasion.key}`;
+  };
+  useEffect(() => {
+    const fetchoccasions = async () => {
+      try {
+        const response = await axios.get('/api/occasions');
+        dispatch(setOccasions(response.data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchoccasions();
+  }, [dispatch]);
+  const occasionLists = occasions.map(Occasion => {
     return (
-      <NavLink
-        className="flex justify-center"
-        to="/flowers/detail"
-        exact={true}>
-        <ItemFlower
-          className="flex-shrink-0  justify-center flex"
-          img={fl.img}
-          name={fl.name}
-          price={fl.price}
-          discount={fl.discount}
-        />
-      </NavLink>
+      <SplideSlide key={Occasion.key}>
+        <NavLink className="flex justify-center" 
+              // to={`/occasions/detail/${Occasion.key}`}
+              onClick={() => handleOccasionClick(Occasion)}>
+          <ItemFlower
+            className={styles.itemFlower}
+            img={Occasion.imgPath1}
+            name={Occasion.name}
+            price={Occasion.price1}
+            discount={Occasion.discount}
+          />
+        </NavLink>
+      </SplideSlide>
     );
   });
+
   return (
     <div>
       <div>
@@ -170,9 +186,18 @@ const DetailOccasion = () => {
         <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>
       </div>
 
-      <div className="w-full grid grid-cols-4 justify-center items-stretch">
-        {flowerLists}
-      </div>
+      <Splide className="mt-8"
+        options={{
+          perPage: 4,
+          arrows: true,
+          pagination: false,
+          drag: 'free',
+          gap: '1rem',
+        }}
+      >
+        {occasionLists}
+      </Splide>
+
     </div>
   );
 };

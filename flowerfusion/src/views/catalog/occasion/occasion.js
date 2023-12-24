@@ -25,6 +25,12 @@ const categories = [
 const Occasion = () => {
   const dispatch = useDispatch();
   const occasions = useSelector((state) => state.occasions);
+
+  const handleOccasionClick = (selectedOccasion) => {
+    dispatch(setSelectedOccasion(selectedOccasion));
+    localStorage.setItem('selectedOccasion', JSON.stringify(selectedOccasion));
+  };
+
   useEffect(() => {
     const fetchoccasions = async () => {
       try {
@@ -39,7 +45,9 @@ const Occasion = () => {
   }, [dispatch]);
 const occasionLists = occasions.map(Occasion => {
   return (
-    <Link className="flex justify-center" to="/occasions/detail" onClick={() => dispatch(setSelectedOccasion(Occasion))}>
+    <Link className="flex justify-center" 
+          to={`/occasions/detail/${Occasion.key}`}
+          onClick={() => handleOccasionClick(Occasion)}>
       <ItemFlower
         className={styles.itemFlower}
         img={Occasion.imgPath1}

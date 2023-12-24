@@ -10,17 +10,36 @@ import { IMG_Candle1, IMG_Candle2 } from "../../assets/images";
 import '@splidejs/splide/dist/css/splide.min.css';
 import ItemFlower from "../../components/itemFlower/ItemFlower";
 import { NavLink, Link } from "react-router-dom";
+import axios from 'axios';
 import Banner from "../../components/banner/banner";
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/Actions/cartAction';
+import { setCandles, setSelectedCandle } from '../../Redux/Actions/candleAction';
 
 const DetailCandle = () => {
+  const dispatch = useDispatch();
   const selectedCandle = useSelector((state) => state.selectedCandle);
-  const { name, imgPath1, imgPath2, imgPath3, price, description } = selectedCandle || {};
+  const {
+    name,
+    imgPath1,
+    imgPath2,
+    imgPath3,
+    price,
+    description,
+  } = selectedCandle || {};
+
+  useEffect(() => {
+    const storedCandle = localStorage.getItem('selectedCandle');
+    if (storedCandle) {
+      const parsedCandle = JSON.parse(storedCandle);
+      dispatch(setSelectedCandle(parsedCandle));
+      setLink(parsedCandle.imgPath1);
+    }
+  }, [dispatch]);
 
   const [imgLink, setLink] = useState(imgPath1);
-  const dispatch = useDispatch();
+
   const handleAddToCart = () => {
     const item = { imgPath: imgPath1, price: formattedTotalPrice, name, quantity };
     dispatch(addToCart(item));
@@ -31,34 +50,10 @@ const DetailCandle = () => {
     { productName: 'Ceramic Vase', productPrice: '120.000' },
     { productName: 'Ceramic Vase', productPrice: '120.000' },
   ];
-  const flowers = [
-    {
-      img: IMG_Candle1,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Candle1,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Candle2,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-    {
-      img: IMG_Candle2,
-      name: "Joyful Wishes",
-      price: "240.000",
-      discount: "10%",
-    },
-  ];
+
   const [quantity, setQuantity] = useState(1);
-  const basePrice = parseInt(price.replace(/\./g, ''));
+  const basePrice = parseInt(price ? price.replace(/\./g, '') : '0');
+  
   const [totalPrice, setTotalPrice] = useState(basePrice);
   const formattedTotalPrice = totalPrice ? totalPrice.toLocaleString('vi-VN') : '0';
   
@@ -66,19 +61,42 @@ const DetailCandle = () => {
     setTotalPrice(quantity * basePrice);
   }, [quantity, basePrice]);
   
-  const flowerLists = flowers.map((fl) => {
+  const candles = useSelector((state) => state.candles);
+  const handleCandleClick = (selectedCandle) => {
+    dispatch(setSelectedCandle(selectedCandle));
+    localStorage.setItem('selectedCandle', JSON.stringify(selectedCandle));
+    setLink(selectedCandle.imgPath1);
+    window.location = `/candles/detail/${selectedCandle.key}`;
+  };
+  useEffect(() => {
+    const fetchcandles = async () => {
+      try {
+        const response = await axios.get('/api/candles');
+        dispatch(setCandles(response.data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchcandles();
+  }, [dispatch]);
+  const CandleLists = candles.map(Candle => {
     return (
-      <NavLink className="flex justify-center" to="/flowers/detail" exact={true}>
-        <ItemFlower
-          className="flex-shrink-0  justify-center flex"
-          img={fl.img}
-          name={fl.name}
-          price={fl.price}
-          discount={fl.discount}
-        />
-      </NavLink>
+      <SplideSlide key={Candle.key}>
+        <NavLink className="flex justify-center" 
+                //to={`/candles/detail/${Candle.key}`}
+                onClick={() => handleCandleClick(Candle)}>
+          <ItemFlower
+            className={styles.itemFlower}
+            img={Candle.imgPath1}
+            name={Candle.name}
+            price={Candle.price}
+            discount={Candle.discount}
+          />
+        </NavLink>
+      </SplideSlide>
     );
   });
+
 return ( 
     <div>
         <div>
@@ -128,7 +146,18 @@ return (
         <div>
             <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>
         </div>
-        <div className="w-full grid grid-cols-4 justify-center items-stretch">{flowerLists}</div>
+        
+        <Splide className="mt-8"
+          options={{
+            perPage: 4,
+            arrows: true,
+            pagination: false,
+            drag: 'free',
+            gap: '1rem',
+          }}
+        >
+          {CandleLists}
+        </Splide>
     </div>
   );
 };

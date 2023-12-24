@@ -42,6 +42,12 @@ const colors = [
 const Vase = () => {
   const dispatch = useDispatch();
   const vases = useSelector((state) => state.vases);
+
+  const handleVaseClick = (selectedVase) => {
+    dispatch(setSelectedVase(selectedVase));
+    localStorage.setItem('selectedVase', JSON.stringify(selectedVase));
+  };
+
   useEffect(() => {
     const fetchvases = async () => {
       try {
@@ -56,7 +62,8 @@ const Vase = () => {
   }, [dispatch]);
 const vaseLists = vases.map(vase => {
   return (
-    <Link className="flex justify-center" to="/vases/detail" onClick={() => dispatch(setSelectedVase(vase))}>
+    <Link className="flex justify-center" to={`/vases/detail/${vase.key}`}
+          onClick={() => handleVaseClick(vase)}>
       <ItemFlower
         className={styles.itemFlower}
         img={vase.imgPath1}
