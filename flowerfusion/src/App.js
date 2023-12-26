@@ -28,6 +28,9 @@ import {
   USER_LOGIN_SUCCESS,
 } from './Redux/Constants/UserContants';
 import {useDispatch} from 'react-redux';
+import {OTPInput} from './views/forgotpassword/otpinput/optinput';
+import sendEmail from './ultils/welcomeEmail';
+import ResetPassword from './views/forgotpassword/reset/resetpw';
 
 export default function App() {
   const controller = new AbortController();
@@ -51,21 +54,7 @@ export default function App() {
           to_email: `${data.email} `,
         };
         console.log(templateParams.name);
-        emailjs
-          .send(
-            'service_32cvm54',
-            'template_1158atm',
-            templateParams,
-            '7beaQSbI_ePACoK5c',
-          )
-          .then(
-            result => {
-              console.log(result.text);
-            },
-            error => {
-              console.log(error.text);
-            },
-          );
+        sendEmail(templateParams);
       }
       dispatch({type: USER_GGLOGIN_SUCCESS, payload: data});
       dispatch({type: USER_LOGIN_SUCCESS, payload: data});
@@ -113,6 +102,12 @@ export default function App() {
           <Route path="/signup" exact={true} element={<Signup />} />
           <Route path="/myaccount" exact={true} element={<MyAccount />} />
           <Route path="/faq" exact={true} element={<FAQ />} />
+          <Route path="/verifyotp" exact={true} element={<OTPInput />} />
+          <Route
+            path="/resetpassword"
+            exact={true}
+            element={<ResetPassword />}
+          />
         </Routes>
       </Router>
     </>

@@ -13,6 +13,7 @@ import {
   USER_REGISTER_SUCCESS,
 } from '../Constants/UserContants';
 import {useRef} from 'react';
+import sendEmail from '../../ultils/welcomeEmail';
 
 //login
 export const login = (email, password) => async dispatch => {
@@ -73,22 +74,9 @@ export const register =
       localStorage.setItem('userInfo', JSON.stringify(data));
       var templateParams = {
         name: `${firstname} ${lastname}`,
+        to_email: `${email} `,
       };
-      emailjs
-        .send(
-          'service_32cvm54',
-          'template_1158atm',
-          templateParams,
-          '7beaQSbI_ePACoK5c',
-        )
-        .then(
-          result => {
-            console.log(result.text);
-          },
-          error => {
-            console.log(error.text);
-          },
-        );
+      sendEmail(templateParams);
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -99,3 +87,21 @@ export const register =
       });
     }
   };
+export const userExist = email => async dispatch => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const {data} = await axios.post(`/api/users/finduser`, {email}, config);
+  } catch (error) {
+    dispatch({
+      type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
