@@ -14,6 +14,7 @@ import axios from 'axios';
 import {NavLink, Link} from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
+import {setVases, setSelectedVase} from '../../Redux/Actions/vaseAction';
 import { setOccasions, setSelectedOccasion } from '../../Redux/Actions/occasionAction';
 import {
   IMG_Flower13x,
@@ -25,7 +26,6 @@ import {
 } from '../../assets/images';
 
 const DetailOccasion = () => {
-
   const dispatch = useDispatch();
   const selectedOccasion = useSelector((state) => state.selectedOccasion);
   const {
@@ -38,7 +38,14 @@ const DetailOccasion = () => {
     price3,
     description,
   } = selectedOccasion || {};
-
+  const imgList = [imgPath1, imgPath2, imgPath3];
+  const creatDetailImg = imgList.map(img => {
+    return (
+      <button onClick={() => setLink(img)}>
+        <img src={img} alt="Img detail" className="w-24 h-32 object-cover" />
+      </button>
+    );
+  });
   useEffect(() => {
     const storedOccasion = localStorage.getItem('selectedOccasion');
     if (storedOccasion) {
@@ -48,28 +55,12 @@ const DetailOccasion = () => {
       setTotalPrice(parsedOccasion.price1);
     }
   }, [dispatch]);
-
   const [imgLink, setLink] = useState(imgPath1);
-  const handleAddToCart = () => {
-    const item = { imgPath: imgPath1, price: totalPrice, name, quantity: 1, type: 'flower' };
-    dispatch(addToCart(item));
-  };
-
   const options = [
     {pieces: '12 pieces', price: price1 },
     {pieces: '24 pieces', price: price2 },
     {pieces: '36 pieces', price: price3 },
   ];
-  const lists = [
-    {productName: 'Ceramic Vase', productPrice: '120.000'},
-    {productName: 'Ceramic Vase', productPrice: '120.000'},
-    {productName: 'Ceramic Vase', productPrice: '120.000'},
-  ];
-  const [totalPrice, setTotalPrice] = useState(price1); 
-  const handleSizeClick = (price) => {
-    setTotalPrice(price); 
-  };
-
   const occasions = useSelector((state) => state.occasions);
   const handleOccasionClick = (selectedOccasion) => {
     dispatch(setSelectedOccasion(selectedOccasion));
@@ -106,75 +97,126 @@ const DetailOccasion = () => {
       </SplideSlide>
     );
   });
-
+  const [totalPrice, setTotalPrice] = useState(options[0]?.price);
+  const [selectedSize, setSelectedSize] = useState(options[0]?.pieces);
+  const handleSizeClick = (option) => {
+    setSelectedSize(option.pieces);
+    setTotalPrice(option.price);
+  };
+  const vases = useSelector(state => state.vases);
+  const selectedVase = useSelector(state => state.selectedVase);
+  const handleVaseClick = selectedVase => {
+    const previousSelectedVase = JSON.parse(localStorage.getItem('selectedVase'));
+    if (previousSelectedVase && previousSelectedVase.key === selectedVase.key) {
+      dispatch(setSelectedVase(null));
+      localStorage.removeItem('selectedVase');
+    } else {
+      dispatch(setSelectedVase(selectedVase));
+      localStorage.setItem('selectedVase', JSON.stringify(selectedVase));
+    }
+  };
+  useEffect(() => {
+    const fetchvases = async () => {
+      try {
+        const response = await axios.get('/api/vases');
+        dispatch(setVases(response.data));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchvases();
+  }, [dispatch]);
+  useEffect(() => {
+    dispatch(setSelectedVase(null));
+    localStorage.removeItem('selectedVase');
+  }, [dispatch]); 
+  const vaseLists = vases.map(vase => {
+    const isSelected = selectedVase && selectedVase.key === vase.key;
+    return (
+      <SplideSlide key={vase.key}>
+        <NavLink className={`flex justify-center ${isSelected ? styles.selectedStyle : ''}`}
+                 onClick={() => handleVaseClick(vase)}>
+          <ListBag
+            className={styles.itemFlower}
+            img={vase.imgPath1}
+            name={vase.name}
+            price={vase.price}
+          />
+        </NavLink>
+      </SplideSlide>
+    );
+  });
+  const handleAddToCart = () => {
+    const item = { imgPath: imgPath1, price: totalPrice, name, quantity: 1, type: 'flower' };
+    dispatch(addToCart(item));
+    if (selectedVase) {
+      const vaseItem = {
+        imgPath: selectedVase.imgPath1,
+        price: selectedVase.price,
+        name: selectedVase.name,
+        quantity: 1,
+        type: 'vase',
+      };
+      dispatch(addToCart(vaseItem));
+    }
+  };
   return (
     <div>
       <div>
         <NavigationBar />
       </div>
       <div className="flex">
-        <div
-          className="flex flex-col space-y-2 ml-11 mr-6 min-h-screen justify-end"
-          style={{flex: '0.6'}}>
-          <button onClick={() => setLink(imgPath1)}>
+        {/* Image  */}
+        <div className="flex">
+          <div className="flex flex-col space-y-2 min-h-screen justify-end w-1/6 items-center">
+            {creatDetailImg}
+          </div>
+          <div className="w-5/6">
             <img
-              src={imgPath1}
-              alt="Image 1"
-              className="w-20 h-28 object-cover"
+              src={imgLink}
+              alt="FLOWER"
+              className="w-full h-full object-cover"
             />
-          </button>
-
-          <button onClick={() => setLink(imgPath2)}>
-            <img
-              src={imgPath2}
-              alt="Image 2"
-              className="w-20 h-28 object-cover"
-            />
-          </button>
-
-          <button onClick={() => setLink(imgPath3)}>
-            <img
-              src={imgPath3}
-              alt="Image 3"
-              className="w-20 h-28 object-cover"
-            />
-          </button>
+          </div>
         </div>
-        <div style={{flex: '4.6'}}>
-          <img
-            src={imgLink}
-            alt="OCCASION"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div style={{flex: '4.8'}}>
-          <h1 className="text-3xl font-Lexend text-main-color ml-10 mt-12">
-            {name}
-          </h1>
-          <p className="text-xs font-Lexend font-medium font-semibold text-main-color ml-10 mt-6">
+        {/* Detail */}
+        <div className="w-1/2 ml-5 mt-12">
+          <h1 className="text-3xl font-Lexend text-main-color">{name}</h1>
+          <p className="text-xs font-Lexend  font-semibold text-main-color  mt-6">
             Pick a size
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3.5 ml-10 mr-16">
-            {options.map(option => (
-              <Size pieces={option.pieces} price={option.price} onClick={handleSizeClick}/>
-            ))}
-          </div>
-          <h1 className="text-lg font-Lexend font-medium font-semibold text-main-color ml-10 mt-11">
-            Choose a vase (vase shown is not include)
-          </h1>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3.5 ml-10 mr-16">
-            {lists.map(option => (
-              <ListBag
-                productName={option.productName}
-                productPrice={option.productPrice}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3.5  mr-16">
+            {options.map((option, index) => (
+              <Size
+                key={index}
+                pieces={option.pieces}
+                price={option.price}
+                //onClick={handleSizeClick}
+                onClick={() => handleSizeClick(option)}
               />
             ))}
           </div>
-          <div className="mt-8 ml-10 mr-16">
-            <AddToBag totalPrice={totalPrice} onAddToCart={handleAddToCart}/>
+          <h1 className="text-lg font-Lexend  font-semibold text-main-color  mt-11">
+            Choose a vase (vase shown is not include)
+          </h1>
+          <div className=" w-full mt-3.5 mr-16">
+            <Splide
+              options={{
+                perPage: 3,
+                arrows: true,
+                pagination: false,
+                drag: 'free',
+                gap: '1rem',
+              }}>
+              {vaseLists}
+            </Splide>
+          </div>
+          <div className="mt-8  mr-16">
+            <AddToBag totalPrice={totalPrice} onAddToCart={handleAddToCart} />
           </div>
         </div>
       </div>
+      
       <div className="mt-20 ">
         <Description
           placeholder={
@@ -185,7 +227,6 @@ const DetailOccasion = () => {
       <div>
         <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>
       </div>
-
       <Splide className="mt-8"
         options={{
           perPage: 4,
@@ -197,7 +238,6 @@ const DetailOccasion = () => {
       >
         {occasionLists}
       </Splide>
-
     </div>
   );
 };

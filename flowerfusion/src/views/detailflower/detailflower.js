@@ -20,7 +20,6 @@ import {setVases, setSelectedVase} from '../../Redux/Actions/vaseAction';
 
 const DetailFlower = () => {
   const dispatch = useDispatch();
-
   const {key} = useParams();
   const selectedFlower = useSelector(state => state.selectedFlower);
   const {
@@ -34,7 +33,6 @@ const DetailFlower = () => {
     description,
   } = selectedFlower || {};
   const imgList = [imgPath1, imgPath2, imgPath3];
-
   const creatDetailImg = imgList.map(img => {
     return (
       <button onClick={() => setLink(img)}>
@@ -42,7 +40,6 @@ const DetailFlower = () => {
       </button>
     );
   });
-
   useEffect(() => {
     const storedFlower = localStorage.getItem('selectedFlower');
     if (storedFlower) {
@@ -52,26 +49,12 @@ const DetailFlower = () => {
       setTotalPrice(parsedFlower.price1);
     }
   }, [dispatch]);
-
   const [imgLink, setLink] = useState(imgPath1);
-
-  const handleAddToCart = () => {
-    const item = {
-      imgPath: imgPath1,
-      price: totalPrice,
-      name,
-      quantity: 1,
-      type: 'flower',
-    };
-    dispatch(addToCart(item));
-  };
-
   const options = [
     {pieces: '12 pieces', price: price1},
     {pieces: '24 pieces', price: price2},
     {pieces: '36 pieces', price: price3},
   ];
-
   const flowers = useSelector(state => state.flowers);
   const handleFlowerClick = selectedFlower => {
     dispatch(setSelectedFlower(selectedFlower));
@@ -96,7 +79,6 @@ const DetailFlower = () => {
       <SplideSlide key={fl.key}>
         <NavLink
           className="flex justify-center"
-          //to={`/flowers/detail/${fl.key}`}
           onClick={() => handleFlowerClick(fl)}>
           <ItemFlower
             className={styles.itemFlower}
@@ -109,15 +91,23 @@ const DetailFlower = () => {
       </SplideSlide>
     );
   });
-  const [totalPrice, setTotalPrice] = useState(price1);
-  const handleSizeClick = price => {
-    setTotalPrice(price);
+  const [totalPrice, setTotalPrice] = useState(options[0]?.price);
+  const [selectedSize, setSelectedSize] = useState(options[0]?.pieces);
+  const handleSizeClick = (option) => {
+    setSelectedSize(option.pieces);
+    setTotalPrice(option.price);
   };
-
   const vases = useSelector(state => state.vases);
+  const selectedVase = useSelector(state => state.selectedVase);
   const handleVaseClick = selectedVase => {
-    dispatch(setSelectedVase(selectedVase));
-    localStorage.setItem('selectedVase', JSON.stringify(selectedVase));
+    const previousSelectedVase = JSON.parse(localStorage.getItem('selectedVase'));
+    if (previousSelectedVase && previousSelectedVase.key === selectedVase.key) {
+      dispatch(setSelectedVase(null));
+      localStorage.removeItem('selectedVase');
+    } else {
+      dispatch(setSelectedVase(selectedVase));
+      localStorage.setItem('selectedVase', JSON.stringify(selectedVase));
+    }
   };
   useEffect(() => {
     const fetchvases = async () => {
@@ -130,10 +120,16 @@ const DetailFlower = () => {
     };
     fetchvases();
   }, [dispatch]);
+  useEffect(() => {
+    dispatch(setSelectedVase(null));
+    localStorage.removeItem('selectedVase');
+  }, [dispatch]); 
   const vaseLists = vases.map(vase => {
+    const isSelected = selectedVase && selectedVase.key === vase.key;
     return (
       <SplideSlide key={vase.key}>
-        <NavLink className="flex justify-center">
+        <NavLink className={`flex justify-center ${isSelected ? styles.selectedStyle : ''}`}
+                 onClick={() => handleVaseClick(vase)}>
           <ListBag
             className={styles.itemFlower}
             img={vase.imgPath1}
@@ -144,7 +140,27 @@ const DetailFlower = () => {
       </SplideSlide>
     );
   });
-
+  
+  const handleAddToCart = () => {
+    const item = {
+      imgPath: imgPath1,
+      price: totalPrice,
+      name,
+      quantity: 1,
+      type: 'flower',
+    };
+    dispatch(addToCart(item));
+    if (selectedVase) {
+      const vaseItem = {
+        imgPath: selectedVase.imgPath1,
+        price: selectedVase.price,
+        name: selectedVase.name,
+        quantity: 1,
+        type: 'vase',
+      };
+      dispatch(addToCart(vaseItem));
+    }
+  };
   return (
     <div>
       <div>
@@ -164,7 +180,6 @@ const DetailFlower = () => {
             />
           </div>
         </div>
-
         {/* Detail */}
         <div className="w-1/2 ml-5 mt-12">
           <h1 className="text-3xl font-Lexend text-main-color">{name}</h1>
@@ -172,19 +187,20 @@ const DetailFlower = () => {
             Pick a size
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-3.5  mr-16">
-            {options.map(option => (
+            {options.map((option, index) => (
               <Size
+                key={index}
                 pieces={option.pieces}
                 price={option.price}
-                onClick={handleSizeClick}
+                //onClick={handleSizeClick}
+                onClick={() => handleSizeClick(option)}
               />
             ))}
           </div>
           <h1 className="text-lg font-Lexend  font-semibold text-main-color  mt-11">
             Choose a vase (vase shown is not include)
           </h1>
-
-          <div className=" w-full mt-3.5  mr-16">
+          <div className=" w-full mt-3.5 mr-16">
             <Splide
               options={{
                 perPage: 3,
@@ -195,7 +211,6 @@ const DetailFlower = () => {
               }}>
               {vaseLists}
             </Splide>
-            {/* <h1>AAAAAAAAAAAAAAAAAAAAAAA</h1> */}
           </div>
 
           <div className="mt-8  mr-16">
