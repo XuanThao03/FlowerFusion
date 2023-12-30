@@ -3,6 +3,8 @@ import assyncHandler from "express-async-handler";
 import UserModel from "../models/UserModel.js";
 import generateToken from "../utils/generateToken.js";
 import protect from "../Middleware/AuthMiddleware.js";
+import bcrypt from "bcrypt";
+
 const userRoute = express.Router();
 
 //login
@@ -17,9 +19,6 @@ userRoute.post(
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-        createdAt: user.createdAt,
       });
     } else {
       res.status(401);
@@ -147,10 +146,58 @@ userRoute.post(
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
         createdAt: user.createdAt,
+        lastUpdated: user.lastUpdated ?? "",
       });
     } else {
       res.status(404);
       throw new Error("User not found");
+    }
+  })
+);
+
+//change password
+userRoute.post(
+  "/changePassword",
+  assyncHandler(async (req, res) => {
+    const { email, newpassword, oldpassword } = req.body;
+    const user = await UserModel.findOne({ email: email });
+    console.log("found");
+    console.log(newpassword);
+    console.log(oldpassword);
+    if (user) {
+      if (
+        oldpassword !== "" &&
+        (await user.matchPassword(oldpassword)) == false
+      ) {
+        console.log("check");
+        return;
+      }
+      const salt = await bcrypt.genSalt(10);
+      const hashpassword = await bcrypt.hash(newpassword, salt);
+      UserModel.updateOne(
+        { email: email },
+        {
+          $set: {
+            password: hashpassword,
+          },
+          $currentDate: { lastUpdated: true },
+        }
+      )
+        .then((obj) => {
+          res.json({
+            _id: user._id,
+            email: email,
+            isChanged: true,
+            password: hashpassword,
+            currentPassword: user.password,
+          });
+        })
+        .catch((err) => {
+          console.log("Error: " + err);
+        });
+    } else {
+      res.status(404);
+      throw new Error("User not found!");
     }
   })
 );

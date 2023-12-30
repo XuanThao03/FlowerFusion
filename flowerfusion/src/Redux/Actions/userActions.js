@@ -14,6 +14,7 @@ import {
 } from '../Constants/UserContants';
 import {useRef} from 'react';
 import sendEmail from '../../ultils/welcomeEmail';
+import {REQUEST_OTP} from '../Constants/ResetPwConstant';
 
 //login
 export const login = (email, password) => async dispatch => {
@@ -51,6 +52,31 @@ export const logout = () => dispatch => {
   localStorage.removeItem('userInfo');
   dispatch({type: USER_LOGOUT});
 };
+
+// change password
+export const changePassword =
+  (email, newpassword, oldpassword) => async dispatch => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      const {data} = await axios.post(
+        `/api/users/changePassword`,
+        {email, newpassword, oldpassword},
+        config,
+      );
+    } catch (error) {
+      dispatch({
+        type: 'CHANGE_PASSWORD_FAIL',
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 //register
 export const register =
