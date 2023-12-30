@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {register} from '../../Redux/Actions/userActions';
 import Message from '../LoadingError/Error';
 import Loading from '../LoadingError/Loading';
+import {IC_Eye, IC_EyeOff} from '../../assets/icons';
 const Signup = ({location, history}) => {
   const form = useRef();
 
@@ -13,6 +14,9 @@ const Signup = ({location, history}) => {
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [showPass, setShowPass] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const dispatch = useDispatch();
   const redirect = window.location.search
@@ -49,7 +53,7 @@ const Signup = ({location, history}) => {
       </p>
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
-      <form onSubmit={submitHandler} ref={form}>
+      <form onSubmit={submitHandler} ref={form} className="pl-10">
         <div className="text-xs font-[Lexend] font-light text-main-color">
           <input
             name="user_name"
@@ -70,9 +74,8 @@ const Signup = ({location, history}) => {
         <div className="text-xs font-[Lexend] font-light text-main-color">
           <input
             name="user_email"
-            className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
+            className="w-72  border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
             placeholder="Email"
-            type="Email"
             onChange={e => setEmail(e.target.value)}
           />
         </div>
@@ -81,9 +84,24 @@ const Signup = ({location, history}) => {
           <input
             className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
             placeholder="Password"
-            type="password"
+            type={!showPass ? 'password' : ''}
             onChange={e => setPassword(e.target.value)}
           />
+          <button type="button" onClick={() => setShowPass(!showPass)}>
+            <img src={showPass ? IC_Eye : IC_EyeOff} className="mt-2 ml-5" />
+          </button>
+        </div>
+
+        <div className="text-xs font-[Lexend] font-light text-main-color">
+          <input
+            type={!showConfirm ? 'password' : ''}
+            className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
+            placeholder="Password"
+            onChange={e => setPassword(e.target.value)}
+          />
+          <button type="button" onClick={() => setShowConfirm(!showConfirm)}>
+            <img src={showConfirm ? IC_Eye : IC_EyeOff} className="mt-2 ml-5" />
+          </button>
         </div>
 
         <div className="mt-1">
