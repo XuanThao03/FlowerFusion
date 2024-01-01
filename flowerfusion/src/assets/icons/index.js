@@ -8,3 +8,4 @@ export {default as IC_Search} from './IC_Search.svg';
 export {default as IC_Edit} from './IC_Edit.svg';
 export {default as IC_Eye} from './IC_Eye.svg';
 export {default as IC_EyeOff} from './IC_EyeOff.svg';
+export {default as IC_Tick} from './IC_Tick.svg';
