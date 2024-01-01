@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import styles from './logininput.module.scss';
 import {NavLink, useNavigate} from 'react-router-dom';
 import {login} from '../../Redux/Actions/userActions';
+import {REQUEST_OTP} from '../../Redux/Constants/ResetPwConstant';
 import Message from '../LoadingError/Error';
 import Loading from '../LoadingError/Loading';
 import axios from 'axios';
@@ -38,6 +39,8 @@ const LoginInput = (location, history) => {
     dispatch(login(email, password));
   };
   const googleAuth = () => {
+    localStorage.removeItem('cart');
+
     window.open(
       `${process.env.REACT_APP_API_URL}/auth/google/callback`,
       '_self',
@@ -51,10 +54,12 @@ const LoginInput = (location, history) => {
         to_email: recoverEmail,
       };
 
-      //otpEmail(params);
+      otpEmail(params);
 
       console.log(params.otp);
-      navigate('/verifyotp', {state: {otp: params.otp, email: recoverEmail}});
+      dispatch({type: REQUEST_OTP, payload: params});
+
+      navigate('/verifyotp');
     } else alert('Email Invalid!');
 
     //setOTP(OTP);
@@ -82,7 +87,7 @@ const LoginInput = (location, history) => {
           <input
             className="w-72 border-[1.4px] border-0.5 boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent focus-within:boder-gainsboro "
             placeholder="Password"
-            type={showPw ? 'password' : ''}
+            type={!showPw ? 'password' : ''}
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
