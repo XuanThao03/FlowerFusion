@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import styles from "./checkout.module.scss";
 import FlowerCart from "../../components/flowercart/flowercart";
 import PayMent from "../../components/payment/payment";
@@ -7,7 +7,29 @@ import TextInput from "../../components/textinput/textinput";
 import ACBImage from '../../assets/images/acb.png';
 import MomoImage from '../../assets/images/momo.png';
 import ZaloPayImage from '../../assets/images/zalopay.png';
+import { useSelector} from 'react-redux';
 const CheckOut = () => {
+    const cartItems = useSelector((state) => state.cart.items);
+    const totalAmount = useMemo(() => {
+        if (cartItems.length === 0) {
+          return '0 VND';
+        }
+        const total = cartItems.reduce((acc, item) => {
+          console.log('Item Price:', item.totalPrice);
+          if (item.price && item.price.trim() !== "") {
+            const priceAsNumber = parseFloat(item.price.replace(/\./g, ''));
+            return acc + priceAsNumber;
+          }
+          return acc;
+        }, 0);
+        return total.toLocaleString('vi-VN');
+      }, [cartItems]);
+    const shippingFee = 40000;
+    const totalWithShipping = useMemo(() => {
+        const totalAmountAsNumber = parseFloat(totalAmount.replace(/\D/g, ''));
+        const total = totalAmountAsNumber + shippingFee;
+        return total.toLocaleString('vi-VN');
+    }, [totalAmount, shippingFee]);
     return ( 
     <div className="flex flex-row min-h-screen">
       <div className="flex-1">
@@ -61,8 +83,11 @@ const CheckOut = () => {
         </div>
       </div>
       <div className="flex-1">
-          <FlowerCart />
-          <FlowerCart />
+        {
+            cartItems.map((item, index) => (
+                <FlowerCart key={item.id} item={item} />
+            ))
+        }
         {<div className=" flex justify-between items-center w-full">
             <input
                 className="w-[500px] border-[1px] boder-gainsboro rounded-md h-11 p-4 ml-16 mt-9 bg-transparent"
@@ -78,9 +103,9 @@ const CheckOut = () => {
                 <p className="text-xl text-total-price mt-2">Total</p>
             </div>
             <div className="flex flex-col items-end space-y-2 p-4 mr-9">
-                <p className="text-xl font-bold text-pine-tree">120.000</p>
+                <p className="text-xl font-bold text-pine-tree">{totalAmount}</p>
                 <p className="text-xl font-bold text-pine-tree">40.000</p>
-                <p className="text-xl font-bold text-red-price">160.000</p>
+                <p className="text-xl font-bold text-red-price">{totalWithShipping}</p>
             </div>
         </div>
       </div>

@@ -100,7 +100,10 @@ export const Header = () => {
                     <p className={styles.txtTotal}>Total</p>
                     <p className={styles.valueTotal}>{totalAmount}</p>
                   </div>
-                  <button className={styles.btnCheckout}>Go to Checkout</button>
+                  {/* <button className={styles.btnCheckout}>Go to Checkout</button> */}
+                  <NavLink to="/checkout" className={styles.btnCheckout}>
+                    Go to Checkout
+                  </NavLink>
                 </div>
               </div>
             </div>
