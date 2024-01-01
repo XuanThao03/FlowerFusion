@@ -32,26 +32,20 @@ const CheckOut = () => {
     }, [totalAmount, shippingFee]);
     const [email, setEmail] = useState("");
     const [country, setCountry] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [name, setName] = useState("");
     const [company, setCompany] = useState("");
     const [address, setAddress] = useState("");
-    const [postalCode, setPostalCode] = useState("");
-    const [city, setCity] = useState("");
     const [phone, setPhone] = useState("");
     const isAllFieldsFilled = useMemo(() => {
         return (
             email.trim() !== "" &&
             country.trim() !== "" &&
-            firstName.trim() !== "" &&
-            lastName.trim() !== "" &&
+            name.trim() !== "" &&
             company.trim() !== "" &&
             address.trim() !== "" &&
-            postalCode.trim() !== "" &&
-            city.trim() !== "" &&
             phone.trim() !== ""
         );
-    }, [email, country, firstName, lastName, company, address, postalCode, city, phone]);
+    }, [email, country, name, company, address, phone]);
 
     const handlePayNowClick = () => {
         if (isAllFieldsFilled) {
@@ -92,12 +86,9 @@ const CheckOut = () => {
         </div>
         <h1 className="text-xl font-lexend font-medium text-main-color mt-6 ml-14">Delivery</h1>
         <TextInput placeholder="Country / Region" value={country} onChange={(e) => setCountry(e.target.value)}/>
-        <DoubleInput placeholder1="First name (Optional)" placeholder2="Last name" value1={firstName} onChange1={(e) => setFirstName(e.target.value)} 
-                    value2={lastName} onChange2={(e) => setLastName(e.target.value)}/>
+        <TextInput placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}/>
         <TextInput placeholder="Company (Optional)" value={company} onChange={(e) => setCompany(e.target.value)}/>
         <TextInput placeholder="Address" value={address} onChange={(e) => setAddress(e.target.value)}/>
-        <DoubleInput placeholder1="Postal Code" placeholder2="City" value1={postalCode} onChange1={(e) => setPostalCode(e.target.value)} 
-                    value2={city} onChange2={(e) => setCity(e.target.value)}/>
         <TextInput placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)}/>
         <div className="flex items-center ml-16 mt-2">
         <input
