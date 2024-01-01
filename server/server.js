@@ -16,6 +16,7 @@ import occasionRoute from "./Routes/OccasionRoutes.js";
 import vaseRoute from "./Routes/VaseRoutes.js";
 import { errorHandler, notFound } from "./Middleware/Errors.js";
 import userRoute from "./Routes/UserRoutes.js";
+import cartRoute from "./Routes/CartRoutes.js";
 
 dotenv.config();
 connectDatabase();
@@ -51,6 +52,7 @@ app.use("/api/vases", vaseRoute);
 app.use("/api/occasions", occasionRoute);
 app.use("/api/flowers", flowerRoute);
 app.use("/api/users", userRoute);
+app.use("/api/carts", cartRoute);
 app.use(notFound);
 app.use(errorHandler);
 //Load flower from server

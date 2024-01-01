@@ -5,14 +5,15 @@ import {useContext} from 'react';
 import {useLocation, useNavigate, useParams} from 'react-router-dom';
 import otpEmail from '../../../ultils/otpEmail';
 import {message} from 'antd';
-export function OTPInput(props) {
+import {useSelector} from 'react-redux';
+export function OTPInput() {
+  const emailReset = useSelector(state => state.emailReset);
+  const {otp, to_email} = emailReset.data;
   const navigate = useNavigate();
 
   const [timerCount, setTimer] = React.useState(60);
   const [OTPinput, setOTPinput] = useState([0, 0, 0, 0]);
   const [disable, setDisable] = useState(true);
-  const {state} = useLocation();
-  const {otp, email} = state;
   const [currentOTP, setCurrentOTP] = useState(otp);
   //console.log('props ', email);
 
@@ -27,7 +28,7 @@ export function OTPInput(props) {
     console.log('otp resend:', params.otp);
     setCurrentOTP(params.otp);
 
-    // /otpEmail(params);
+    otpEmail(params);
 
     message.info('A new OTP has succesfully been sent to your email.');
     setTimer(60);
@@ -146,7 +147,7 @@ export function OTPInput(props) {
 
                 <div className="flex flex-col space-y-5">
                   <button
-                    onClick={() => verfiyOTP(email)}
+                    onClick={() => verfiyOTP(to_email)}
                     className=" self-center bg-button-black  w-full h-10 rounded-[10px] text-white text-xs font-[Lexend] font-normal items-center">
                     Verify Account
                   </button>
@@ -160,7 +161,7 @@ export function OTPInput(props) {
                         cursor: disable ? 'none' : 'pointer',
                         textDecorationLine: disable ? 'none' : 'underline',
                       }}
-                      onClick={() => resendOTP(email)}>
+                      onClick={() => resendOTP(to_email)}>
                       {disable ? `Resend OTP in ${timerCount}s` : 'Resend OTP'}
                     </a>
                   </div>

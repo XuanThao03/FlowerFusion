@@ -4,70 +4,123 @@ import UserModel from "../models/UserModel.js";
 import generateToken from "../utils/generateToken.js";
 import protect from "../Middleware/AuthMiddleware.js";
 import bcrypt from "bcrypt";
+import CartModel from "../models/Cart.js";
 
-const userRoute = express.Router();
+const cartRoute = express.Router();
 
-//login
-userRoute.post(
-  "/login",
+//insert
+cartRoute.post(
+  "/insert",
+  protect,
   assyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    const user = await UserModel.findOne({ email });
-    if (user && (await user.matchPassword(password))) {
-      res.json({
-        _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-        createdAt: user.createdAt,
-      });
+    const { userEmail, status, quantity, total, products } = req.body;
+    const cart = await CartModel.findOne({ userEmail });
+
+    var sumTotal = 0;
+    for (let p in products) {
+      sumTotal += p.price;
+    }
+    if (cart) {
+      cart
+        .updateOne(
+          { user_email: userEmail },
+          { $inc: { total: total + sumTotal } }
+        )
+        .then((obj) => {
+          res.json({
+            message: "no",
+          });
+        })
+        .catch((err) => {
+          console.log("Error: " + err);
+        });
     } else {
-      res.status(401);
-      throw new Error("Invalid email or Password");
+      const cart = await CartModel.create({
+        userEmail,
+        status,
+        quantity,
+        total,
+        products,
+      })
+        .then((obj) => {
+          res.json({
+            _id: cart._id,
+            userEmail: cart.userEmail,
+            status: cart.status,
+            quantity: cart.quantity,
+            total: cart.total,
+            products: products,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      if (cart) {
+      } else {
+        res.status(400);
+        throw new Error("Invalid Cart Data");
+      }
     }
   })
 );
 
-//REGISTER
-userRoute.post(
-  "/",
+//get all cart
+cartRoute.get(
+  "/mycart",
+  protect,
   assyncHandler(async (req, res) => {
-    const { firstname, lastname, email, password, isAdmin } = req.body;
-    const userExists = await UserModel.findOne({ email });
+    const { userEmail, status, quantity, total, products } = req.body;
+    const cart = await CartModel.findOne({ userEmail });
 
-    if (userExists) {
-      res.status(400);
-      throw new Error("User already exists");
+    var sumTotal = 0;
+    for (let p in products) {
+      sumTotal += p.price;
     }
-    const user = await UserModel.create({
-      firstname,
-      lastname,
-      email,
-      password,
-    }).catch((err) => {
-      console.error(err);
-    });
-
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        token: generateToken(user._id),
-      });
+    if (cart) {
+      cart
+        .updateOne(
+          { user_email: userEmail },
+          { $inc: { total: total + sumTotal } }
+        )
+        .then((obj) => {
+          res.json({
+            message: "no",
+          });
+        })
+        .catch((err) => {
+          console.log("Error: " + err);
+        });
     } else {
-      res.status(400);
-      throw new Error("Invalid User Data");
+      const cart = await CartModel.create({
+        userEmail,
+        status,
+        quantity,
+        total,
+        products,
+      })
+        .then((obj) => {
+          res.json({
+            _id: cart._id,
+            userEmail: cart.userEmail,
+            status: cart.status,
+            quantity: cart.quantity,
+            total: cart.total,
+            products: products,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      if (cart) {
+      } else {
+        res.status(400);
+        throw new Error("Invalid Cart Data");
+      }
     }
   })
 );
-
 //profile
-userRoute.post(
+cartRoute.post(
   "/profile",
   protect,
   assyncHandler(async (req, res) => {
@@ -79,6 +132,7 @@ userRoute.post(
         lastname: user.lastname,
         email: user.email,
         isAdmin: user.isAdmin,
+        //token: generateToken(user._id),
         createdAt: user.createdAt,
       });
     } else {
@@ -89,7 +143,7 @@ userRoute.post(
 );
 
 //delete user
-userRoute.delete(
+cartRoute.delete(
   "/delete/profile",
   assyncHandler(async (req, res) => {
     const user = await UserModel.findOne({ email: req.body.email });
@@ -105,7 +159,7 @@ userRoute.delete(
   })
 );
 //update userprofile
-userRoute.put(
+cartRoute.put(
   "/profile",
   protect,
   assyncHandler(async (req, res) => {
@@ -134,8 +188,9 @@ userRoute.put(
 );
 
 //find user
-userRoute.post(
+cartRoute.post(
   "/finduser",
+  protect,
   assyncHandler(async (req, res) => {
     const { email } = req.body;
     const user = await UserModel.findOne({ email: email });
@@ -158,7 +213,7 @@ userRoute.post(
 );
 
 //change password
-userRoute.post(
+cartRoute.post(
   "/changePassword",
   assyncHandler(async (req, res) => {
     const { email, newpassword, oldpassword } = req.body;
@@ -203,4 +258,4 @@ userRoute.post(
     }
   })
 );
-export default userRoute;
+export default cartRoute;
