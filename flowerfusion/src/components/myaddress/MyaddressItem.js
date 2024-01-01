@@ -3,11 +3,13 @@ import styles from '../../views/MyAccount/Address/address.module.scss';
 import {IC_Edit} from '../../assets/icons';
 
 function MyAddressItem(props) {
+
   const [firstName, setFirstName] = useState(props.firstName);
   const [lastName, setLastName] = useState(props.lastName);
   const [phoneNumber, setPhoneNumber] = useState(props.phoneNumber);
   const [address, setAddress] = useState(props.address);
   const [country, setCountry] = useState(props.country);
+
 
   return (
     <div className={styles.bgItem}>
@@ -15,7 +17,9 @@ function MyAddressItem(props) {
         <div className={styles.subContainer}>
           <div className="flex">
             <p className={styles.txtTitle}>Your name:</p>
+
             <p className={styles.txtValue}>{firstName + ' ' + lastName}</p>
+
             <div className={styles.bgStatus}>
               <p className={styles.txtStatus}>Default</p>
             </div>

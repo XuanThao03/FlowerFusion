@@ -81,5 +81,8 @@
   @apply py-2 font-Lexend font-semibold text-lg;
 }
 .btnCheckout {
-  @apply bg-black mt-3 w-4/5  h-12 p-3 rounded-lg text-white self-center;
+  @apply bg-black my-3 w-4/5  h-12 p-3 rounded-lg text-white self-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

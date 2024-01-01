@@ -68,6 +68,7 @@ function Address() {
     document.getElementById('my_modal_3').close();
   };
 
+
   // const [addressList, setAddressList] = useState([
   //   {
   //     firstName: 'Hien',
@@ -86,6 +87,26 @@ function Address() {
   //     />
   //   );
   // });
+
+  const [addressList, setAddressList] = useState([
+    {
+      firstName: 'Hien',
+      lastName: 'Tran',
+      phoneNumber: '1111',
+      address: 'Hi',
+      country: 'VietNam',
+    },
+  ]);
+
+  const createList = addressList.map(address => {
+    return (
+      <MyAddressItem
+        firstname={address.firstName}
+        lastName={address.lastName}
+      />
+    );
+  });
+
 
   return (
     <div>

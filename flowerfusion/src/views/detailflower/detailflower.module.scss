@@ -1,3 +1,8 @@
 .itemFlower {
-    @apply flex-shrink-0  justify-center flex;
-  }
+  @apply flex-shrink-0  justify-center flex;
+}
+.selectedStyle {
+  border: 2px solid #000000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+}
