@@ -69,53 +69,21 @@ cartRoute.get(
   "/mycart",
   protect,
   assyncHandler(async (req, res) => {
-    const { userEmail, status, quantity, total, products } = req.body;
+    const { userEmail } = req.body;
     const cart = await CartModel.findOne({ userEmail });
 
-    var sumTotal = 0;
-    for (let p in products) {
-      sumTotal += p.price;
-    }
     if (cart) {
-      cart
-        .updateOne(
-          { user_email: userEmail },
-          { $inc: { total: total + sumTotal } }
-        )
-        .then((obj) => {
-          res.json({
-            message: "no",
-          });
-        })
-        .catch((err) => {
-          console.log("Error: " + err);
-        });
+      res.json({
+        _id: cart._id,
+        userEmail: cart.userEmail,
+        status: cart.status,
+        quantity: cart.quantity,
+        total: cart.total,
+        products: products,
+      });
     } else {
-      const cart = await CartModel.create({
-        userEmail,
-        status,
-        quantity,
-        total,
-        products,
-      })
-        .then((obj) => {
-          res.json({
-            _id: cart._id,
-            userEmail: cart.userEmail,
-            status: cart.status,
-            quantity: cart.quantity,
-            total: cart.total,
-            products: products,
-          });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-      if (cart) {
-      } else {
-        res.status(400);
-        throw new Error("Invalid Cart Data");
-      }
+      res.status(404);
+      throw new Error("Cart not found");
     }
   })
 );
