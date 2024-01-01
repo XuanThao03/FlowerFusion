@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Route, Router, Routes} from 'react-router-dom';
+import {Route, Router, Routes, useNavigate} from 'react-router-dom';
 import Information from './Information/information';
 import YourOder from './YourOrder/yourOrder';
 import ChangePw from './ChangePw/changePw';
@@ -17,6 +17,7 @@ const tabNames = [
 ];
 const tabs = [<Information />, <YourOder />, <ChangePw />, <Address />];
 function MyAccount(user) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [index, SetIndex] = useState(0);
   const tabList = tabNames.map(tab => {
@@ -36,9 +37,11 @@ function MyAccount(user) {
   });
 
   const logoutHandler = () => {
-    localStorage.removeItem('userInfo');
     window.open(`http://localhost:5000/auth/logout`, '_self');
+    navigate('/login');
     dispatch({type: USER_LOGOUT});
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('cart');
   };
   return (
     <div className={styles.mainContainer}>
