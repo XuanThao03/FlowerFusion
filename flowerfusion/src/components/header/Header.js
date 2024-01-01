@@ -21,7 +21,12 @@ export const Header = () => {
     }, 0);
     return total.toLocaleString('vi-VN') + ' VND';
   }, [cartItems]);
-
+  const handleCheckoutClick = () => {
+    const drawerCheckbox = document.getElementById("my-drawer-4");
+    if (drawerCheckbox) {
+      drawerCheckbox.checked = false;
+    }
+  };
   const userLogin = useSelector(state => state.userLogin);
   const {error, loading, userInfo} = userLogin;
   return (
@@ -100,8 +105,7 @@ export const Header = () => {
                     <p className={styles.txtTotal}>Total</p>
                     <p className={styles.valueTotal}>{totalAmount}</p>
                   </div>
-                  {/* <button className={styles.btnCheckout}>Go to Checkout</button> */}
-                  <NavLink to="/checkout" className={styles.btnCheckout}>
+                  <NavLink to="/checkout" className={styles.btnCheckout} onClick={handleCheckoutClick}>
                     Go to Checkout
                   </NavLink>
                 </div>
