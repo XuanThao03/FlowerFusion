@@ -1,7 +1,8 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {IC_Edit} from '../../../assets/icons';
 import styles from './address.module.scss';
 import MyAddressItem from '../../../components/myaddress/MyaddressItem';
+import axios from 'axios';
 
 function Address() {
   const [addresses, setAddresses] = useState([]);
@@ -9,17 +10,41 @@ function Address() {
   const lastNameInputRef = useRef();
   const phoneNumberInputRef = useRef();
   const addressInputRef = useRef();
-  const countryInputRef = useRef();
+  const user = JSON.parse(localStorage.getItem('userInfo'));
+
+  useEffect(() => {
+    console.log('useEffect');
+    fetch('http://localhost:5000/api/addresses')
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data.data);
+        const loadedAddresses = [...data.data].filter(address => {
+          return address.user === user._id;
+        });
+        setAddresses([...loadedAddresses]);
+      });
+  }, [user._id]);
 
   const addAddress = (firstName, lastName, phoneNumber, address, country) => {
     const newAddress = {
+      user: user._id,
       firstName,
       lastName,
       phoneNumber,
       address,
       country,
     };
-    setAddresses(prevAddresses => [...prevAddresses, newAddress]);
+    axios
+      .post('http://localhost:5000/api/addresses', newAddress)
+      .then(res => {
+        console.log(res.data);
+        setAddresses(prevAddresses => [...prevAddresses, newAddress]);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const submitHandler = event => {
@@ -28,23 +53,40 @@ function Address() {
     const enteredLastName = lastNameInputRef.current.value;
     const enteredPhoneNumber = phoneNumberInputRef.current.value;
     const enteredAddress = addressInputRef.current.value;
-    const enteredCountry = countryInputRef.current.value;
     addAddress(
       enteredFirstName,
       enteredLastName,
       enteredPhoneNumber,
       enteredAddress,
-      enteredCountry,
     );
 
     firstNameInputRef.current.value = '';
     lastNameInputRef.current.value = '';
     phoneNumberInputRef.current.value = '';
     addressInputRef.current.value = '';
-    countryInputRef.current.value = '';
 
     document.getElementById('my_modal_3').close();
   };
+
+
+  // const [addressList, setAddressList] = useState([
+  //   {
+  //     firstName: 'Hien',
+  //     lastName: 'Tran',
+  //     phoneNumber: '1111',
+  //     address: 'Hi',
+  //     country: 'VietNam',
+  //   },
+  // ]);
+
+  // const createList = addressList.map(address => {
+  //   return (
+  //     <MyAddressItem
+  //       firstname={address.firstName}
+  //       lastName={address.lastName}
+  //     />
+  //   );
+  // });
 
   const [addressList, setAddressList] = useState([
     {
@@ -64,6 +106,7 @@ function Address() {
       />
     );
   });
+
 
   return (
     <div>
@@ -111,13 +154,6 @@ function Address() {
               ref={addressInputRef}
               className="w-[586px] mt-[15px] border-[1.3px] boder-gainsboro rounded-md h-11 p-4 bg-transparent"
               placeholder="Address"
-            />
-          </div>
-          <div className="text-xs font-[Lexend] font-light text-main-color">
-            <input
-              ref={countryInputRef}
-              className="w-[586px] mt-[15px] border-[1.3px] boder-gainsboro rounded-md h-11 p-4 bg-transparent"
-              placeholder="Country"
             />
           </div>
 
