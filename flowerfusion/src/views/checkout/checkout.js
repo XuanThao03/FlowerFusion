@@ -205,7 +205,7 @@ const CheckOut = () => {
           <button
             onClick={() => navigate('/')}
             className="btn btn-neutral bg-button-black w-1/2 h-[50px] rounded-[10px] text-white text-xs font-[Lexend] font-normal">
-            Continue shopping
+            Continue
           </button>
         </div>
       </dialog>
