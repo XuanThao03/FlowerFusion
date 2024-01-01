@@ -39,6 +39,8 @@ const LoginInput = (location, history) => {
     dispatch(login(email, password));
   };
   const googleAuth = () => {
+    localStorage.removeItem('cart');
+
     window.open(
       `${process.env.REACT_APP_API_URL}/auth/google/callback`,
       '_self',

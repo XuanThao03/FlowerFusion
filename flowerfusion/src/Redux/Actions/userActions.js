@@ -1,9 +1,6 @@
 import axios from 'axios';
 import emailjs from '@emailjs/browser';
 import {
-  USER_GGLOGIN_FAIL,
-  USER_GGLOGIN_REQUEST,
-  USER_GGLOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -12,9 +9,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
 } from '../Constants/UserContants';
-import {useRef} from 'react';
 import sendEmail from '../../ultils/welcomeEmail';
-import {REQUEST_OTP} from '../Constants/ResetPwConstant';
 
 //login
 export const login = (email, password) => async dispatch => {
@@ -32,7 +27,7 @@ export const login = (email, password) => async dispatch => {
       config,
     );
     dispatch({type: USER_LOGIN_SUCCESS, payload: data});
-
+    localStorage.removeItem('cart');
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
