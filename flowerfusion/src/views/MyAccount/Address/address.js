@@ -4,7 +4,6 @@ import styles from './address.module.scss';
 import MyAddressItem from '../../../components/myaddress/MyaddressItem';
 
 function Address() {
-
   const [addresses, setAddresses] = useState([]);
   const firstNameInputRef = useRef();
   const lastNameInputRef = useRef();
@@ -46,7 +45,6 @@ function Address() {
 
     document.getElementById('my_modal_3').close();
   };
-
 
   const [addressList, setAddressList] = useState([
     {
@@ -123,11 +121,9 @@ function Address() {
             />
           </div>
 
-
           <div className="mt-[20px] ml-[415px] modal-action">
             <button
               onClick={submitHandler}
-
               className="btn btn-neutral bg-button-black w-[170px] h-[50px] rounded-[10px] text-white text-xs font-[Lexend] font-normal">
               Save
             </button>
@@ -145,7 +141,6 @@ function Address() {
           />
         );
       })}
-
     </div>
   );
 }
