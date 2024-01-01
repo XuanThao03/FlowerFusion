@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import styles from "./checkout.module.scss";
 import FlowerCart from "../../components/flowercart/flowercart";
 import PayMent from "../../components/payment/payment";
@@ -30,6 +30,7 @@ const CheckOut = () => {
         const total = totalAmountAsNumber + shippingFee;
         return total.toLocaleString('vi-VN');
     }, [totalAmount, shippingFee]);
+    
     return ( 
     <div className="flex flex-row min-h-screen">
       <div className="flex-1">
@@ -50,7 +51,7 @@ const CheckOut = () => {
              </p>
             </div>
         </div>}
-        <TextInput placeholder="Email or Mobile phone number"/>
+        <TextInput placeholder="Email or Mobile phone number" />
         <div className="flex items-center ml-16 mt-2">
         <input
             type="checkbox"
@@ -61,12 +62,12 @@ const CheckOut = () => {
         <label htmlFor="new-offers" className="text-xs font-lexend text-main-color ml-2">Email me with new offers</label>
         </div>
         <h1 className="text-xl font-lexend font-medium text-main-color mt-6 ml-14">Delivery</h1>
-        <TextInput placeholder="Country / Region"/>
-        <DoubleInput placeholder1="First name (Optional)" placeholder2="Last name"/>
-        <TextInput placeholder="Company (Optional)"/>
-        <TextInput placeholder="Address"/>
-        <DoubleInput placeholder1="Postal Code" placeholder2="City"/>
-        <TextInput placeholder="Phone"/>
+        <TextInput placeholder="Country / Region" />
+        <DoubleInput placeholder1="First name (Optional)" placeholder2="Last name" />
+        <TextInput placeholder="Company (Optional)" />
+        <TextInput placeholder="Address" />
+        <DoubleInput placeholder1="Postal Code" placeholder2="City" />
+        <TextInput placeholder="Phone" />
         <div className="flex items-center ml-16 mt-2">
         <input
             type="checkbox"
@@ -79,7 +80,10 @@ const CheckOut = () => {
         <h1 className="text-xl font-lexend font-medium text-main-color mt-6 ml-14">Payment</h1>
           <PayMent />
         <div className="ml-16 mt-8" >
-                <button className="bg-button-black w-[650px] h-10 rounded-[10px] text-white text-xs font-semibold" >Pay now</button>
+                <button className="bg-button-black w-[650px] h-10 rounded-[10px] text-white text-xs font-semibold" 
+                
+                >Pay now
+                </button>
         </div>
       </div>
       <div className="flex-1">
