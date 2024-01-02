@@ -16,19 +16,82 @@ cartRoute.post(
     const { userEmail, status, quantity, total, products } = req.body;
     const cart = await CartModel.findOne({ userEmail });
 
-    var sumTotal = 0;
-    for (let p in products) {
-      sumTotal += p.price;
-    }
     if (cart) {
-      cart
-        .updateOne(
-          { user_email: userEmail },
-          { $inc: { total: total + sumTotal } }
-        )
+      var sumTotal = 0;
+      products.forEach((p) => {
+        var flag = false;
+        sumTotal += p.price;
+        console.log("p1", p.name);
+        cart.products.forEach((cp) => {
+          console.log("cp", cp.name);
+          console.log("p", p.name);
+          if (cp.name === p.name) {
+            flag = true;
+            console.log(true);
+            CartModel.updateOne(
+              {
+                userEmail: userEmail,
+                products: {
+                  $elemMatch: {
+                    name: p.name,
+                  },
+                },
+              },
+              {
+                $inc: {
+                  "products.$.quantity": p.quantity,
+                },
+              }
+            )
+              .then((obj) => {
+                console.log("Increase product in cart successfully");
+                res.json({
+                  message: "Increase product in cart successfully",
+                });
+              })
+              .catch((err) => {
+                console.log("Error: " + err);
+              });
+          }
+        });
+        if (!flag) {
+          CartModel.updateOne(
+            { userEmail: userEmail },
+            {
+              $push: {
+                products: {
+                  imgPath: p.imgPath,
+                  name: p.name,
+                  price: p.price,
+                  quantity: p.quantity,
+                  type: p.type,
+                },
+              },
+            }
+          )
+            .then((obj) => {
+              console.log("Add product in cart successfully");
+              res.json({
+                message: "Add product in cart successfully",
+              });
+            })
+            .catch((err) => {
+              console.log("Error: " + err);
+            });
+        }
+      });
+      CartModel.updateOne(
+        { userEmail: userEmail },
+        {
+          $inc: {
+            total: total,
+            quantity: quantity,
+          },
+        }
+      )
         .then((obj) => {
           res.json({
-            message: "no",
+            message: "Increase cart successfully",
           });
         })
         .catch((err) => {
@@ -42,7 +105,7 @@ cartRoute.post(
         total,
         products,
       })
-        .then((obj) => {
+        .then((cart) => {
           res.json({
             _id: cart._id,
             userEmail: cart.userEmail,
@@ -55,11 +118,6 @@ cartRoute.post(
         .catch((err) => {
           console.error(err);
         });
-      if (cart) {
-      } else {
-        res.status(400);
-        throw new Error("Invalid Cart Data");
-      }
     }
   })
 );
@@ -70,7 +128,8 @@ cartRoute.get(
   protect,
   assyncHandler(async (req, res) => {
     const { userEmail } = req.body;
-    const cart = await CartModel.findOne({ userEmail });
+    console.log(userEmail);
+    const cart = await CartModel.findOne({ userEmail: userEmail });
 
     if (cart) {
       res.json({
@@ -79,7 +138,7 @@ cartRoute.get(
         status: cart.status,
         quantity: cart.quantity,
         total: cart.total,
-        products: products,
+        products: cart.products,
       });
     } else {
       res.status(404);
@@ -87,30 +146,29 @@ cartRoute.get(
     }
   })
 );
-//profile
+
+//delete cart
 cartRoute.post(
-  "/profile",
+  "/deletecart",
   protect,
   assyncHandler(async (req, res) => {
-    const user = await UserModel.findById(req.user._id);
-    if (user) {
+    const { userEmail } = req.body;
+    console.log(userEmail);
+    const cart = await CartModel.findOne({ userEmail: userEmail });
+
+    if (cart) {
+      await cart.deleteOne();
       res.json({
-        _id: user._id,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        //token: generateToken(user._id),
-        createdAt: user.createdAt,
+        message: "Delete successfully",
       });
     } else {
       res.status(404);
-      throw new Error("User not found");
+      throw new Error("Cart not found");
     }
   })
 );
 
-//delete user
+//delete oneproduct
 cartRoute.delete(
   "/delete/profile",
   assyncHandler(async (req, res) => {

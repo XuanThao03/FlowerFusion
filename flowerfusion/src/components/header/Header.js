@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {IC_Account, IC_Bag, IC_Heart, IC_Search} from '../../assets/icons';
 import styles from './header.module.scss';
 import {NavLink} from 'react-router-dom';
@@ -6,23 +6,24 @@ import ItemProductInCart from '../itemProduct_Cart/itemProduct_cart';
 import {useSelector} from 'react-redux';
 
 export const Header = () => {
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector(state => state.cart.items);
+  console.log(cartItems);
   const totalAmount = useMemo(() => {
     if (cartItems.length === 0) {
       return '0 VND';
     }
     const total = cartItems.reduce((acc, item) => {
       console.log('Item Price:', item.totalPrice);
-      if (item.price && item.price.trim() !== "") {
+      if (item.price && item.price.trim() !== '') {
         const priceAsNumber = parseFloat(item.price.replace(/\./g, ''));
         return acc + priceAsNumber;
       }
       return acc;
     }, 0);
     return total.toLocaleString('vi-VN') + ' VND';
-  }, [cartItems]);
+  }, []);
   const handleCheckoutClick = () => {
-    const drawerCheckbox = document.getElementById("my-drawer-4");
+    const drawerCheckbox = document.getElementById('my-drawer-4');
     if (drawerCheckbox) {
       drawerCheckbox.checked = false;
     }
@@ -83,11 +84,13 @@ export const Header = () => {
                 <div className={styles.headerContainer}>
                   <p className={styles.txtHeader}>MY CART</p>
                   <div className="w-full h-2/3  overflow-x-scroll no-scrollbar">
-                    {cartItems.map((item, index) => (
-                      <div className=" px-5 py-4 border-t-2">
-                        <ItemProductInCart key={index} item={item} />
-                      </div>  
-                    ))}
+                    {cartItems
+                      ? cartItems.map((item, index) => (
+                          <div className=" px-5 py-4 border-t-2">
+                            <ItemProductInCart key={index} item={item} />
+                          </div>
+                        ))
+                      : null}
                   </div>
                   <p className={styles.txtDiscount}>Discount</p>
                   <div className={styles.discountContainer}>
@@ -105,7 +108,10 @@ export const Header = () => {
                     <p className={styles.txtTotal}>Total</p>
                     <p className={styles.valueTotal}>{totalAmount}</p>
                   </div>
-                  <NavLink to="/checkout" className={styles.btnCheckout} onClick={handleCheckoutClick}>
+                  <NavLink
+                    to="/checkout"
+                    className={styles.btnCheckout}
+                    onClick={handleCheckoutClick}>
                     Go to Checkout
                   </NavLink>
                 </div>

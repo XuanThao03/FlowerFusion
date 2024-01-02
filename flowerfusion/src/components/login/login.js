@@ -10,6 +10,7 @@ import axios from 'axios';
 import {IC_Eye, IC_EyeOff} from '../../assets/icons';
 import otpEmail from '../../ultils/otpEmail';
 import {message} from 'antd';
+import {deleteCart} from '../../Redux/Actions/cartAction';
 
 const LoginInput = (location, history) => {
   window.scrollTo(0, 0);
@@ -36,6 +37,7 @@ const LoginInput = (location, history) => {
 
   const submitHandler = e => {
     e.preventDefault();
+    dispatch(deleteCart());
     dispatch(login(email, password));
   };
   const googleAuth = () => {
