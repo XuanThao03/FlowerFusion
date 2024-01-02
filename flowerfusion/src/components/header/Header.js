@@ -3,11 +3,14 @@ import {IC_Account, IC_Bag, IC_Heart, IC_Search} from '../../assets/icons';
 import styles from './header.module.scss';
 import {NavLink} from 'react-router-dom';
 import ItemProductInCart from '../itemProduct_Cart/itemProduct_cart';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {pushCart} from '../../Redux/Actions/cartAction';
 
 export const Header = () => {
   const cartItems = useSelector(state => state.cart.items);
-  console.log(cartItems);
+  const cartIsPushed = useSelector(state => state.cart.isPushed);
+  // console.log('cartItems.isPushed', cartIsPushed);
+  console.log('cartItems', cartItems);
   const totalAmount = useMemo(() => {
     if (cartItems.length === 0) {
       return '0 VND';
@@ -28,8 +31,20 @@ export const Header = () => {
       drawerCheckbox.checked = false;
     }
   };
+  const dispatch = useDispatch();
   const userLogin = useSelector(state => state.userLogin);
   const {error, loading, userInfo} = userLogin;
+  const handlePushCart = () => {
+    if (userInfo && !cartIsPushed) {
+      var quantity = 0;
+      cartItems.forEach(element => {
+        quantity += element.quantity;
+      });
+      console.log('quantity', quantity);
+      dispatch(pushCart(quantity, totalAmount, cartItems));
+    }
+  };
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container1}>
@@ -108,12 +123,13 @@ export const Header = () => {
                     <p className={styles.txtTotal}>Total</p>
                     <p className={styles.valueTotal}>{totalAmount}</p>
                   </div>
-                  <NavLink
-                    to="/checkout"
+                  <button
                     className={styles.btnCheckout}
-                    onClick={handleCheckoutClick}>
-                    Go to Checkout
-                  </NavLink>
+                    onClick={handlePushCart}>
+                    <NavLink to="/checkout" onClick={handleCheckoutClick}>
+                      Go to Checkout
+                    </NavLink>
+                  </button>
                 </div>
               </div>
             </div>
