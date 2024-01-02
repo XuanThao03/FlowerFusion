@@ -5,6 +5,8 @@
 //   };
 // };
 
+import axios from 'axios';
+
 export const addToCart = item => {
   return (dispatch, getState) => {
     dispatch({
@@ -55,3 +57,29 @@ export const deleteCart = () => dispatch => {
   localStorage.removeItem('cart');
   dispatch({type: 'cart/deleteCart'});
 };
+
+//push cart to dtb
+export const pushCart =
+  (quantity, total, products) => async (dispatch, getState) => {
+    console.log('quantity', quantity);
+    const userInfo = getState().userLogin;
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.userInfo.token}`,
+        },
+      };
+      const {data} = await axios.post(
+        `/api/carts/update`,
+        {userEmail: userInfo.userInfo.email, quantity, total, products},
+        config,
+      );
+      dispatch({
+        type: 'pushCart',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };

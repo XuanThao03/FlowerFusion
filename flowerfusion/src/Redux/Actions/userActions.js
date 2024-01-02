@@ -108,6 +108,8 @@ export const register =
       });
     }
   };
+
+//find user
 export const userExist = email => async dispatch => {
   try {
     const config = {

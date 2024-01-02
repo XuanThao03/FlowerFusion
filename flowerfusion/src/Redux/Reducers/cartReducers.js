@@ -1,10 +1,12 @@
 const initialState = {
   items: [],
+  isPushed: false,
 };
 
 const storedCart = localStorage.getItem('cart');
 if (storedCart) {
   initialState.items = JSON.parse(storedCart);
+  initialState.isPushed = false;
 }
 
 export const cartReducer = (state = initialState, action) => {
@@ -33,7 +35,7 @@ export const cartReducer = (state = initialState, action) => {
             quantity: updatedQuantity,
             price: formattedTotalPrice,
           };
-          return {...state, items: newItems};
+          return {...state, items: newItems, isPushed: false};
         } else {
           return {
             ...state,
@@ -41,6 +43,7 @@ export const cartReducer = (state = initialState, action) => {
               ...state.items,
               {...action.payload, originalPrice: action.payload.price},
             ],
+            isPushed: false,
           };
         }
       } else {
@@ -68,11 +71,13 @@ export const cartReducer = (state = initialState, action) => {
           return {
             ...state,
             items: newItems,
+            isPushed: false,
           };
         } else {
           return {
             ...state,
             items: [...state.items, action.payload],
+            isPushed: false,
           };
         }
       }
@@ -94,6 +99,7 @@ export const cartReducer = (state = initialState, action) => {
               ...item,
               quantity: updatedQuantity,
               price: formattedTotalPrice,
+              isPushed: false,
             };
           }
           return item;
@@ -101,6 +107,7 @@ export const cartReducer = (state = initialState, action) => {
         return {
           ...state,
           items: updatedItems,
+          isPushed: false,
         };
       }
       return state;
@@ -123,6 +130,7 @@ export const cartReducer = (state = initialState, action) => {
               ...item,
               quantity: updatedQuantity,
               price: formattedTotalPrice,
+              isPushed: false,
             };
           }
           return item;
@@ -130,6 +138,7 @@ export const cartReducer = (state = initialState, action) => {
         return {
           ...state,
           items: updatedItems,
+          isPushed: false,
         };
       }
       return state;
@@ -139,10 +148,16 @@ export const cartReducer = (state = initialState, action) => {
       const updatedItems = state.items.filter(
         item => item.name !== name || item.price !== price,
       );
-      return {...state, items: updatedItems};
+      return {...state, items: updatedItems, isPushed: false};
 
     case 'cart/deleteCart':
       return {...state, items: []};
+    case 'pushCart':
+      return {
+        ...state,
+        items: [...state.items],
+        isPushed: true,
+      };
     default:
       return state;
   }
