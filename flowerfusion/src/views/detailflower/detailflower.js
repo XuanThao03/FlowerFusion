@@ -55,7 +55,7 @@ const DetailFlower = () => {
     {pieces: '24 pieces', price: price2},
     {pieces: '36 pieces', price: price3},
   ];
-  const flowers = useSelector(state => state.flowers);
+  const flowers = useSelector((state) => state.flowers.filteredFlowers);
   const handleFlowerClick = selectedFlower => {
     dispatch(setSelectedFlower(selectedFlower));
     localStorage.setItem('selectedFlower', JSON.stringify(selectedFlower));

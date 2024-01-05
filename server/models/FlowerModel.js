@@ -43,6 +43,18 @@ const FlowerSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    arrival: {
+      type: String,
+      require: true,
+    },
+    categories: {
+      type: String,
+      require: true,
+    },
+    color: {
+      type: String,
+      require: true,
+    },
   },
   {
     versionKey: false,
