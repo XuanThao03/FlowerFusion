@@ -17,6 +17,7 @@ import Banner from '../../components/banner/banner';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
 import {setFlowers, setSelectedFlower} from '../../Redux/Actions/flowerAction';
 import {setVases, setSelectedVase} from '../../Redux/Actions/vaseAction';
+import {message} from 'antd';
 
 const DetailFlower = () => {
   const dispatch = useDispatch();
@@ -93,14 +94,16 @@ const DetailFlower = () => {
   });
   const [totalPrice, setTotalPrice] = useState(options[0]?.price);
   const [selectedSize, setSelectedSize] = useState(options[0]?.pieces);
-  const handleSizeClick = (option) => {
+  const handleSizeClick = option => {
     setSelectedSize(option.pieces);
     setTotalPrice(option.price);
   };
   const vases = useSelector(state => state.vases);
   const selectedVase = useSelector(state => state.selectedVase);
   const handleVaseClick = selectedVase => {
-    const previousSelectedVase = JSON.parse(localStorage.getItem('selectedVase'));
+    const previousSelectedVase = JSON.parse(
+      localStorage.getItem('selectedVase'),
+    );
     if (previousSelectedVase && previousSelectedVase.key === selectedVase.key) {
       dispatch(setSelectedVase(null));
       localStorage.removeItem('selectedVase');
@@ -123,13 +126,16 @@ const DetailFlower = () => {
   useEffect(() => {
     dispatch(setSelectedVase(null));
     localStorage.removeItem('selectedVase');
-  }, [dispatch]); 
+  }, [dispatch]);
   const vaseLists = vases.map(vase => {
     const isSelected = selectedVase && selectedVase.key === vase.key;
     return (
       <SplideSlide key={vase.key}>
-        <NavLink className={`flex justify-center ${isSelected ? styles.selectedStyle : ''}`}
-                 onClick={() => handleVaseClick(vase)}>
+        <NavLink
+          className={`flex justify-center ${
+            isSelected ? styles.selectedStyle : ''
+          }`}
+          onClick={() => handleVaseClick(vase)}>
           <ListBag
             className={styles.itemFlower}
             img={vase.imgPath1}
@@ -140,7 +146,7 @@ const DetailFlower = () => {
       </SplideSlide>
     );
   });
-  
+
   const handleAddToCart = () => {
     const item = {
       imgPath: imgPath1,
@@ -160,6 +166,7 @@ const DetailFlower = () => {
       };
       dispatch(addToCart(vaseItem));
     }
+    message.success('Add to cart successfully!');
   };
   return (
     <div>

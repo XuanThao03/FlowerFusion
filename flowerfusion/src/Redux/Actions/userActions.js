@@ -27,7 +27,7 @@ export const login = (email, password) => async dispatch => {
       config,
     );
     dispatch({type: USER_LOGIN_SUCCESS, payload: data});
-    localStorage.removeItem('cart');
+    //localStorage.removeItem('cart');
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
@@ -108,6 +108,8 @@ export const register =
       });
     }
   };
+
+//find user
 export const userExist = email => async dispatch => {
   try {
     const config = {
