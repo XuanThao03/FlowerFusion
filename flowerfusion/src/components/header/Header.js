@@ -24,7 +24,7 @@ export const Header = () => {
       return acc;
     }, 0);
     return total.toLocaleString('vi-VN') + ' VND';
-  }, []);
+  }, [cartItems]);
   const handleCheckoutClick = () => {
     const drawerCheckbox = document.getElementById('my-drawer-4');
     if (drawerCheckbox) {
