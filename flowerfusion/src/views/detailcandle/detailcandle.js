@@ -17,6 +17,7 @@ import {useDispatch} from 'react-redux';
 import {addToCart} from '../../Redux/Actions/cartAction';
 import {setFlowers, setSelectedFlower} from '../../Redux/Actions/flowerAction';
 import {setCandles, setSelectedCandle} from '../../Redux/Actions/candleAction';
+import {message} from 'antd';
 
 const DetailCandle = () => {
   const dispatch = useDispatch();
@@ -118,7 +119,7 @@ const DetailCandle = () => {
     dispatch(setSelectedFlower(null));
     localStorage.removeItem('selectedFlower');
   }, [dispatch]);
-  const flowerLists = flowers.map(fl => {
+  const flowerLists = candles.map(fl => {
     const isSelected = selectedFlower && selectedFlower.key === fl.key;
     return (
       <SplideSlide key={fl.key}>
@@ -156,6 +157,7 @@ const DetailCandle = () => {
       };
       dispatch(addToCart(flowerItem));
     }
+    message.success('Add to cart successfully!');
   };
   return (
     <div>
