@@ -54,11 +54,14 @@ const FlowerSchema = new mongoose.Schema(
     color: {
       type: String,
       require: true,
-
     },
     isTrending: {
       type: Boolean,
       default: false,
+    },
+    type: {
+      type: String,
+      default: "flower",
     },
   },
   {
