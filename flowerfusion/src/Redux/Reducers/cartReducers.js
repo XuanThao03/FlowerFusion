@@ -16,7 +16,7 @@ export const cartReducer = (state = initialState, action) => {
         const existingFlowerIndex = state.items.findIndex(
           item =>
             item.name === action.payload.name &&
-            item.originalPrice === action.payload.price &&
+            item.price === action.payload.price &&
             item.type === 'flower',
         );
         const priceAsNumber = parseInt(
@@ -41,7 +41,7 @@ export const cartReducer = (state = initialState, action) => {
             ...state,
             items: [
               ...state.items,
-              {...action.payload, originalPrice: action.payload.price},
+              {...action.payload, price: action.payload.price},
             ],
             isPushed: false,
           };
