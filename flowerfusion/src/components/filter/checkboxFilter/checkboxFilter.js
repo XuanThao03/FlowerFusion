@@ -15,25 +15,42 @@ export class CheckboxFilter extends Component {
       ...this.state.selectedFilters,
       [type]: isChecked,
     };
-    this.setState({ selectedFilters: newSelectedFilters });
-  
+    this.setState({selectedFilters: newSelectedFilters});
+
     // Kiểm tra xem hàm callback nào được truyền từ props và gọi nó
     if (isChecked) {
-      if (this.props.title === 'Color' && typeof this.props.onFilterChangeByColor === 'function') {
+      if (
+        this.props.title === 'Color' &&
+        typeof this.props.onFilterChangeByColor === 'function'
+      ) {
         this.props.onFilterChangeByColor(type);
-      } else if (this.props.title === 'Arrival' && typeof this.props.onFilterChangeByArrival === 'function') {
+      } else if (
+        this.props.title === 'Arrival' &&
+        typeof this.props.onFilterChangeByArrival === 'function'
+      ) {
         this.props.onFilterChangeByArrival(type);
-      } else if (this.props.title === 'Categories' && typeof this.props.onFilterChangeByCategories === 'function') {
+      } else if (
+        this.props.title === 'Categories' &&
+        typeof this.props.onFilterChangeByCategories === 'function'
+      ) {
         this.props.onFilterChangeByCategories(type);
       }
-      
     } else {
       // Gọi hàm callback với giá trị null nếu không có checkbox nào được check
-      if (this.props.title === 'Color' && typeof this.props.onFilterChangeByColor === 'function') {
-        this.props.onFilterChangeByColor(null);
-      } else if (this.props.title === 'Arrival' && typeof this.props.onFilterChangeByArrival === 'function') {
-        this.props.onFilterChangeByArrival(null);
-      } else if (this.props.title === 'Categories' && typeof this.props.onFilterChangeByCategories === 'function') {
+      if (
+        this.props.title === 'Color' &&
+        typeof this.props.onFilterChangeByColor === 'function'
+      ) {
+        this.props.onFilterChangeByColor(type);
+      } else if (
+        this.props.title === 'Arrival' &&
+        typeof this.props.onFilterChangeByArrival === 'function'
+      ) {
+        this.props.onFilterChangeByArrival(type);
+      } else if (
+        this.props.title === 'Categories' &&
+        typeof this.props.onFilterChangeByCategories === 'function'
+      ) {
         this.props.onFilterChangeByCategories(null);
       }
     }
@@ -51,11 +68,21 @@ export class CheckboxFilter extends Component {
               id={`checkbox-${type.name}`}
               name={`checkbox-${type.name}`}
               value={type.name}
-              onChange={(e) => this.handleCheckboxChange(type.name, e.target.checked)}
+              onChange={e =>
+                this.handleCheckboxChange(type.name, e.target.checked)
+              }
             />
             <div className="flex justify-between w-4/5">
-              <label htmlFor={`checkbox-${type.name}`} className={styles.txtItem}>{type.name}</label>
-              <label htmlFor={`checkbox-${type.name}`} className={styles.txtQuantity}>{type.quantity}</label>
+              <label
+                htmlFor={`checkbox-${type.name}`}
+                className={styles.txtItem}>
+                {type.name}
+              </label>
+              <label
+                htmlFor={`checkbox-${type.name}`}
+                className={styles.txtQuantity}>
+                {type.quantity}
+              </label>
             </div>
           </li>
         );
@@ -73,7 +100,7 @@ export class CheckboxFilter extends Component {
                 type="button"
                 className={styles.showAll}
                 //onClick={() => this.setState({n: !this.state.n})}>
-                onClick={() => this.setState({ expanded: !this.state.expanded })}>
+                onClick={() => this.setState({expanded: !this.state.expanded})}>
                 {this.props.value.length > 5
                   ? this.state.expanded
                     ? 'Show less'
