@@ -12,8 +12,9 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { setVases, setSelectedVase } from '../../../Redux/Actions/vaseAction';
+import {useSelector, useDispatch} from 'react-redux';
+import {setVases, setSelectedVase} from '../../../Redux/Actions/vaseAction';
+import {Search} from '../../../components/searchbar/search';
 
 const categories = [
   {name: 'Mason Jar', quantity: 46},
@@ -40,10 +41,12 @@ const colors = [
   {name: 'Black', quantity: ''},
 ];
 const Vase = () => {
-  const dispatch = useDispatch();
-  const vases = useSelector((state) => state.vases);
+  const [keywords, setKeywords] = useState('');
 
-  const handleVaseClick = (selectedVase) => {
+  const dispatch = useDispatch();
+  const vases = useSelector(state => state.vases);
+
+  const handleVaseClick = selectedVase => {
     dispatch(setSelectedVase(selectedVase));
     localStorage.setItem('selectedVase', JSON.stringify(selectedVase));
   };
@@ -60,34 +63,38 @@ const Vase = () => {
     };
     fetchvases();
   }, [dispatch]);
-const vaseLists = vases.map(vase => {
-  return (
-    <Link className="flex justify-center" to={`/vases/detail/${vase.key}`}
-          onClick={() => handleVaseClick(vase)}>
-      <ItemFlower
-        className={styles.itemFlower}
-        img={vase.imgPath1}
-        name={vase.name}
-        price={vase.price}
-        discount={vase.discount}
-      />
-    </Link>
-  );
-});
+  const vaseLists = vases.map(vase => {
     return (
-      <div>
-        <NavigationBar />
-        <div className={styles.catalogContainer}>
-          <div className={styles.filterContainer}>
-            <PriceSlider />
-            <CheckboxFilter title={'Categories'} value={categories} />
-            <CheckboxFilter title={'Color'} value={colors} />
-          </div>
-          <div className={styles.flowerContainer}>{vaseLists}</div>
-        </div>
-        <BottomBanner />
-      </div>
+      <Link
+        className="flex justify-center"
+        to={`/vases/detail/${vase.key}`}
+        onClick={() => handleVaseClick(vase)}>
+        <ItemFlower
+          className={styles.itemFlower}
+          img={vase.imgPath1}
+          name={vase.name}
+          price={vase.price}
+          discount={vase.discount}
+        />
+      </Link>
     );
-  };
+  });
+  return (
+    <div>
+      <NavigationBar />
+      <div className={styles.catalogContainer}>
+        <div className={styles.filterContainer}>
+          <Search onChange={e => setKeywords(e.target.value)} />
+
+          <PriceSlider />
+          <CheckboxFilter title={'Categories'} value={categories} />
+          <CheckboxFilter title={'Color'} value={colors} />
+        </div>
+        <div className={styles.flowerContainer}>{vaseLists}</div>
+      </div>
+      <BottomBanner />
+    </div>
+  );
+};
 
 export default Vase;

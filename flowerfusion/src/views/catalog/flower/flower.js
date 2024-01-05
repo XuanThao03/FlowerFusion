@@ -23,6 +23,7 @@ import {
   filterFlowersByPrice,
   filterFlowers,
 } from '../../../Redux/Actions/flowerAction';
+import {Search} from '../../../components/searchbar/search';
 
 const arrival = [
   {name: 'Letter box friendly', quantity: 55},
@@ -57,6 +58,8 @@ const quantity = [
   {name: 'Other', quantity: ''},
 ];
 const Flower = () => {
+  const [keywords, setKeywords] = useState('');
+
   const dispatch = useDispatch();
   const allFlowers = useSelector(state => state.flowers.allFlowers);
   const filteredFlowers = useSelector(state => state.flowers.filteredFlowers);
@@ -123,7 +126,9 @@ const Flower = () => {
     if (categories) {
       if (selectedCategories.includes(categories)) {
         // If the arrival is already selected, remove it
-        newSelectedCategories = selectedCategories.filter(a => a !== categories);
+        newSelectedCategories = selectedCategories.filter(
+          a => a !== categories,
+        );
       } else {
         // If the arrival is not selected, add it
         newSelectedCategories = [...selectedCategories, categories];
@@ -166,21 +171,22 @@ const Flower = () => {
   }, [dispatch]);
 
   const flowerLists = filteredFlowers.map(fl => {
-    return (
-      <NavLink
-        className="flex justify-center"
-        to={`/flowers/detail/${fl.key}`}
-        onClick={() => handleFlowerClick(fl)}
-        key={fl.key}>
-        <ItemFlower
-          className={styles.itemFlower}
-          img={fl.imgPath1}
-          name={fl.name}
-          price={fl.price1}
-          discount={fl.discount}
-        />
-      </NavLink>
-    );
+    if (fl.name.includes(keywords.toUpperCase()))
+      return (
+        <NavLink
+          className="flex justify-center"
+          to={`/flowers/detail/${fl.key}`}
+          onClick={() => handleFlowerClick(fl)}
+          key={fl.key}>
+          <ItemFlower
+            className={styles.itemFlower}
+            img={fl.imgPath1}
+            name={fl.name}
+            price={fl.price1}
+            discount={fl.discount}
+          />
+        </NavLink>
+      );
   });
 
   return (
@@ -189,6 +195,7 @@ const Flower = () => {
       <NavigationBar />
       <div className={styles.catalogContainer}>
         <div className={styles.filterContainer}>
+          <Search onChange={e => setKeywords(e.target.value)} />
           <PriceSlider />
           <CheckboxFilter
             title={'Arrival'}
