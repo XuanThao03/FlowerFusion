@@ -13,7 +13,7 @@ import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFlowers, setSelectedFlower } from '../../../Redux/Actions/flowerAction';
+import { setAllFlowers, setFilteredFlowers, setSelectedFlower, filterFlowersByColor, filterFlowersByArrival, filterFlowersByCategories} from '../../../Redux/Actions/flowerAction';
 
 
 const arrival = [
@@ -21,33 +21,19 @@ const arrival = [
   {name: 'Comes pre-arranged', quantity: 65},
 ];
 const categories = [
-  {name: 'Roses', quantity: 46},
-  {name: 'Tulip', quantity: 47},
-  {name: 'Lavenders', quantity: 40},
-  {name: 'Sunflower', quantity: 55},
-  {name: 'Daisy', quantity: 57},
-  {name: 'Orchild', quantity: 46},
-  {name: 'Lily', quantity: 46},
-  {name: 'Hydrangea', quantity: 46},
-  {name: 'Roses', quantity: 46},
-  {name: 'Roses', quantity: 46},
-  {name: 'Tulip', quantity: 46},
-  {name: 'Lavenders', quantity: 46},
-  {name: 'Sunflower', quantity: 46},
-  {name: 'Daisy', quantity: 46},
-  {name: 'Orchild', quantity: 46},
+  {name: 'Kiku', quantity: 46},
+  {name: 'Pampas Grass', quantity: 47},
+  {name: 'Faux Hydrangea', quantity: 40},
 ];
 
 const colors = [
-  {name: 'White', quantity: ''},
-  {name: 'Pink', quantity: ''},
-  {name: 'Red', quantity: ''},
-  {name: 'Yello', quantity: ''},
-  {name: 'Orange', quantity: ''},
+  {name: 'Umber', quantity: ''},
+  {name: 'Cream', quantity: ''},
+  {name: 'Grey', quantity: ''},
+  {name: 'Boho', quantity: ''},
+  {name: 'Yellow', quantity: ''},
+  {name: 'Dusky', quantity: ''},
   {name: 'Green', quantity: ''},
-  {name: 'Blue', quantity: ''},
-  {name: 'Purple', quantity: ''},
-  {name: 'Black', quantity: ''},
 ];
 const quantity = [
   {name: '1-10', quantity: ''},
@@ -64,8 +50,30 @@ const quantity = [
 ];
 const Flower = () => {
   const dispatch = useDispatch();
-  const flowers = useSelector((state) => state.flowers);
-
+  const allFlowers = useSelector((state) => state.flowers.allFlowers);
+  const filteredFlowers = useSelector((state) => state.flowers.filteredFlowers);
+  const handleArrivalChange = (arrival) => {
+    if (arrival) {
+      dispatch(filterFlowersByArrival(arrival));
+    } else {
+      dispatch(setFilteredFlowers(allFlowers)); // Reset nếu không có arrival nào được chọn
+    }
+  };
+  const handleColorChange = (color) => {
+    if (color) {
+      dispatch(filterFlowersByColor(color));
+    } else {
+      dispatch(setFilteredFlowers(allFlowers)); // Reset nếu không có màu nào được chọn
+    }
+  };
+  const handleCategoriesChange = (categories) => {
+    if (categories) {
+      dispatch(filterFlowersByCategories(categories));
+    } else {
+      dispatch(setFilteredFlowers(allFlowers)); // Reset nếu không có màu nào được chọn
+    }
+  };
+  
   const handleFlowerClick = (selectedFlower) => {
     dispatch(setSelectedFlower(selectedFlower));
     localStorage.setItem('selectedFlower', JSON.stringify(selectedFlower));
@@ -75,16 +83,15 @@ const Flower = () => {
     const fetchflowers = async () => {
       try {
         const response = await axios.get('/api/flowers');
-        dispatch(setFlowers(response.data));
+        dispatch(setAllFlowers(response.data)); // Sử dụng hành động setAllFlowers
       } catch (error) {
-        //console.log(error.response.data.message);
         console.log(error);
       }
     };
     fetchflowers();
   }, [dispatch]);
 
-  const flowerLists = flowers.map(fl => {
+  const flowerLists = filteredFlowers.map(fl => {
     return (
       <NavLink
       className="flex justify-center" 
@@ -110,9 +117,9 @@ const Flower = () => {
       <div className={styles.catalogContainer}>
         <div className={styles.filterContainer}>
           <PriceSlider />
-          <CheckboxFilter title={'Arrival'} value={arrival} />
-          <CheckboxFilter title={'Categories'} value={categories} />
-          <CheckboxFilter title={'Color'} value={colors} />
+          <CheckboxFilter title={'Arrival'} value={arrival} onFilterChangeByArrival={handleArrivalChange}/>
+          <CheckboxFilter title={'Categories'} value={categories} onFilterChangeByCategories={handleCategoriesChange}/>
+          <CheckboxFilter title={'Color'} value={colors} onFilterChangeByColor={handleColorChange}/>
           <CheckboxFilter title={'Counter'} value={quantity} />
         </div>
         <div className={styles.flowerContainer}>{flowerLists}</div>
