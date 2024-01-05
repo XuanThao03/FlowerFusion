@@ -14,6 +14,7 @@ import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {setSelectedFlower} from '../../../Redux/Actions/flowerAction';
 import {setSelectedVase} from '../../../Redux/Actions/vaseAction';
+import {Search} from '../../../components/searchbar/search';
 
 const arrival = [
   {name: 'Letter box friendly', quantity: 55},
@@ -58,6 +59,8 @@ const quantity = [
 //   );
 // });
 const Trending = () => {
+  const [keywords, setKeywords] = useState('');
+
   const dispatch = useDispatch();
   const [trendings, setTrendings] = useState([]);
   const handleTrendingClick = selectedTrending => {
@@ -148,6 +151,8 @@ const Trending = () => {
         </div> */}
       <div className={styles.catalogContainer}>
         <div className={styles.filterContainer}>
+          <Search onChange={e => setKeywords(e.target.value)} />
+
           <PriceSlider />
           <CheckboxFilter title={'Categories'} value={categories} />
         </div>

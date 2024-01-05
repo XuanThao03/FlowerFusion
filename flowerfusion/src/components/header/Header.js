@@ -7,6 +7,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {pushCart} from '../../Redux/Actions/cartAction';
 
 export const Header = () => {
+  //search
+  // const [keywords, setKeywords] = useState('');
+
   const cartItems = useSelector(state => state.cart.items);
   const cartIsPushed = useSelector(state => state.cart.isPushed);
   // console.log('cartItems.isPushed', cartIsPushed);
@@ -49,8 +52,9 @@ export const Header = () => {
     <div className={styles.mainContainer}>
       <div className={styles.container1}>
         <div class={styles.searchContainer}>
-          <div class={styles.searchInput}>
+          {/* <div class={styles.searchInput}>
             <input
+              onChange={e => setKeywords(e.target.value)}
               className={styles.search}
               type="text"
               placeholder="Search..."
@@ -66,7 +70,7 @@ export const Header = () => {
               data-te-ripple-color="light">
               <img src={IC_Search} />
             </button>
-          </div>
+          </div> */}
         </div>
         <div className={styles.logo_container}>
           <NavLink to="/" exact={true} className="flex items-center">
