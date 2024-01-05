@@ -61,6 +61,8 @@ const Flower = () => {
   const allFlowers = useSelector(state => state.flowers.allFlowers);
   const filteredFlowers = useSelector(state => state.flowers.filteredFlowers);
   const [selectedArrivals, setSelectedArrivals] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
   const handleArrivalChange = arrival => {
     let newSelectedArrivals;
     if (arrival) {
@@ -117,10 +119,27 @@ const Flower = () => {
     }
   };
   const handleCategoriesChange = categories => {
+    let newSelectedCategories;
     if (categories) {
-      dispatch(filterFlowersByCategories(categories));
+      if (selectedCategories.includes(categories)) {
+        // If the arrival is already selected, remove it
+        newSelectedCategories = selectedCategories.filter(a => a !== categories);
+      } else {
+        // If the arrival is not selected, add it
+        newSelectedCategories = [...selectedCategories, categories];
+      }
     } else {
-      dispatch(setFilteredFlowers(filteredFlowers)); // Reset nếu không có màu nào được chọn
+      // If no arrival is selected, reset the selected arrivals
+      newSelectedCategories = [];
+    }
+
+    setSelectedCategories(newSelectedCategories);
+    if (newSelectedCategories.length > 0) {
+      dispatch(filterFlowersByCategories(newSelectedCategories));
+      console.log(newSelectedCategories);
+    } else {
+      console.log(newSelectedCategories);
+      dispatch(setFilteredFlowers(allFlowers)); // Reset nếu không có arrival nào được chọn
     }
   };
 

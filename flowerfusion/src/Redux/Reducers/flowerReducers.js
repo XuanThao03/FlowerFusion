@@ -39,6 +39,24 @@ export const flowersReducer = (state = initialState, action) => {
         filteredFlowers: filteredByArrivals,
       };
 
+      case 'FILTER_FLOWERS_BY_CATEGORIES':
+      const categoriesToFilter = action.payload;
+      let filteredByCategories;
+
+      if (categoriesToFilter.length === 0) {
+        filteredByCategories = state.allFlowers;
+      } else {
+        // Lọc theo thứ tự màu sắc đã chọn
+        filteredByCategories = state.allFlowers.filter(flower =>
+          categoriesToFilter.includes(flower.categories),
+        );
+      }
+
+      return {
+        ...state,
+        filteredFlowers: filteredByCategories,
+      };
+
     case 'FILTER_FLOWERS_BY_COLOR':
       const colorsToFilter = action.payload;
       let filteredByColors;
