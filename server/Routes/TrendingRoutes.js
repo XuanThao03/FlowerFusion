@@ -8,7 +8,7 @@ trendingRoute.get(
   "/",
   assyncHandler(async (req, res) => {
     const trendingList = await FlowerModel.find({
-      isTrending : true,
+      isTrending: true,
     });
     res.json(trendingList);
   })
