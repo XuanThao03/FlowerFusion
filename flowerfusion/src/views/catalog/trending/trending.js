@@ -73,7 +73,7 @@ const Trending = () => {
 const flowerLists = trending.map(fl => {
   return (
     <NavLink className="flex justify-center" 
-    //to="/flowers/detail" 
+    to="/flowers/detail" 
     exact={true}>
       <ItemFlower
         className={styles.itemFlower}
@@ -85,6 +85,7 @@ const flowerLists = trending.map(fl => {
     </NavLink>
   );
 });
+
     return (
       <div>
         {/* <Header /> */}
