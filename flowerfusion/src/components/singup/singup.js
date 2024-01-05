@@ -14,6 +14,9 @@ const Signup = ({location, history}) => {
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirm] = useState('');
+  const [flag, setflag] = useState(true);
+  const [mesage, setMessage] = useState('');
 
   const [showPass, setShowPass] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -32,9 +35,24 @@ const Signup = ({location, history}) => {
   }, [userInfo, history, redirect]);
 
   const submitHandler = e => {
-    console.log(firstname);
     e.preventDefault();
-    dispatch(register(firstname, lastname, email, password));
+    console.log(password.length);
+    if (password.length >= 8) {
+      setflag(true);
+      setMessage('');
+      if (confirmPassword === password) {
+        setflag(true);
+        setMessage('');
+      } else {
+        setflag(false);
+        setMessage('Password do not match. Please try again');
+      }
+    } else {
+      setflag(false);
+      setMessage('Your password must be at least 8 characters long');
+    }
+
+    if (flag) dispatch(register(firstname, lastname, email, password));
   };
 
   const googleAuth = () => {
@@ -51,6 +69,7 @@ const Signup = ({location, history}) => {
       <p className="text-xs font-medium font-lexend text-argent mt-1">
         Create your new account
       </p>
+      {!flag && <Message>{mesage}</Message>}
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       <form onSubmit={submitHandler} ref={form} className="pl-10">
@@ -96,8 +115,8 @@ const Signup = ({location, history}) => {
           <input
             type={!showConfirm ? 'password' : ''}
             className="w-72 border-[1.4px] boder-gainsboro rounded-md h-11 p-4 mt-3 bg-transparent"
-            placeholder="Password"
-            onChange={e => setPassword(e.target.value)}
+            placeholder="Confirm Password"
+            onChange={e => setConfirm(e.target.value)}
           />
           <button type="button" onClick={() => setShowConfirm(!showConfirm)}>
             <img src={showConfirm ? IC_Eye : IC_EyeOff} className="mt-2 ml-5" />
