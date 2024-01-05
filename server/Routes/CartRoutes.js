@@ -5,6 +5,7 @@ import generateToken from "../utils/generateToken.js";
 import protect from "../Middleware/AuthMiddleware.js";
 import bcrypt from "bcrypt";
 import CartModel from "../models/Cart.js";
+import OrderModel from "../models/OrderModel.js";
 
 const cartRoute = express.Router();
 
@@ -80,7 +81,7 @@ cartRoute.post(
             });
         }
       });
-      CartModel.updateOne(
+      OrderModel.updateOne(
         { userEmail: userEmail },
         {
           $inc: {
