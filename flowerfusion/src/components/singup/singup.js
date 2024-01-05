@@ -15,7 +15,8 @@ const Signup = ({location, history}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirm] = useState('');
-  const [isMatch, setIsMatch] = useState(true);
+  const [flag, setflag] = useState(true);
+  const [mesage, setMessage] = useState('');
 
   const [showPass, setShowPass] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -35,12 +36,23 @@ const Signup = ({location, history}) => {
 
   const submitHandler = e => {
     e.preventDefault();
-    if (confirmPassword === password) {
-      setIsMatch(true);
-      dispatch(register(firstname, lastname, email, password));
+    console.log(password.length);
+    if (password.length >= 8) {
+      setflag(true);
+      setMessage('');
+      if (confirmPassword === password) {
+        setflag(true);
+        setMessage('');
+      } else {
+        setflag(false);
+        setMessage('Password do not match. Please try again');
+      }
     } else {
-      setIsMatch(false);
+      setflag(false);
+      setMessage('Your password must be at least 8 characters long');
     }
+
+    if (flag) dispatch(register(firstname, lastname, email, password));
   };
 
   const googleAuth = () => {
@@ -57,7 +69,7 @@ const Signup = ({location, history}) => {
       <p className="text-xs font-medium font-lexend text-argent mt-1">
         Create your new account
       </p>
-      {!isMatch && <Message>Your password not match!</Message>}
+      {!flag && <Message>{mesage}</Message>}
       {error && <Message variant="alert-danger">{error}</Message>}
       {loading && <Loading />}
       <form onSubmit={submitHandler} ref={form} className="pl-10">
