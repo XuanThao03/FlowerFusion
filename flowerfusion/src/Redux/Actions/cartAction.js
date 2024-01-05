@@ -1,53 +1,85 @@
-  // export const addToCart = (item) => {
-  //   return {
-  //     type: 'cart/addToCart',
-  //     payload: item
-  //   };
-  // };
+// export const addToCart = (item) => {
+//   return {
+//     type: 'cart/addToCart',
+//     payload: item
+//   };
+// };
 
-  export const addToCart = (item) => {
-    return (dispatch, getState) => {
-      dispatch({
-        type: 'cart/addToCart',
-        payload: item,
-      });
-      const updatedCart = getState().cart;
-      localStorage.setItem('cart', JSON.stringify(updatedCart.items));
-    };
-  };
+import axios from 'axios';
 
-  export const incrementQuantity = (itemName) => {
-    return (dispatch, getState) => {
-      dispatch({
-        type: 'cart/incrementQuantity',
-        payload: itemName,
-      });
-  
-      const updatedCart = getState().cart;
-      localStorage.setItem('cart', JSON.stringify(updatedCart.items));
-    };
+export const addToCart = item => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: 'cart/addToCart',
+      payload: item,
+    });
+    const updatedCart = getState().cart;
+    localStorage.setItem('cart', JSON.stringify(updatedCart.items));
   };
-  
-  export const decrementQuantity = (itemName) => {
-    return (dispatch, getState) => {
-      dispatch({
-        type: 'cart/decrementQuantity',
-        payload: itemName,
-      });
-  
-      const updatedCart = getState().cart;
-      localStorage.setItem('cart', JSON.stringify(updatedCart.items));
-    };
+};
+
+export const incrementQuantity = itemName => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: 'cart/incrementQuantity',
+      payload: itemName,
+    });
+
+    const updatedCart = getState().cart;
+    localStorage.setItem('cart', JSON.stringify(updatedCart.items));
   };
-  
-  export const removeFromCart = (itemName) => {
-    return (dispatch, getState) => {
+};
+
+export const decrementQuantity = itemName => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: 'cart/decrementQuantity',
+      payload: itemName,
+    });
+
+    const updatedCart = getState().cart;
+    localStorage.setItem('cart', JSON.stringify(updatedCart.items));
+  };
+};
+
+export const removeFromCart = itemName => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: 'cart/removeFromCart',
+      payload: itemName,
+    });
+
+    const updatedCart = getState().cart;
+    localStorage.setItem('cart', JSON.stringify(updatedCart.items));
+  };
+};
+export const deleteCart = () => dispatch => {
+  localStorage.removeItem('cart');
+  dispatch({type: 'cart/deleteCart'});
+};
+
+//push cart to dtb
+export const pushCart =
+  (quantity, total, products) => async (dispatch, getState) => {
+    console.log('quantity', quantity);
+    const userInfo = getState().userLogin;
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.userInfo.token}`,
+        },
+      };
+      const {data} = await axios.post(
+        `/api/carts/update`,
+        {userEmail: userInfo.userInfo.email, quantity, total, products},
+        config,
+      );
       dispatch({
-        type: 'cart/removeFromCart',
-        payload: itemName,
+        type: 'pushCart',
       });
-  
-      const updatedCart = getState().cart;
-      localStorage.setItem('cart', JSON.stringify(updatedCart.items));
-    };
+    } catch (error) {
+      console.log(error);
+    }
   };

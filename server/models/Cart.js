@@ -6,16 +6,12 @@ const CartSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
-    status: {
-      type: String,
-      require: true,
-    },
     quantity: {
-      type: String,
+      type: Number,
       require: true,
     },
     total: {
-      type: Number,
+      type: String,
       require: true,
     },
     products: [

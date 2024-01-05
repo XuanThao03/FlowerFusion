@@ -8,6 +8,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
 } from '../Constants/UserContants';
 import sendEmail from '../../ultils/welcomeEmail';
 
@@ -27,7 +30,7 @@ export const login = (email, password) => async dispatch => {
       config,
     );
     dispatch({type: USER_LOGIN_SUCCESS, payload: data});
-    localStorage.removeItem('cart');
+    //localStorage.removeItem('cart');
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
@@ -108,6 +111,8 @@ export const register =
       });
     }
   };
+
+//find user
 export const userExist = email => async dispatch => {
   try {
     const config = {
@@ -126,3 +131,37 @@ export const userExist = email => async dispatch => {
     });
   }
 };
+
+//edit profile
+export const editProfile =
+  (firstname, lastname, phone, address) => async (dispatch, getState) => {
+    console.log(firstname, lastname, phone, address);
+
+    const userInfo = getState().userLogin;
+    //dispatch({type: USER_UPDATE_REQUEST, payload: userInfo.userInfo});
+
+    console.log('userInfo.userInfo.token', userInfo.userInfo);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.userInfo.token}`,
+        },
+      };
+      const {data} = await axios.post(
+        `/api/users/edit`,
+        {firstname, lastname, phone, address},
+        config,
+      );
+      dispatch({type: USER_UPDATE_SUCCESS, payload: data});
+      localStorage.setItem('userInfo', JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_UPDATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

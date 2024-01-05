@@ -36,7 +36,8 @@ userRoute.post(
   assyncHandler(async (req, res) => {
     const { firstname, lastname, email, password, isAdmin } = req.body;
     const userExists = await UserModel.findOne({ email });
-
+    const phone = "";
+    const address = "";
     if (userExists) {
       res.status(400);
       throw new Error("User already exists");
@@ -104,27 +105,29 @@ userRoute.delete(
     res.status(200).json({ email: req.params.email });
   })
 );
-//update userprofile
-userRoute.put(
-  "/profile",
+//edit userprofile
+userRoute.post(
+  "/edit",
   protect,
   assyncHandler(async (req, res) => {
     const user = await UserModel.findById(req.user._id);
+    console.log(req.body);
     if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      if (req.body.password) {
-        user.password = req.body.password;
-      }
+      user.firstname = req.body.firstname || user.firstname;
+      user.lastname = req.body.lastname || user.lastname;
+      user.phone = req.body.phone || user.phone;
+      user.address = req.body.address || user.address;
       const updateUser = await user.save();
       res.json({
         _id: updateUser._id,
         firstname: updateUser.firstname,
         lastname: updateUser.lastname,
         email: updateUser.email,
+        phone: updateUser.phone,
         isAdmin: updateUser.isAdmin,
-        //token: generateToken(updateUser._id),
+        address: updateUser.address,
         createdAt: updateUser.createdAt,
+        token: generateToken(user._id),
       });
     } else {
       res.status(404);
@@ -163,9 +166,6 @@ userRoute.post(
   assyncHandler(async (req, res) => {
     const { email, newpassword, oldpassword } = req.body;
     const user = await UserModel.findOne({ email: email });
-    console.log("found");
-    console.log(newpassword);
-    console.log(oldpassword);
     if (user) {
       if (
         oldpassword !== "" &&
@@ -188,10 +188,12 @@ userRoute.post(
         .then((obj) => {
           res.json({
             _id: user._id,
-            email: email,
-            isChanged: true,
-            password: hashpassword,
-            currentPassword: user.password,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            //token: generateToken(user._id),
+            createdAt: user.createdAt,
           });
         })
         .catch((err) => {
@@ -203,4 +205,5 @@ userRoute.post(
     }
   })
 );
+
 export default userRoute;
