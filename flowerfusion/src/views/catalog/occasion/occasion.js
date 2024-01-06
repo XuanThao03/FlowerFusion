@@ -67,7 +67,7 @@ const Occasion = () => {
   });
   return (
     <div>
-      <NavigationBar placeholder='All of occasions'/>
+      <NavigationBar placeholder="All of occasions" />
       <div className={styles.catalogContainer}>
         <div className={styles.filterContainer}>
           <Search onChange={e => setKeywords(e.target.value)} />

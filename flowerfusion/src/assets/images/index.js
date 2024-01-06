@@ -14,9 +14,7 @@ export {default as IMG_bgHome} from './IMG_bgHome.png';
 export {default as IMG_Home2} from './IMG_Home2.jpg';
 export {default as IMG_Home3} from './IMG_Home3.jpg';
 export {default as IMG_Home5} from './IMG_Home5.jpg';
-
-
-
+export {default as IMG_qr} from './IMG_qr.jpg';
 
 export {default as IMG_CoverCata1} from './IMG_CoverCata1.png';
 export {default as IMG_CoverCata2} from './IMG_CoverCata2.png';
@@ -24,5 +22,3 @@ export {default as IMG_CoverCata3} from './IMG_CoverCata3.png';
 export {default as IMG_Kiku1} from './IMG_Kiku1.webp';
 export {default as IMG_Kiku2} from './IMG_Kiku2.webp';
 export {default as IMG_Kiku3} from './IMG_Kiku3.webp';
-
-

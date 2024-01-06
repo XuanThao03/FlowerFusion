@@ -15,6 +15,7 @@ import {increaseNum, placeOrder} from '../../Redux/Actions/orderAction';
 import Message from '../../components/LoadingError/Error';
 import {message} from 'antd';
 import {deleteCart} from '../../Redux/Actions/cartAction';
+import {IMG_qr} from '../../assets/images';
 
 const CheckOut = () => {
   const dispatch = useDispatch();
@@ -164,6 +165,9 @@ const CheckOut = () => {
             disabled={!isAllFieldsFilled ? true : false}
             className="bg-button-black w-[650px] h-10 rounded-[10px] text-white text-xs font-semibold mt-3"
             onClick={() => {
+              if (payment === 'Momo') {
+                document.getElementById('my_modal1').showModal();
+              } else document.getElementById('my_modal').showModal();
               var quantity = 0;
               cartItems.forEach(element => {
                 quantity += element.quantity;
@@ -199,8 +203,6 @@ const CheckOut = () => {
                   ),
                 );
               }, 5000);
-
-              document.getElementById('my_modal').showModal();
             }}>
             Pay now
           </button>
@@ -262,6 +264,17 @@ const CheckOut = () => {
             className="btn btn-neutral bg-button-black w-1/2 h-[50px] rounded-[10px] text-white text-xs font-[Lexend] font-normal">
             Continue
           </button>
+        </div>
+      </dialog>
+      <dialog id="my_modal1" className="modal">
+        <div className="modal-box h-4/5 w-1/3 max-w-5xl flex flex-col items-center justify-around">
+          <form method="dialog">
+            {}
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+              ✕
+            </button>
+          </form>
+          <img src={IMG_qr} />
         </div>
       </dialog>
     </div>

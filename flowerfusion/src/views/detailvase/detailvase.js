@@ -39,7 +39,8 @@ const DetailVase = () => {
     }
   }, [dispatch]);
   const [imgLink, setLink] = useState(imgPath1);
-  const vases = useSelector((state) => state.vases.filteredVases);  const handleVaseClick = selectedVase => {
+  const vases = useSelector(state => state.vases.filteredVases);
+  const handleVaseClick = selectedVase => {
     dispatch(setSelectedVase(selectedVase));
     localStorage.setItem('selectedVase', JSON.stringify(selectedVase));
     setLink(selectedVase.imgPath1);
@@ -82,7 +83,7 @@ const DetailVase = () => {
   const formattedTotalPrice = totalPrice
     ? totalPrice.toLocaleString('vi-VN')
     : '0';
-  const flowers = useSelector(state => state.flowers);
+  const flowers = useSelector(state => state.flowers.filteredFlowers);
   const selectedFlower = useSelector(state => state.selectedFlower);
   const handleFlowerClick = selectedFlower => {
     const previousSelectedFlower = JSON.parse(
@@ -114,7 +115,7 @@ const DetailVase = () => {
     dispatch(setSelectedFlower(null));
     localStorage.removeItem('selectedFlower');
   }, [dispatch]);
-  const flowerLists = vases.map(fl => {
+  const flowerLists = flowers.map(fl => {
     const isSelected = selectedFlower && selectedFlower.key === fl.key;
     return (
       <SplideSlide key={fl.key}>
@@ -157,7 +158,7 @@ const DetailVase = () => {
   return (
     <div>
       <div>
-        <NavigationBar placeholder={name}/>
+        <NavigationBar placeholder={name} />
       </div>
       <div className="flex">
         <div className="flex">
