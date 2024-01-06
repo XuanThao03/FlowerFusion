@@ -163,7 +163,7 @@ const DetailOccasion = () => {
   return (
     <div>
       <div>
-        <NavigationBar />
+        <NavigationBar placeholder={name}/>
       </div>
       <div className="flex">
         {/* Image  */}

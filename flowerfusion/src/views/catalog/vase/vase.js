@@ -76,7 +76,7 @@ const vaseLists = vases.map(vase => {
 });
     return (
       <div>
-        <NavigationBar />
+        <NavigationBar placeholder="All of vases"/>
         <div className={styles.catalogContainer}>
           <div className={styles.filterContainer}>
             <PriceSlider />

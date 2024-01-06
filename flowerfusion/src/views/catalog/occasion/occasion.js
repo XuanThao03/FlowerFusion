@@ -60,7 +60,7 @@ const occasionLists = occasions.map(Occasion => {
 });
     return (
       <div>
-        <NavigationBar />
+        <NavigationBar placeholder="All of occasions"/>
         <div className={styles.catalogContainer}>
           <div className={styles.filterContainer}>
             <PriceSlider />

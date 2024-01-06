@@ -88,7 +88,7 @@ const flowerLists = trending.map(fl => {
     return (
       <div>
         {/* <Header /> */}
-        <NavigationBar />
+        <NavigationBar placeholder="All of trendings"/>
         {/* <div>
           <ul className="md:flex overflow-scroll no-scrollbar ">{typeLists}</ul>
         </div> */}

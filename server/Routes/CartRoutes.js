@@ -8,6 +8,21 @@ import CartModel from "../models/Cart.js";
 
 const cartRoute = express.Router();
 
+cartRoute.get('/:email', async (req, res) => {
+  try {
+    const userEmail = req.params.email;
+    const cart = await CartModel.findOne({ userEmail: userEmail }).exec();
+    if (cart) {
+      res.json(cart);
+    } else {
+      res.status(404).json({ message: 'Cart not found for this email' });
+    }
+  } catch (error) {
+    console.error('Error fetching cart:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 //insert
 cartRoute.post(
   "/insert",

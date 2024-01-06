@@ -69,7 +69,7 @@ const CandleLists = candles.map(Candle => {
 });
     return (
       <div>
-        <NavigationBar />
+        <NavigationBar placeholder="All of candles"/>
         <div className={styles.catalogContainer}>
           <div className={styles.filterContainer}>
             <PriceSlider />

@@ -149,7 +149,11 @@ export const cartReducer = (state = initialState, action) => {
         item => item.name !== name || item.price !== price,
       );
       return {...state, items: updatedItems, isPushed: false};
-
+    case 'SET_CART_ITEMS':
+        return {
+          ...state,
+          items: action.payload,
+        };
     case 'cart/deleteCart':
       return {...state, items: []};
     case 'pushCart':

@@ -160,7 +160,7 @@ const DetailCandle = () => {
   return (
     <div>
       <div>
-        <NavigationBar />
+        <NavigationBar placeholder={name}/>
       </div>
       <div className="flex">
         <div className="flex">
