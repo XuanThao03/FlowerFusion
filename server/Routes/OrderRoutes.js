@@ -1,6 +1,7 @@
 import express from "express";
 import assyncHandler from "express-async-handler";
 import OrderModel from "../models/OrderModel.js";
+import protect from "../Middleware/AuthMiddleware.js";
 const orderRoute = express.Router();
 
 //auto increase order number
@@ -127,6 +128,17 @@ orderRoute.post(
       .catch((err) => {
         console.log("Error: " + err);
       });
+  })
+);
+
+//get history
+orderRoute.post(
+  "/getorders",
+  protect,
+  assyncHandler(async (req, res) => {
+    console.log(req.body);
+    const orderList = await OrderModel.find({ userEmail: req.body.userEmail });
+    res.json(orderList);
   })
 );
 export default orderRoute;
