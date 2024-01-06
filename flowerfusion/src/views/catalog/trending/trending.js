@@ -126,27 +126,9 @@ const Trending = () => {
   });
 
   return (
-    <NavLink className="flex justify-center" 
-    //to="/flowers/detail" 
-    exact={true}>
-      <ItemFlower
-        className={styles.itemFlower}
-        img={fl.imgPath1}
-        name={fl.name}
-        price={fl.price1}
-        discount={fl.discount}
-      />
-    </NavLink>
-  );
-});
-    return (
-      <div>
-        {/* <Header /> */}
-        <NavigationBar placeholder="All of trendings"/>
-        {/* <div>
     <div>
       {/* <Header /> */}
-      <NavigationBar />
+      <NavigationBar placeholder='All of trendings'/>
       {/* <div>
           <ul className="md:flex overflow-scroll no-scrollbar ">{typeLists}</ul>
         </div> */}

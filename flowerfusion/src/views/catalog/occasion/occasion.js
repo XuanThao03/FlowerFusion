@@ -51,14 +51,6 @@ const Occasion = () => {
   }, [dispatch]);
   const occasionLists = occasions.map(Occasion => {
     return (
-      <div>
-        <NavigationBar placeholder="All of occasions"/>
-        <div className={styles.catalogContainer}>
-          <div className={styles.filterContainer}>
-            <PriceSlider />
-            <CheckboxFilter title={'Categories'} value={categories} />
-          </div>
-          <div className={styles.flowerContainer}>{occasionLists}</div>
       <Link
         className="flex justify-center"
         to={`/occasions/detail/${Occasion.key}`}
@@ -75,7 +67,7 @@ const Occasion = () => {
   });
   return (
     <div>
-      <NavigationBar />
+      <NavigationBar placeholder='All of occasions'/>
       <div className={styles.catalogContainer}>
         <div className={styles.filterContainer}>
           <Search onChange={e => setKeywords(e.target.value)} />
