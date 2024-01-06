@@ -64,7 +64,7 @@ export const placeOrder =
       itemtotal: `${total} `,
     };
 
-    //orderEmail(params);
+    orderEmail(params);
 
     try {
       const config = {

@@ -14,6 +14,7 @@ import orderEmail from '../../ultils/orderingEmail';
 import {increaseNum, placeOrder} from '../../Redux/Actions/orderAction';
 import Message from '../../components/LoadingError/Error';
 import {message} from 'antd';
+import {deleteCart} from '../../Redux/Actions/cartAction';
 
 const CheckOut = () => {
   const dispatch = useDispatch();
@@ -181,6 +182,7 @@ const CheckOut = () => {
                 cartItems,
               );
               dispatch(increaseNum());
+              dispatch(deleteCart());
               setTimeout(() => {
                 dispatch(
                   placeOrder(
@@ -198,7 +200,7 @@ const CheckOut = () => {
                 );
               }, 5000);
 
-              //document.getElementById('my_modal').showModal();
+              document.getElementById('my_modal').showModal();
             }}>
             Pay now
           </button>
