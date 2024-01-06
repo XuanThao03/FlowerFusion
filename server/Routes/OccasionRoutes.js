@@ -10,4 +10,5 @@ occasionRoute.get(
     res.json(occasionList);
   })
 );
+
 export default occasionRoute;

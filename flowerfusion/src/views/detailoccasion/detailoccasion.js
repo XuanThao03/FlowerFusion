@@ -108,7 +108,7 @@ const DetailOccasion = () => {
     setSelectedSize(option.pieces);
     setTotalPrice(option.price);
   };
-  const vases = useSelector(state => state.vases);
+  const vases = useSelector(state => state.vases.filteredVases);
   const selectedVase = useSelector(state => state.selectedVase);
   const handleVaseClick = selectedVase => {
     const previousSelectedVase = JSON.parse(
@@ -180,7 +180,7 @@ const DetailOccasion = () => {
   return (
     <div>
       <div>
-        <NavigationBar placeholder={name}/>
+        <NavigationBar placeholder={name} />
       </div>
       <div className="flex">
         {/* Image  */}

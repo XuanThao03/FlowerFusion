@@ -127,6 +127,7 @@ const DetailFlower = () => {
     dispatch(setSelectedVase(null));
     localStorage.removeItem('selectedVase');
   }, [dispatch]);
+  console.log('vase', vases);
   const vaseLists = vases.map(vase => {
     const isSelected = selectedVase && selectedVase.key === vase.key;
     return (

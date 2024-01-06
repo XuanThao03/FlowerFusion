@@ -8,10 +8,10 @@ import {useDispatch} from 'react-redux';
 
 const PriceSlider = () => {
   const dispatch = useDispatch();
-  const [values, setValues] = useState([0, 5000000]);
+  const [values, setValues] = useState([0, 400000]);
   const handleChange = newValues => {
     setValues(newValues);
-    dispatch(filterFlowersByPrice(newValues)); 
+    dispatch(filterFlowersByPrice(newValues));
   };
 
   return (
@@ -30,7 +30,7 @@ const PriceSlider = () => {
         value={values}
         onChange={handleChange}
         min={0}
-        max={5000000}
+        max={400000}
         step={100000}
       />
       <div className="priceContainer">
@@ -41,7 +41,7 @@ const PriceSlider = () => {
             id="minPrice"
             value={values[0]}
             min={0}
-            max={5000000}
+            max={400000}
             onChange={e => handleChange([+e.target.value, values[1]])}
           />
         </div>
@@ -52,7 +52,7 @@ const PriceSlider = () => {
             id="maxPrice"
             value={values[1]}
             min={0}
-            max={5000000}
+            max={400000}
             onChange={e => handleChange([values[0], +e.target.value])}
           />
         </div>

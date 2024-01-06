@@ -56,7 +56,6 @@ const colors = [
   {name: 'Grey', quantity: ''},
   {name: 'Clear', quantity: ''},
   {name: 'Gold', quantity: ''},
-
 ];
 const Vase = () => {
   const [keywords, setKeywords] = useState('');
@@ -65,7 +64,6 @@ const Vase = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const dispatch = useDispatch();
   const vases = useSelector(state => state.vases.filteredVases);
-
 
   const handleVaseClick = selectedVase => {
     dispatch(setSelectedVase(selectedVase));
@@ -89,7 +87,7 @@ const Vase = () => {
       console.log(newSelectedArrivals);
     } else {
       console.log(newSelectedArrivals);
-      dispatch(setFilteredVases(vases)); 
+      dispatch(setFilteredVases(vases));
     }
   };
   const [selectedColors, setSelectedColors] = useState([]);
@@ -184,7 +182,7 @@ const Vase = () => {
   });
   return (
     <div>
-      <NavigationBar placeholder='All of vases'/>
+      <NavigationBar placeholder="All of vases" />
       <div className={styles.catalogContainer}>
         <div className={styles.filterContainer}>
           <Search onChange={e => setKeywords(e.target.value)} />
@@ -200,11 +198,13 @@ const Vase = () => {
             value={categories}
             onFilterChangeByCategories={handleCategoriesChange}
           />
-          { <CheckboxFilter
-            title={'Color'}
-            value={colors}
-            onFilterChangeByColor={handleColorChange}
-          /> }
+          {
+            <CheckboxFilter
+              title={'Color'}
+              value={colors}
+              onFilterChangeByColor={handleColorChange}
+            />
+          }
           <CheckboxFilter title={'Counter'} value={quantity} />
         </div>
         <div className={styles.flowerContainer}>{vaseLists}</div>
@@ -213,6 +213,5 @@ const Vase = () => {
     </div>
   );
 };
-
 
 export default Vase;
