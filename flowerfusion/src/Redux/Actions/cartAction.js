@@ -57,7 +57,12 @@ export const deleteCart = () => dispatch => {
   localStorage.removeItem('cart');
   dispatch({type: 'cart/deleteCart'});
 };
-
+export const setCartData = (cartItems) => {
+  return {
+    type: 'SET_CART_ITEMS',
+    payload: cartItems,
+  };
+};
 //push cart to dtb
 export const pushCart =
   (quantity, total, products) => async (dispatch, getState) => {

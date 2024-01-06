@@ -65,6 +65,15 @@ const Vase = () => {
   }, [dispatch]);
   const vaseLists = vases.map(vase => {
     return (
+      <div>
+        <NavigationBar placeholder="All of vases"/>
+        <div className={styles.catalogContainer}>
+          <div className={styles.filterContainer}>
+            <PriceSlider />
+            <CheckboxFilter title={'Categories'} value={categories} />
+            <CheckboxFilter title={'Color'} value={colors} />
+          </div>
+          <div className={styles.flowerContainer}>{vaseLists}</div>
       <Link
         className="flex justify-center"
         to={`/vases/detail/${vase.key}`}

@@ -1,10 +1,11 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState, useEffect} from 'react';
 import {IC_Account, IC_Bag, IC_Heart, IC_Search} from '../../assets/icons';
 import styles from './header.module.scss';
 import {NavLink} from 'react-router-dom';
 import ItemProductInCart from '../itemProduct_Cart/itemProduct_cart';
 import {useSelector, useDispatch} from 'react-redux';
-import {pushCart} from '../../Redux/Actions/cartAction';
+import {pushCart, setCartData } from '../../Redux/Actions/cartAction';
+import axios from 'axios';
 
 export const Header = () => {
   //search
@@ -12,6 +13,7 @@ export const Header = () => {
 
   const cartItems = useSelector(state => state.cart.items);
   const cartIsPushed = useSelector(state => state.cart.isPushed);
+  
   // console.log('cartItems.isPushed', cartIsPushed);
   console.log('cartItems', cartItems);
   const totalAmount = useMemo(() => {
@@ -47,7 +49,30 @@ export const Header = () => {
       dispatch(pushCart(quantity, totalAmount, cartItems));
     }
   };
-
+  useEffect(() => {
+    if (userInfo && userInfo.email) {
+      const fetchCartData = async () => {
+        try {
+          const response = await axios.get(`/api/carts/${userInfo.email}`);
+          if (response.data) {
+            dispatch(setCartData(response.data));
+          }
+        } catch (error) {
+          if (error.response && error.response.status === 404) {
+            console.log('Cart not found for this email');
+          } else {
+            console.error('Error fetching cart data:', error);
+          }
+        }
+      };
+  
+      fetchCartData();
+    }
+  }, [userInfo, dispatch]);
+  
+  
+  
+  
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container1}>
@@ -141,11 +166,6 @@ export const Header = () => {
           <li className={styles.icon}>
             <NavLink to={userInfo ? '/myaccount' : '/login'} exact={true}>
               <img src={IC_Account} alt="Select Icon" />
-            </NavLink>
-          </li>
-          <li className={styles.icon}>
-            <NavLink to="/" exact={true}>
-              <img src={IC_Heart} alt="Select Icon" />
             </NavLink>
           </li>
         </ul>

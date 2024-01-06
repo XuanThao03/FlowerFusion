@@ -60,6 +60,16 @@ const Candle = () => {
   }, [dispatch]);
   const CandleLists = candles.map(Candle => {
     return (
+
+      <div>
+        <NavigationBar placeholder="All of candles"/>
+        <div className={styles.catalogContainer}>
+          <div className={styles.filterContainer}>
+            <PriceSlider />
+            <CheckboxFilter title={'Categories'} value={categories} />
+            <CheckboxFilter title={'Color'} value={colors} />
+          </div>
+          <div className={styles.flowerContainer}>{CandleLists}</div>
       <NavLink
         className="flex justify-center"
         to={`/candles/detail/${Candle.key}`}

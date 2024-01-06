@@ -58,6 +58,7 @@ const FlowerSchema = new mongoose.Schema(
     isTrending: {
       type: Boolean,
       default: false,
+
     },
     type: {
       type: String,
@@ -72,3 +73,4 @@ const FlowerSchema = new mongoose.Schema(
 
 const FlowerModel = mongoose.model("flowers", FlowerSchema);
 export default FlowerModel;
+ 

@@ -192,7 +192,7 @@ const Flower = () => {
   return (
     <div>
       {/* <Header /> */}
-      <NavigationBar />
+      <NavigationBar placeholder="All of flowers"/>
       <div className={styles.catalogContainer}>
         <div className={styles.filterContainer}>
           <Search onChange={e => setKeywords(e.target.value)} />

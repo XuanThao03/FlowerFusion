@@ -15,9 +15,6 @@ function ItemFlower(props) {
           }}>
           <div className="w-full mx-3 justify-between flex my-3">
             <div class={styles.coupon}>{props.discount}</div>
-            <div class={styles.favorite}>
-              <img src={IC_Heart} />
-            </div>
           </div>
         </div>
       </div>

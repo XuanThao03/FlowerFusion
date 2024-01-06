@@ -1,7 +1,8 @@
 import React from "react";
 import { IC_BackArrow } from "../../assets/icons";
 import styles from "./navigation.module.scss";
-export const NavigationBar = () => {
+import { Link } from "react-router-dom";
+export const NavigationBar = ({ placeholder }) => {
   return (
     <div>
       <ul className=" md:flex my-5">
@@ -9,14 +10,14 @@ export const NavigationBar = () => {
           <img src={IC_BackArrow} alt="Select Icon" />
         </li>
         <li>
-          <a href="#" className={styles.parentTab}>
+          <Link to="/" className={styles.parentTab}>
             Home
-          </a>
+          </Link>
         </li>
         <li>/</li>
         <li>
           <a href="#" className={styles.activeTab}>
-            All of flowers
+          { placeholder }
           </a>
         </li>
       </ul>
