@@ -7,10 +7,17 @@ import TextInput from '../../components/textinput/textinput';
 import ACBImage from '../../assets/images/acb.png';
 import MomoImage from '../../assets/images/momo.png';
 import ZaloPayImage from '../../assets/images/zalopay.png';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IC_Tick} from '../../assets/icons';
 import {useNavigate} from 'react-router-dom';
+import orderEmail from '../../ultils/orderingEmail';
+import {increaseNum, placeOrder} from '../../Redux/Actions/orderAction';
+import Message from '../../components/LoadingError/Error';
+import {message} from 'antd';
+
 const CheckOut = () => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const cartItems = useSelector(state => state.cart.items);
   const totalAmount = useMemo(() => {
@@ -33,22 +40,24 @@ const CheckOut = () => {
     const total = totalAmountAsNumber + shippingFee;
     return total.toLocaleString('vi-VN');
   }, [totalAmount, shippingFee]);
-  const [email, setEmail] = useState('');
-  const [country, setCountry] = useState('');
+
+  const [contact, setContact] = useState('');
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
+  const [payment, setPayment] = useState('By cash when receive');
+  const [discount, setDiscount] = useState('');
+
   const isAllFieldsFilled = useMemo(() => {
     return (
-      email.trim() !== '' &&
-      country.trim() !== '' &&
+      contact.includes('@') &&
+      contact.trim() !== '' &&
       name.trim() !== '' &&
-      company.trim() !== '' &&
       address.trim() !== '' &&
       phone.trim() !== ''
     );
-  }, [email, country, name, company, address, phone]);
+  }, [contact, name, address, phone]);
 
   return (
     <div className="flex flex-row min-h-screen">
@@ -82,9 +91,9 @@ const CheckOut = () => {
           </div>
         }
         <TextInput
-          placeholder="Email or Mobile phone number"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
+          placeholder="Email contact"
+          value={contact}
+          onChange={e => setContact(e.target.value)}
         />
         <div className="flex items-center ml-16 mt-2">
           <input
@@ -102,11 +111,11 @@ const CheckOut = () => {
         <h1 className="text-xl font-lexend font-medium text-main-color mt-6 ml-14">
           Delivery
         </h1>
-        <TextInput
+        {/* <TextInput
           placeholder="Country / Region"
           value={country}
           onChange={e => setCountry(e.target.value)}
-        />
+        /> */}
         <TextInput
           placeholder="Name"
           value={name}
@@ -143,11 +152,54 @@ const CheckOut = () => {
         <h1 className="text-xl font-lexend font-medium text-main-color mt-6 ml-14">
           Payment
         </h1>
-        <PayMent />
+        <PayMent setPayment={setPayment} />
         <div className="ml-16 my-8">
+          {!isAllFieldsFilled ? (
+            <Message variant="alert-danger">
+              Please enter your information and the correct email format
+            </Message>
+          ) : null}
           <button
-            className="bg-button-black w-[650px] h-10 rounded-[10px] text-white text-xs font-semibold"
-            onClick={() => document.getElementById('my_modal').showModal()}>
+            disabled={!isAllFieldsFilled ? true : false}
+            className="bg-button-black w-[650px] h-10 rounded-[10px] text-white text-xs font-semibold mt-3"
+            onClick={() => {
+              var quantity = 0;
+              cartItems.forEach(element => {
+                quantity += element.quantity;
+              });
+              message.success('Thank you for your order!');
+              console.log(
+                contact,
+                name,
+                company,
+                address,
+                phone,
+                payment,
+                totalWithShipping,
+                discount,
+                quantity,
+                cartItems,
+              );
+              dispatch(increaseNum());
+              setTimeout(() => {
+                dispatch(
+                  placeOrder(
+                    contact,
+                    name,
+                    company,
+                    address,
+                    phone,
+                    payment,
+                    totalWithShipping,
+                    discount,
+                    quantity,
+                    cartItems,
+                  ),
+                );
+              }, 5000);
+
+              //document.getElementById('my_modal').showModal();
+            }}>
             Pay now
           </button>
         </div>
@@ -159,6 +211,7 @@ const CheckOut = () => {
         {
           <div className=" flex justify-between items-center w-full">
             <input
+              onChange={e => setDiscount(e.target.value)}
               className="w-[500px] border-[1px] boder-gainsboro rounded-md h-11 p-4 ml-16 mt-9 bg-transparent"
               placeholder="Discount code or Gift card"
             />

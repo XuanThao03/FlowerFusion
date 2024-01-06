@@ -20,7 +20,7 @@ import userRoute from "./Routes/UserRoutes.js";
 import addressRouter from "./Routes/addressRoutes.js";
 
 import cartRoute from "./Routes/CartRoutes.js";
-
+import orderRoute from "./Routes/OrderRoutes.js";
 
 dotenv.config();
 connectDatabase();
@@ -60,6 +60,7 @@ app.use("/api/users", userRoute);
 app.use("/api/addresses", addressRouter);
 
 app.use("/api/carts", cartRoute);
+app.use("/api/orders", orderRoute);
 
 app.use(notFound);
 app.use(errorHandler);
