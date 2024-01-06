@@ -11,6 +11,7 @@ import {
 } from './Reducers/occasionReducers';
 import {cartReducer} from './Reducers/cartReducers';
 import {resetReducer} from './Reducers/resetReducer';
+import {ordersReducer} from './Reducers/orderReducer';
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   selectedOccasion: selectedOccasionReducer,
   cart: cartReducer,
   emailReset: resetReducer,
+  orders: ordersReducer,
 });
 
 //login

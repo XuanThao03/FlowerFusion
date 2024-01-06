@@ -64,7 +64,7 @@ export const placeOrder =
       itemtotal: `${total} `,
     };
 
-    orderEmail(params);
+    //orderEmail(params);
 
     try {
       const config = {
@@ -96,3 +96,28 @@ export const placeOrder =
       console.log(error);
     }
   };
+
+//get history
+export const getHistory = () => async (dispatch, getState) => {
+  const userInfo = getState().userLogin;
+  const userEmail = userInfo.userInfo.email;
+  console.log('us', userEmail);
+
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.userInfo.token}`,
+      },
+    };
+    const {data} = await axios.post(
+      `/api/orders/getorders`,
+      {userEmail},
+      config,
+    );
+    dispatch({type: 'SET_ORDERS', payload: data});
+    localStorage.setItem('orders', JSON.stringify(data));
+  } catch (error) {
+    console.log(error);
+  }
+};
