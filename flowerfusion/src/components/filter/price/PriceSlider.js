@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import Slider from 'react-slider';
 import './style.css';
 import {filterFlowersByPrice} from '../../../Redux/Actions/flowerAction';
+import {filterVasesByPrice} from '../../../Redux/Actions/vaseAction';
+
 import {useDispatch} from 'react-redux';
 
 const PriceSlider = () => {
@@ -9,7 +11,7 @@ const PriceSlider = () => {
   const [values, setValues] = useState([0, 5000000]);
   const handleChange = newValues => {
     setValues(newValues);
-    dispatch(filterFlowersByPrice(newValues)); // Dispatch the action when the price slider value changes
+    dispatch(filterFlowersByPrice(newValues)); 
   };
 
   return (

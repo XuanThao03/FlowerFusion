@@ -39,8 +39,7 @@ const DetailVase = () => {
     }
   }, [dispatch]);
   const [imgLink, setLink] = useState(imgPath1);
-  const vases = useSelector(state => state.vases);
-  const handleVaseClick = selectedVase => {
+  const vases = useSelector((state) => state.vases.filteredVases);  const handleVaseClick = selectedVase => {
     dispatch(setSelectedVase(selectedVase));
     localStorage.setItem('selectedVase', JSON.stringify(selectedVase));
     setLink(selectedVase.imgPath1);

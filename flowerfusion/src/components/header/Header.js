@@ -4,7 +4,7 @@ import styles from './header.module.scss';
 import {NavLink} from 'react-router-dom';
 import ItemProductInCart from '../itemProduct_Cart/itemProduct_cart';
 import {useSelector, useDispatch} from 'react-redux';
-import {pushCart, setCartData } from '../../Redux/Actions/cartAction';
+import {pushCart, setCartData} from '../../Redux/Actions/cartAction';
 import axios from 'axios';
 
 export const Header = () => {
@@ -13,7 +13,7 @@ export const Header = () => {
 
   const cartItems = useSelector(state => state.cart.items);
   const cartIsPushed = useSelector(state => state.cart.isPushed);
-  
+
   // console.log('cartItems.isPushed', cartIsPushed);
   console.log('cartItems', cartItems);
   const totalAmount = useMemo(() => {
@@ -22,10 +22,12 @@ export const Header = () => {
     }
     const total = cartItems.reduce((acc, item) => {
       console.log('Item Price:', item.totalPrice);
+
       if (item.price && item.price.trim() !== '') {
         const priceAsNumber = parseFloat(item.price.replace(/\./g, ''));
         return acc + priceAsNumber;
       }
+
       return acc;
     }, 0);
     return total.toLocaleString('vi-VN') + ' VND';
@@ -55,7 +57,7 @@ export const Header = () => {
         try {
           const response = await axios.get(`/api/carts/${userInfo.email}`);
           if (response.data) {
-            dispatch(setCartData(response.data));
+            dispatch(setCartData(response.data.products));
           }
         } catch (error) {
           if (error.response && error.response.status === 404) {
@@ -65,14 +67,11 @@ export const Header = () => {
           }
         }
       };
-  
+
       fetchCartData();
     }
   }, [userInfo, dispatch]);
-  
-  
-  
-  
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.container1}>

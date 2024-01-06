@@ -57,7 +57,7 @@ export const deleteCart = () => dispatch => {
   localStorage.removeItem('cart');
   dispatch({type: 'cart/deleteCart'});
 };
-export const setCartData = (cartItems) => {
+export const setCartData = cartItems => {
   return {
     type: 'SET_CART_ITEMS',
     payload: cartItems,
@@ -88,3 +88,24 @@ export const pushCart =
       console.log(error);
     }
   };
+
+//delete cart to dtb
+export const deleteCartDtb = () => async (dispatch, getState) => {
+  const userInfo = getState().userLogin;
+
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.userInfo.token}`,
+      },
+    };
+    const {data} = await axios.post(
+      `/api/carts/deletecart`,
+      {userEmail: userInfo.userInfo.email},
+      config,
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
