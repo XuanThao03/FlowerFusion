@@ -1,10 +1,16 @@
-import React, { useState } from "react";
-import Slider from "react-slider";
-import "./style.css";
+import React, {useState} from 'react';
+import Slider from 'react-slider';
+import './style.css';
+import {filterFlowersByPrice} from '../../../Redux/Actions/flowerAction';
+import {useDispatch} from 'react-redux';
 
 const PriceSlider = () => {
-  const [values, setValues] = useState([0, 100]);
-  const handleChange = (newValues) => setValues(newValues);
+  const dispatch = useDispatch();
+  const [values, setValues] = useState([0, 5000000]);
+  const handleChange = newValues => {
+    setValues(newValues);
+    dispatch(filterFlowersByPrice(newValues)); // Dispatch the action when the price slider value changes
+  };
 
   return (
     <div
@@ -22,7 +28,8 @@ const PriceSlider = () => {
         value={values}
         onChange={handleChange}
         min={0}
-        max={100}
+        max={5000000}
+        step={100000}
       />
       <div className="priceContainer">
         <div className="valueContainer">
@@ -32,8 +39,8 @@ const PriceSlider = () => {
             id="minPrice"
             value={values[0]}
             min={0}
-            max={100}
-            onChange={(e) => handleChange([+e.target.value, values[1]])}
+            max={5000000}
+            onChange={e => handleChange([+e.target.value, values[1]])}
           />
         </div>
         <div className="valueContainer">
@@ -43,8 +50,8 @@ const PriceSlider = () => {
             id="maxPrice"
             value={values[1]}
             min={0}
-            max={100}
-            onChange={(e) => handleChange([values[0], +e.target.value])}
+            max={5000000}
+            onChange={e => handleChange([values[0], +e.target.value])}
           />
         </div>
       </div>

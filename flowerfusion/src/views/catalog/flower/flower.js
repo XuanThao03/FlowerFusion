@@ -12,9 +12,18 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { setAllFlowers, setFilteredFlowers, setSelectedFlower, filterFlowersByColor, filterFlowersByArrival, filterFlowersByCategories} from '../../../Redux/Actions/flowerAction';
-
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  setAllFlowers,
+  setFilteredFlowers,
+  setSelectedFlower,
+  filterFlowersByColor,
+  filterFlowersByArrival,
+  filterFlowersByCategories,
+  filterFlowersByPrice,
+  filterFlowers,
+} from '../../../Redux/Actions/flowerAction';
+import {Search} from '../../../components/searchbar/search';
 
 const arrival = [
   {name: 'Letter box friendly', quantity: 55},
@@ -49,32 +58,102 @@ const quantity = [
   {name: 'Other', quantity: ''},
 ];
 const Flower = () => {
+  const [keywords, setKeywords] = useState('');
+
   const dispatch = useDispatch();
-  const allFlowers = useSelector((state) => state.flowers.allFlowers);
-  const filteredFlowers = useSelector((state) => state.flowers.filteredFlowers);
-  const handleArrivalChange = (arrival) => {
+  const allFlowers = useSelector(state => state.flowers.allFlowers);
+  const filteredFlowers = useSelector(state => state.flowers.filteredFlowers);
+  const [selectedArrivals, setSelectedArrivals] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const handleArrivalChange = arrival => {
+    let newSelectedArrivals;
     if (arrival) {
-      dispatch(filterFlowersByArrival(arrival));
+      if (selectedArrivals.includes(arrival)) {
+        // If the arrival is already selected, remove it
+        newSelectedArrivals = selectedArrivals.filter(a => a !== arrival);
+      } else {
+        // If the arrival is not selected, add it
+        newSelectedArrivals = [...selectedArrivals, arrival];
+      }
     } else {
+      // If no arrival is selected, reset the selected arrivals
+      newSelectedArrivals = [];
+    }
+
+    setSelectedArrivals(newSelectedArrivals);
+    if (newSelectedArrivals.length > 0) {
+      dispatch(filterFlowersByArrival(newSelectedArrivals));
+      console.log(newSelectedArrivals);
+    } else {
+      console.log(newSelectedArrivals);
       dispatch(setFilteredFlowers(allFlowers)); // Reset nếu không có arrival nào được chọn
     }
   };
-  const handleColorChange = (color) => {
+
+  const handleFilterChange = () => {
+    dispatch(filterFlowers(selectedColors, selectedArrivals));
+  };
+
+  const [selectedColors, setSelectedColors] = useState([]);
+  const handleColorChange = color => {
+    let newSelectedColors;
     if (color) {
-      dispatch(filterFlowersByColor(color));
+      if (selectedColors.includes(color)) {
+        // If the color is already selected, remove it
+        newSelectedColors = selectedColors.filter(c => c !== color);
+      } else {
+        // If the color is not selected, add it
+        newSelectedColors = [...selectedColors, color];
+      }
     } else {
+      // If no color is selected, reset the selected colors
+      newSelectedColors = [];
+    }
+
+    setSelectedColors(newSelectedColors);
+
+    if (newSelectedColors.length > 0) {
+      dispatch(filterFlowersByColor(newSelectedColors));
+      console.log(newSelectedColors);
+    } else {
+      console.log(newSelectedColors);
       dispatch(setFilteredFlowers(allFlowers)); // Reset nếu không có màu nào được chọn
     }
   };
-  const handleCategoriesChange = (categories) => {
+  const handleCategoriesChange = categories => {
+    let newSelectedCategories;
     if (categories) {
-      dispatch(filterFlowersByCategories(categories));
+      if (selectedCategories.includes(categories)) {
+        // If the arrival is already selected, remove it
+        newSelectedCategories = selectedCategories.filter(
+          a => a !== categories,
+        );
+      } else {
+        // If the arrival is not selected, add it
+        newSelectedCategories = [...selectedCategories, categories];
+      }
     } else {
-      dispatch(setFilteredFlowers(allFlowers)); // Reset nếu không có màu nào được chọn
+      // If no arrival is selected, reset the selected arrivals
+      newSelectedCategories = [];
+    }
+
+    setSelectedCategories(newSelectedCategories);
+    if (newSelectedCategories.length > 0) {
+      dispatch(filterFlowersByCategories(newSelectedCategories));
+      console.log(newSelectedCategories);
+    } else {
+      console.log(newSelectedCategories);
+      dispatch(setFilteredFlowers(allFlowers)); // Reset nếu không có arrival nào được chọn
     }
   };
-  
-  const handleFlowerClick = (selectedFlower) => {
+
+  const handlePriceChange = (event, newValue) => {
+    // newValue is an array [minPrice, maxPrice]
+    dispatch(filterFlowersByPrice(newValue));
+  };
+
+  const handleFlowerClick = selectedFlower => {
     dispatch(setSelectedFlower(selectedFlower));
     localStorage.setItem('selectedFlower', JSON.stringify(selectedFlower));
   };
@@ -92,22 +171,22 @@ const Flower = () => {
   }, [dispatch]);
 
   const flowerLists = filteredFlowers.map(fl => {
-    return (
-      <NavLink
-      className="flex justify-center" 
-      to={`/flowers/detail/${fl.key}`}
-      onClick={() => handleFlowerClick(fl)}
-      key={fl.key}
-      >
-        <ItemFlower
-          className={styles.itemFlower}
-          img={fl.imgPath1}
-          name={fl.name}
-          price={fl.price1}
-          discount={fl.discount}
-        />
-      </NavLink>
-    );
+    if (fl.name.includes(keywords.toUpperCase()))
+      return (
+        <NavLink
+          className="flex justify-center"
+          to={`/flowers/detail/${fl.key}`}
+          onClick={() => handleFlowerClick(fl)}
+          key={fl.key}>
+          <ItemFlower
+            className={styles.itemFlower}
+            img={fl.imgPath1}
+            name={fl.name}
+            price={fl.price1}
+            discount={fl.discount}
+          />
+        </NavLink>
+      );
   });
 
   return (
@@ -116,10 +195,23 @@ const Flower = () => {
       <NavigationBar placeholder="All of flowers"/>
       <div className={styles.catalogContainer}>
         <div className={styles.filterContainer}>
+          <Search onChange={e => setKeywords(e.target.value)} />
           <PriceSlider />
-          <CheckboxFilter title={'Arrival'} value={arrival} onFilterChangeByArrival={handleArrivalChange}/>
-          <CheckboxFilter title={'Categories'} value={categories} onFilterChangeByCategories={handleCategoriesChange}/>
-          <CheckboxFilter title={'Color'} value={colors} onFilterChangeByColor={handleColorChange}/>
+          <CheckboxFilter
+            title={'Arrival'}
+            value={arrival}
+            onFilterChangeByArrival={handleArrivalChange}
+          />
+          <CheckboxFilter
+            title={'Categories'}
+            value={categories}
+            onFilterChangeByCategories={handleCategoriesChange}
+          />
+          <CheckboxFilter
+            title={'Color'}
+            value={colors}
+            onFilterChangeByColor={handleColorChange}
+          />
           <CheckboxFilter title={'Counter'} value={quantity} />
         </div>
         <div className={styles.flowerContainer}>{flowerLists}</div>

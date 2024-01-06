@@ -16,6 +16,7 @@ import axios from 'axios';
 import Banner from '../../components/banner/banner';
 import {setFlowers, setSelectedFlower} from '../../Redux/Actions/flowerAction';
 import {setVases, setSelectedVase} from '../../Redux/Actions/vaseAction';
+import {message} from 'antd';
 const DetailVase = () => {
   const dispatch = useDispatch();
   const selectedVase = useSelector(state => state.selectedVase);
@@ -152,6 +153,7 @@ const DetailVase = () => {
       };
       dispatch(addToCart(flowerItem));
     }
+    message.success('Add to cart successfully!');
   };
   return (
     <div>

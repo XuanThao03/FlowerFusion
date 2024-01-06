@@ -12,8 +12,12 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { setCandles, setSelectedCandle } from '../../../Redux/Actions/candleAction';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  setCandles,
+  setSelectedCandle,
+} from '../../../Redux/Actions/candleAction';
+import {Search} from '../../../components/searchbar/search';
 
 const categories = [
   {name: 'Candle', quantity: 46},
@@ -32,10 +36,12 @@ const colors = [
   {name: 'Black', quantity: ''},
 ];
 const Candle = () => {
-  const dispatch = useDispatch();
-  const candles = useSelector((state) => state.candles);
+  const [keywords, setKeywords] = useState('');
 
-  const handleCandleClick = (selectedCandle) => {
+  const dispatch = useDispatch();
+  const candles = useSelector(state => state.candles);
+
+  const handleCandleClick = selectedCandle => {
     dispatch(setSelectedCandle(selectedCandle));
     localStorage.setItem('selectedCandle', JSON.stringify(selectedCandle));
   };
@@ -52,22 +58,9 @@ const Candle = () => {
     };
     fetchcandles();
   }, [dispatch]);
-const CandleLists = candles.map(Candle => {
-  return (
-    <NavLink className="flex justify-center" 
-             to={`/candles/detail/${Candle.key}`}
-             onClick={() => handleCandleClick(Candle)}>
-      <ItemFlower
-        className={styles.itemFlower}
-        img={Candle.imgPath1}
-        name={Candle.name}
-        price={Candle.price}
-        discount={Candle.discount}
-      />
-    </NavLink>
-  );
-});
+  const CandleLists = candles.map(Candle => {
     return (
+
       <div>
         <NavigationBar placeholder="All of candles"/>
         <div className={styles.catalogContainer}>
@@ -77,10 +70,36 @@ const CandleLists = candles.map(Candle => {
             <CheckboxFilter title={'Color'} value={colors} />
           </div>
           <div className={styles.flowerContainer}>{CandleLists}</div>
-        </div>
-        <BottomBanner />
-      </div>
+      <NavLink
+        className="flex justify-center"
+        to={`/candles/detail/${Candle.key}`}
+        onClick={() => handleCandleClick(Candle)}>
+        <ItemFlower
+          className={styles.itemFlower}
+          img={Candle.imgPath1}
+          name={Candle.name}
+          price={Candle.price}
+          discount={Candle.discount}
+        />
+      </NavLink>
     );
-  };
+  });
+  return (
+    <div>
+      <NavigationBar />
+      <div className={styles.catalogContainer}>
+        <div className={styles.filterContainer}>
+          <Search onChange={e => setKeywords(e.target.value)} />
+
+          <PriceSlider />
+          <CheckboxFilter title={'Categories'} value={categories} />
+          <CheckboxFilter title={'Color'} value={colors} />
+        </div>
+        <div className={styles.flowerContainer}>{CandleLists}</div>
+      </div>
+      <BottomBanner />
+    </div>
+  );
+};
 
 export default Candle;

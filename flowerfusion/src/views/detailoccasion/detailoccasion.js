@@ -6,16 +6,19 @@ import {Splide, SplideSlide, SplideTrack} from '@splidejs/react-splide';
 import ListBag from '../../components/listbag/listbag';
 import AddToBag from '../../components/addtobag/addtobag';
 import Description from '../../components/description/description';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../../Redux/Actions/cartAction';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {addToCart} from '../../Redux/Actions/cartAction';
 import '@splidejs/splide/dist/css/splide.min.css';
 import axios from 'axios';
 import {NavLink, Link} from 'react-router-dom';
 import Banner from '../../components/banner/banner';
 import ItemFlower from '../../components/itemFlower/ItemFlower';
 import {setVases, setSelectedVase} from '../../Redux/Actions/vaseAction';
-import { setOccasions, setSelectedOccasion } from '../../Redux/Actions/occasionAction';
+import {
+  setOccasions,
+  setSelectedOccasion,
+} from '../../Redux/Actions/occasionAction';
 import {
   IMG_Flower13x,
   IMG_Flower2,
@@ -24,10 +27,11 @@ import {
   IMG_Kiku2,
   IMG_Kiku3,
 } from '../../assets/images';
+import {message} from 'antd';
 
 const DetailOccasion = () => {
   const dispatch = useDispatch();
-  const selectedOccasion = useSelector((state) => state.selectedOccasion);
+  const selectedOccasion = useSelector(state => state.selectedOccasion);
   const {
     name,
     imgPath1,
@@ -57,12 +61,12 @@ const DetailOccasion = () => {
   }, [dispatch]);
   const [imgLink, setLink] = useState(imgPath1);
   const options = [
-    {pieces: '12 pieces', price: price1 },
-    {pieces: '24 pieces', price: price2 },
-    {pieces: '36 pieces', price: price3 },
+    {pieces: '12 pieces', price: price1},
+    {pieces: '24 pieces', price: price2},
+    {pieces: '36 pieces', price: price3},
   ];
-  const occasions = useSelector((state) => state.occasions);
-  const handleOccasionClick = (selectedOccasion) => {
+  const occasions = useSelector(state => state.occasions);
+  const handleOccasionClick = selectedOccasion => {
     dispatch(setSelectedOccasion(selectedOccasion));
     localStorage.setItem('selectedOccasion', JSON.stringify(selectedOccasion));
     setLink(selectedOccasion.imgPath1);
@@ -83,9 +87,10 @@ const DetailOccasion = () => {
   const occasionLists = occasions.map(Occasion => {
     return (
       <SplideSlide key={Occasion.key}>
-        <NavLink className="flex justify-center" 
-              // to={`/occasions/detail/${Occasion.key}`}
-              onClick={() => handleOccasionClick(Occasion)}>
+        <NavLink
+          className="flex justify-center"
+          // to={`/occasions/detail/${Occasion.key}`}
+          onClick={() => handleOccasionClick(Occasion)}>
           <ItemFlower
             className={styles.itemFlower}
             img={Occasion.imgPath1}
@@ -99,14 +104,16 @@ const DetailOccasion = () => {
   });
   const [totalPrice, setTotalPrice] = useState(options[0]?.price);
   const [selectedSize, setSelectedSize] = useState(options[0]?.pieces);
-  const handleSizeClick = (option) => {
+  const handleSizeClick = option => {
     setSelectedSize(option.pieces);
     setTotalPrice(option.price);
   };
   const vases = useSelector(state => state.vases);
   const selectedVase = useSelector(state => state.selectedVase);
   const handleVaseClick = selectedVase => {
-    const previousSelectedVase = JSON.parse(localStorage.getItem('selectedVase'));
+    const previousSelectedVase = JSON.parse(
+      localStorage.getItem('selectedVase'),
+    );
     if (previousSelectedVase && previousSelectedVase.key === selectedVase.key) {
       dispatch(setSelectedVase(null));
       localStorage.removeItem('selectedVase');
@@ -129,13 +136,16 @@ const DetailOccasion = () => {
   useEffect(() => {
     dispatch(setSelectedVase(null));
     localStorage.removeItem('selectedVase');
-  }, [dispatch]); 
+  }, [dispatch]);
   const vaseLists = vases.map(vase => {
     const isSelected = selectedVase && selectedVase.key === vase.key;
     return (
       <SplideSlide key={vase.key}>
-        <NavLink className={`flex justify-center ${isSelected ? styles.selectedStyle : ''}`}
-                 onClick={() => handleVaseClick(vase)}>
+        <NavLink
+          className={`flex justify-center ${
+            isSelected ? styles.selectedStyle : ''
+          }`}
+          onClick={() => handleVaseClick(vase)}>
           <ListBag
             className={styles.itemFlower}
             img={vase.imgPath1}
@@ -147,7 +157,13 @@ const DetailOccasion = () => {
     );
   });
   const handleAddToCart = () => {
-    const item = { imgPath: imgPath1, price: totalPrice, name, quantity: 1, type: 'flower' };
+    const item = {
+      imgPath: imgPath1,
+      price: totalPrice,
+      name,
+      quantity: 1,
+      type: 'flower',
+    };
     dispatch(addToCart(item));
     if (selectedVase) {
       const vaseItem = {
@@ -159,6 +175,7 @@ const DetailOccasion = () => {
       };
       dispatch(addToCart(vaseItem));
     }
+    message.success('Add to cart successfully!');
   };
   return (
     <div>
@@ -216,26 +233,22 @@ const DetailOccasion = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="mt-20 ">
-        <Description
-          placeholder={
-            description
-          }
-        />
+        <Description placeholder={description} />
       </div>
       <div>
         <h2 className="mt-16 text-xl font-Lexend ml-11">YOU MIGHT ALSO LIKE</h2>
       </div>
-      <Splide className="mt-8"
+      <Splide
+        className="mt-8"
         options={{
           perPage: 4,
           arrows: true,
           pagination: false,
           drag: 'free',
           gap: '1rem',
-        }}
-      >
+        }}>
         {occasionLists}
       </Splide>
     </div>

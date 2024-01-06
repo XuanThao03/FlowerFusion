@@ -11,7 +11,10 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
-
+import {useDispatch} from 'react-redux';
+import {setSelectedFlower} from '../../../Redux/Actions/flowerAction';
+import {setSelectedVase} from '../../../Redux/Actions/vaseAction';
+import {Search} from '../../../components/searchbar/search';
 
 const arrival = [
   {name: 'Letter box friendly', quantity: 55},
@@ -56,13 +59,26 @@ const quantity = [
 //   );
 // });
 const Trending = () => {
-  const [trending, setTrending] = useState([]);
+  const [keywords, setKeywords] = useState('');
+
+  const dispatch = useDispatch();
+  const [trendings, setTrendings] = useState([]);
+  const handleTrendingClick = selectedTrending => {
+    if (selectedTrending.type === 'flower') {
+      dispatch(setSelectedFlower(selectedTrending));
+      localStorage.setItem('selectedFlower', JSON.stringify(selectedTrending));
+    } else {
+      dispatch(setSelectedFlower(setSelectedVase));
+      localStorage.setItem('selectedVase', JSON.stringify(selectedTrending));
+    }
+  };
+
   useEffect(() => {
     const fetchtrending = async () => {
       try {
         await axios.get('/api/trendings').then(res => {
           console.log(res);
-          setTrending(res.data);
+          setTrendings(res.data);
         });
       } catch (error) {
         console.log(error.response.data.message);
@@ -70,7 +86,45 @@ const Trending = () => {
     };
     fetchtrending();
   }, []);
-const flowerLists = trending.map(fl => {
+  const flowerLists = trendings.map(trending => {
+    console.log('trending', trending.type);
+    if (trending.type === 'flower') {
+      return (
+        <NavLink
+          className="flex justify-center"
+          to={`/flowers/detail/${trending.key}`}
+          exact={true}
+          onClick={() => handleTrendingClick(trending)}
+          key={trending.key}>
+          <ItemFlower
+            className={styles.itemFlower}
+            img={trending.imgPath1}
+            name={trending.name}
+            price={trending.price1}
+            discount={trending.discount}
+          />
+        </NavLink>
+      );
+    } else {
+      return (
+        <NavLink
+          className="flex justify-center"
+          to={`/vases/detail/${trending.key}`}
+          exact={true}
+          onClick={() => handleTrendingClick(trending)}
+          key={trending.key}>
+          <ItemFlower
+            className={styles.itemFlower}
+            img={trending.imgPath1}
+            name={trending.name}
+            price={trending.price1}
+            discount={trending.discount}
+          />
+        </NavLink>
+      );
+    }
+  });
+
   return (
     <NavLink className="flex justify-center" 
     //to="/flowers/detail" 
@@ -90,9 +144,13 @@ const flowerLists = trending.map(fl => {
         {/* <Header /> */}
         <NavigationBar placeholder="All of trendings"/>
         {/* <div>
+    <div>
+      {/* <Header /> */}
+      <NavigationBar />
+      {/* <div>
           <ul className="md:flex overflow-scroll no-scrollbar ">{typeLists}</ul>
         </div> */}
-        {/* <div>
+      {/* <div>
           <div>
             <Splide
               hasTrack={false}
@@ -109,16 +167,18 @@ const flowerLists = trending.map(fl => {
             </Splide>
           </div>
         </div> */}
-        <div className={styles.catalogContainer}>
-          <div className={styles.filterContainer}>
-            <PriceSlider />
-            <CheckboxFilter title={'Categories'} value={categories} />
-          </div>
-          <div className={styles.flowerContainer}>{flowerLists}</div>
+      <div className={styles.catalogContainer}>
+        <div className={styles.filterContainer}>
+          <Search onChange={e => setKeywords(e.target.value)} />
+
+          <PriceSlider />
+          <CheckboxFilter title={'Categories'} value={categories} />
         </div>
-        <BottomBanner />
+        <div className={styles.flowerContainer}>{flowerLists}</div>
       </div>
-    );
-  };
+      <BottomBanner />
+    </div>
+  );
+};
 
 export default Trending;

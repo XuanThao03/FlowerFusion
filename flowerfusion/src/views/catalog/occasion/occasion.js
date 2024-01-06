@@ -11,8 +11,12 @@ import BottomBanner from '../../../components/banner/bottomBanner';
 import {NavLink, Link} from 'react-router-dom';
 import ItemFlower from '../../../components/itemFlower/ItemFlower';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { setOccasions, setSelectedOccasion } from '../../../Redux/Actions/occasionAction';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  setOccasions,
+  setSelectedOccasion,
+} from '../../../Redux/Actions/occasionAction';
+import {Search} from '../../../components/searchbar/search';
 
 const categories = [
   {name: 'Birthday', quantity: 46},
@@ -23,10 +27,12 @@ const categories = [
   {name: 'Graduation', quantity: 57},
 ];
 const Occasion = () => {
-  const dispatch = useDispatch();
-  const occasions = useSelector((state) => state.occasions);
+  const [keywords, setKeywords] = useState('');
 
-  const handleOccasionClick = (selectedOccasion) => {
+  const dispatch = useDispatch();
+  const occasions = useSelector(state => state.occasions);
+
+  const handleOccasionClick = selectedOccasion => {
     dispatch(setSelectedOccasion(selectedOccasion));
     localStorage.setItem('selectedOccasion', JSON.stringify(selectedOccasion));
   };
@@ -43,21 +49,7 @@ const Occasion = () => {
     };
     fetchoccasions();
   }, [dispatch]);
-const occasionLists = occasions.map(Occasion => {
-  return (
-    <Link className="flex justify-center" 
-          to={`/occasions/detail/${Occasion.key}`}
-          onClick={() => handleOccasionClick(Occasion)}>
-      <ItemFlower
-        className={styles.itemFlower}
-        img={Occasion.imgPath1}
-        name={Occasion.name}
-        price={Occasion.price1}
-        discount={Occasion.discount}
-      />
-    </Link>
-  );
-});
+  const occasionLists = occasions.map(Occasion => {
     return (
       <div>
         <NavigationBar placeholder="All of occasions"/>
@@ -67,10 +59,35 @@ const occasionLists = occasions.map(Occasion => {
             <CheckboxFilter title={'Categories'} value={categories} />
           </div>
           <div className={styles.flowerContainer}>{occasionLists}</div>
-        </div>
-        <BottomBanner />
-      </div>
+      <Link
+        className="flex justify-center"
+        to={`/occasions/detail/${Occasion.key}`}
+        onClick={() => handleOccasionClick(Occasion)}>
+        <ItemFlower
+          className={styles.itemFlower}
+          img={Occasion.imgPath1}
+          name={Occasion.name}
+          price={Occasion.price1}
+          discount={Occasion.discount}
+        />
+      </Link>
     );
-  };
+  });
+  return (
+    <div>
+      <NavigationBar />
+      <div className={styles.catalogContainer}>
+        <div className={styles.filterContainer}>
+          <Search onChange={e => setKeywords(e.target.value)} />
+
+          <PriceSlider />
+          <CheckboxFilter title={'Categories'} value={categories} />
+        </div>
+        <div className={styles.flowerContainer}>{occasionLists}</div>
+      </div>
+      <BottomBanner />
+    </div>
+  );
+};
 
 export default Occasion;

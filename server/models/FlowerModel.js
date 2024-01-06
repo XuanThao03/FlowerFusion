@@ -58,6 +58,11 @@ const FlowerSchema = new mongoose.Schema(
     isTrending: {
       type: Boolean,
       default: false,
+
+    },
+    type: {
+      type: String,
+      default: "flower",
     },
   },
   {

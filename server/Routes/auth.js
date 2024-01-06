@@ -19,6 +19,8 @@ router.get("/login/success", async (req, res) => {
         _id: user._id,
         firstname: user.firstname,
         lastname: user.lastname,
+        phone: user.phone ?? "",
+        address: user.address ?? "",
         email: user.email,
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
