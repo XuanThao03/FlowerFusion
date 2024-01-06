@@ -98,7 +98,7 @@ const DetailFlower = () => {
     setSelectedSize(option.pieces);
     setTotalPrice(option.price);
   };
-  const vases = useSelector(state => state.vases);
+  const vases = useSelector(state => state.vases.filteredVases);
   const selectedVase = useSelector(state => state.selectedVase);
   const handleVaseClick = selectedVase => {
     const previousSelectedVase = JSON.parse(

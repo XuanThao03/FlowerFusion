@@ -33,6 +33,8 @@ const categories = [
   {name: 'Kiku', quantity: 46},
   {name: 'Pampas Grass', quantity: 47},
   {name: 'Faux Hydrangea', quantity: 40},
+  {name: 'Faux Eucalypus', quantity: 40},
+
 ];
 
 const colors = [
@@ -43,6 +45,11 @@ const colors = [
   {name: 'Yellow', quantity: ''},
   {name: 'Dusky', quantity: ''},
   {name: 'Green', quantity: ''},
+  {name: 'Brown', quantity: ''},
+  {name: 'Black', quantity: ''},
+  {name: 'Dusky', quantity: ''},
+  {name: 'Ivory', quantity: ''},
+
 ];
 const quantity = [
   {name: '1-10', quantity: ''},
